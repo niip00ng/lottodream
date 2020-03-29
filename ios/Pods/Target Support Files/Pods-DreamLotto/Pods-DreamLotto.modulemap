@@ -1,6 +1,0 @@
-module Pods_DreamLotto {
-  umbrella header "Pods-DreamLotto-umbrella.h"
-
-  export *
-  module * { export * }
-}

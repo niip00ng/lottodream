@@ -9,67 +9,24 @@ import {
     StatusBar,
     Alert
 } from 'react-native';
-import CustomButton from './src/component/button/CustomButton';
-import {Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions} from 'react-native/Libraries/NewAppScreen';
 
-declare var global: {
-    HermesInternal: null | {}
-};
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import MainPage from './src/view/MainPage';
+import NewLotto from './src/view/NewLotto';
+import MyLotto from './src/view/MyLotto';
 
+const Stack = createStackNavigator();
 const App = () => {
     return (
-        <View style={styles.all}>
-            <View style={styles.header}>
-                <Button title="설정" onPress={() => Alert.alert('Left button pressed')}/>
-            </View>
-            <View style={styles.body}>
-                <Text style={styles.titleText}>꿈에나온</Text>
-                <Text style={styles.titleText}>로또번호</Text>
-            </View>
-            <View style={styles.footer}>
-                <CustomButton
-                    buttonColor={'#023e71'}
-                    titleColor={'white'}
-                    title={'새로 만들기'}
-                    onPress={() => Alert.alert('Left button pressed')}/>
-                <CustomButton
-                    buttonColor={'#023e71'}
-                    titleColor={'white'}
-                    title={'보관함'}
-                    onPress={() => Alert.alert('Left button pressed')}/>
-            </View>
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator headerMode="none" initialRouteName="MainPage">
+                <Stack.Screen name="MainPage" component={MainPage} />
+                <Stack.Screen name="MyLotto" component={MyLotto} />
+                <Stack.Screen name="NewLotto" component={NewLotto} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
-
-const styles = StyleSheet.create({
-    all: {
-        flex: 1,
-        paddingTop: 20
-    },
-    header: {
-        flex: 1,
-        padding: 20,
-        flexDirection: "row"
-    },
-    settingButton: {
-        height: 50,
-        width: 50
-    },
-    body: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    titleText: {
-        fontSize: 50,
-        fontWeight: "bold"
-    },
-    footer: {
-        flex: 2,
-        padding: 20,
-        paddingBottom: 50
-    },
-});
 
 export default App;
