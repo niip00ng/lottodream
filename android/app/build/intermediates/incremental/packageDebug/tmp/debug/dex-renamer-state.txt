@@ -1,4 +1,4 @@
-#Sun Mar 29 16:43:08 KST 2020
-base.0=/Users/1002732/Desktop/my_project/DreamLotto/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Sun Mar 29 18:16:06 KST 2020
+base.0=/Users/1002732/Desktop/my_project/lottodream/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
