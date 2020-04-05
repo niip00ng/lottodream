@@ -26,7 +26,7 @@ const InputWord = (props:any) => {
         if(focus) return;
         if(word.length < 6) return <GenerateNumberOff/>
         
-        return <GenerateNumberOn onPress={() => Alert.alert('Left button pressed')}/>
+        return <GenerateNumberOn onPress={() => props.navigation.push('GenerateNumber')}/>
     }
 
     function activateTextInput () {
@@ -60,9 +60,15 @@ const InputWord = (props:any) => {
     }
 
     function addWord () {
+        
+        if(value === '') {
+            Alert.alert('글자를 입력해주세요.');
+            setFocus(false)
+            return
+        }
         setWord([...word, value]);        
         onChangeText('')
-        onFocus()
+
     }
     function onFocus() {
         setFocus(!focus)
