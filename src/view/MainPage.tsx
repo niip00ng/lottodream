@@ -17,7 +17,7 @@ declare var global: {
     HermesInternal: null | {}
 };
 
-const MainPage = ({navigation}:any) => {
+const MainPage = (props:any) => {
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -38,7 +38,7 @@ const MainPage = ({navigation}:any) => {
             </View>
             <View style={styles.footer}>
                 <View style={{}}>
-                    <MainPageStartBtn onPress={() => navigation.push('Welcome')}/>
+                    <MainPageStartBtn onPress={() => props.navigation.push('Welcome')}/>
                 </View>
                 
             </View>

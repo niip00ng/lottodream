@@ -53,7 +53,7 @@ const MyLotto = (navigation:any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => Alert.alert('Menu button click')}/>
+                    <Back onPress={navigation.goBack}/>
                 </View>
             </View>
             <View style={styles.body}>

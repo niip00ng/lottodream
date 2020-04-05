@@ -13,12 +13,12 @@ import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
 
 
-const WelcomeUser = (navigation:any) => {
+const WelcomeUser = (props:any) => {
     return (
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => Alert.alert('Menu button click')}/>
+                    <Back onPress={() => props.navigation.goBack({key: 'MainPage'})} />
                     <View style={{paddingTop: 10, paddingLeft: 12}}><Text>시작하기</Text></View>
                     
                 </View>
@@ -35,7 +35,7 @@ const WelcomeUser = (navigation:any) => {
             </View>
             <View style={styles.footer}>
                 <View>
-                    <WelcomeStartBtn onPress={() => Alert.alert('Left button pressed')}/>
+                    <WelcomeStartBtn onPress={() => props.navigation.push('InputWord')}/>
                 </View>
             </View>
         </View>
