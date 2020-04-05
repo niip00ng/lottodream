@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import LottoCardGroup from '../component/card/LottoCardGroup'
-const MyLotto = (navigation) => {
+const MyLotto = (navigation:any) => {
 
     const state = {
         names: [

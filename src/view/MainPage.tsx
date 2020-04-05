@@ -10,20 +10,32 @@ import {
     Alert
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
+import Menu from '../../assets/svg/menu.svg';
+
 
 declare var global: {
     HermesInternal: null | {}
 };
 
-const MainPage = ({navigation}) => {
+const MainPage = ({navigation}:any) => {
     return (
         <View style={styles.all}>
             <View style={styles.header}>
-                <Button title="설정" onPress={() => Alert.alert('Left button pressed')}/>
+                <View style={styles.menuBtn}>
+                    <Menu onPress={() => Alert.alert('Menu button click')}/>
+                </View>
             </View>
             <View style={styles.body}>
-                <Text style={styles.titleText}>꿈에나온</Text>
-                <Text style={styles.titleText}>로또번호</Text>
+                <View style={styles.mainTitle}>
+                    <Text style={styles.titleText}>꿈에</Text>
+                    <Text style={styles.titleText}>나온</Text>
+                    <Text style={styles.titleText}>로또번호</Text>
+                </View>
+                <View style={styles.subTitle}>
+                    <Text style={styles.subText}>대충 꿈에 나온 것들로</Text>
+                    <Text style={styles.subText}>숫자를 만들어서 로또를 만들어</Text>
+                    <Text style={styles.subText}>보라는 세 줄 짜리 문구</Text>
+                </View>
             </View>
             <View style={styles.footer}>
                 <CustomButton
@@ -44,7 +56,8 @@ const MainPage = ({navigation}) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 20
+        paddingTop: 20,
+        backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
@@ -57,12 +70,27 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center'
+    },
+    menuBtn: {
+        paddingLeft:20,
+        height: 50,
+        width: 50
+    },
+    mainTitle: {
+        paddingLeft:40
     },
     titleText: {
-        fontSize: 50,
-        fontWeight: "bold"
+        fontFamily: "NanumMyeongjo",
+        fontSize: 40,
+    },
+    subTitle: {
+        paddingLeft:40,
+        paddingTop:30
+    },
+    subText: {
+        fontFamily: "NanumMyeongjo",
+        fontSize: 13,
+        paddingTop:5,
     },
     footer: {
         flex: 2,
