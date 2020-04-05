@@ -15,7 +15,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MainPage from './src/view/MainPage';
 import NewLotto from './src/view/NewLotto';
 import MyLotto from './src/view/MyLotto';
-
+import Welcome from './src/view/WelcomeUser';
 const Stack = createStackNavigator();
 const App = () => {
     return (
@@ -24,6 +24,7 @@ const App = () => {
                 <Stack.Screen name="MainPage" component={MainPage} />
                 <Stack.Screen name="MyLotto" component={MyLotto} />
                 <Stack.Screen name="NewLotto" component={NewLotto} />
+                <Stack.Screen name="Welcome" component={Welcome} />
             </Stack.Navigator>
         </NavigationContainer>
     );

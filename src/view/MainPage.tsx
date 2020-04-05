@@ -38,7 +38,7 @@ const MainPage = ({navigation}:any) => {
             </View>
             <View style={styles.footer}>
                 <View style={{}}>
-                    <MainPageStartBtn onPress={() => Alert.alert('Left button pressed')}/>
+                    <MainPageStartBtn onPress={() => navigation.push('Welcome')}/>
                 </View>
                 
             </View>
