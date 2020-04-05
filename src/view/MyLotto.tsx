@@ -19,45 +19,32 @@ const MyLotto = (navigation:any) => {
         lottoList: [
             {
                 'name': '개꿈',
-                'status' : '5',
+                'status' : 5,
+                'round' : 749,
                 'date': '2020.04.01  12:34',
                 'numbers' : [1,20,30,40,41,42,8],
-                'id': 0
+                'id': 1,
             }, {
-                'name': '개꿈',
-                'status' : '0',
+                'name': '할아버지 나오는꿈',
+                'status' : 0,
+                'round' : 748,
                 'date': '2020.04.01  12:34',
                 'numbers' : [2,20,30,40,41,42,8],
-                'id': 1
-            }, {
-                'name': '개꿈',
-                'status' : '0',
-                'date': '2020.04.01  12:34',
-                'numbers' : [3,20,30,40,41,42,8],
                 'id': 2
             }, {
-                'name': '개꿈',
-                'status' : '0',
+                'name': '똥꿈',
+                'status' : 0,
+                'round' : 747,
                 'date': '2020.04.01  12:34',
-                'numbers' : [4,20,30,40,41,42,8],
+                'numbers' : [2,20,30,40,41,42,8],
                 'id': 3
             }, {
-                'name': '개꿈',
-                'status' : '0',
+                'name': '옥상에서 수박먹은꿈',
+                'status' : 0,
+                'round' : 746,
                 'date': '2020.04.01  12:34',
-                'numbers' : [5,20,30,40,41,42,8],
+                'numbers' : [2,20,30,40,41,42,8],
                 'id': 4
-            }, {
-                'name': '개꿈',
-                'status' : '0',
-                'date': '2020.04.01  12:34',
-                'numbers' : [6,20,30,40,41,42,8],
-                'id': 5
-            }, {
-                'name': '개꿈',
-                'date': '2020.04.01  12:34',
-                'number' : [7,20,30,40,41,42,8],
-                'id': 6
             }
         ]
     }
@@ -83,7 +70,7 @@ const MyLotto = (navigation:any) => {
                                 .lottoList
                                 .map((item, index) => (
                                     <View style={styles.lottoCard} key={item.id}>
-                                        <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} />
+                                        <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
                                     </View>
                                 ))
                         }
@@ -145,7 +132,8 @@ const styles = StyleSheet.create({
     bodyContents: {
         flex: 7,
         padding: 10,
-        paddingTop:50 
+        paddingTop:50, 
+        paddingBottom:50,
     },
     lottoCard: {
         height: 150  

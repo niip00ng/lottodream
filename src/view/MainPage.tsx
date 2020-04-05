@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import Menu from '../../assets/svg/menu.svg' ;
+import MainPageStartBtn from '../../assets/svg/mainpage_start.svg' ;
 
 declare var global: {
     HermesInternal: null | {}
@@ -31,22 +32,15 @@ const MainPage = ({navigation}:any) => {
                     <Text style={styles.titleText}>로또번호</Text>
                 </View>
                 <View style={styles.subTitle}>
-                    <Text style={styles.subText}>대충 꿈에 나온 것들로</Text>
-                    <Text style={styles.subText}>숫자를 만들어서 로또를 만들어</Text>
-                    <Text style={styles.subText}>보라는 세 줄 짜리 문구</Text>
+                    <Text style={styles.subText}>에서 나온 것을 기억나는대로 입력하면</Text>
+                    <Text style={styles.subText}>관련도가 높은 숫자를 출력합니다</Text>
                 </View>
             </View>
             <View style={styles.footer}>
-                <CustomButton
-                    buttonColor={'#023e71'}
-                    titleColor={'white'}
-                    title={'새로 만들기'}
-                    onPress={() => Alert.alert('Left button pressed')}/>
-                <CustomButton
-                    buttonColor={'#023e71'}
-                    titleColor={'white'}
-                    title={'보관함'}
-                    onPress={() => navigation.push('MyLotto')}/>
+                <View style={{}}>
+                    <MainPageStartBtn onPress={() => Alert.alert('Left button pressed')}/>
+                </View>
+                
             </View>
         </View>
     );
@@ -92,9 +86,10 @@ const styles = StyleSheet.create({
         paddingTop:5,
     },
     footer: {
-        flex: 2,
-        padding: 20,
-        paddingBottom: 50
+        alignItems: 'flex-end',
+        flex: 1,
+        padding: 30,
+        paddingBottom: 30
     },
 });
 
