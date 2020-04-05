@@ -11,85 +11,79 @@ import {
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import LottoCardGroup from '../component/card/LottoCardGroup'
+import Back from '../../assets/svg/back.svg' ;
+
 const MyLotto = (navigation:any) => {
 
     const state = {
-        names: [
+        lottoList: [
             {
-                'name': 'Ben',
+                'name': '개꿈',
+                'status' : '5',
+                'date': '2020.04.01  12:34',
+                'numbers' : [1,20,30,40,41,42,8],
+                'id': 0
+            }, {
+                'name': '개꿈',
+                'status' : '0',
+                'date': '2020.04.01  12:34',
+                'numbers' : [2,20,30,40,41,42,8],
                 'id': 1
             }, {
-                'name': 'Susan',
+                'name': '개꿈',
+                'status' : '0',
+                'date': '2020.04.01  12:34',
+                'numbers' : [3,20,30,40,41,42,8],
                 'id': 2
             }, {
-                'name': 'Robert',
+                'name': '개꿈',
+                'status' : '0',
+                'date': '2020.04.01  12:34',
+                'numbers' : [4,20,30,40,41,42,8],
                 'id': 3
             }, {
-                'name': 'Mary',
+                'name': '개꿈',
+                'status' : '0',
+                'date': '2020.04.01  12:34',
+                'numbers' : [5,20,30,40,41,42,8],
                 'id': 4
             }, {
-                'name': 'Daniel',
+                'name': '개꿈',
+                'status' : '0',
+                'date': '2020.04.01  12:34',
+                'numbers' : [6,20,30,40,41,42,8],
                 'id': 5
             }, {
-                'name': 'Laura',
+                'name': '개꿈',
+                'date': '2020.04.01  12:34',
+                'number' : [7,20,30,40,41,42,8],
                 'id': 6
-            }, {
-                'name': 'John',
-                'id': 7
-            }, {
-                'name': 'Debra',
-                'id': 8
-            }, {
-                'name': 'Aron',
-                'id': 9
-            }, {
-                'name': 'Ann',
-                'id': 10
-            }, {
-                'name': 'Steve',
-                'id': 11
-            }, {
-                'name': 'Olivia',
-                'id': 12
             }
         ]
     }
 
     return (
         <View style={styles.all}>
+            <View style={styles.header}>
+                <View style={styles.backBtn}>
+                    <Back onPress={() => Alert.alert('Menu button click')}/>
+                </View>
+            </View>
             <View style={styles.body}>
-                <View style={styles.bodyTitle}>
+                <View style={styles.mainTitle}>
                     <Text style={styles.titleText}>보관함</Text>
-                    <Text
-                        style={{
-                            fontSize: 20
-                        }}>
-                        3 / 3
-                    </Text>
-                    <View
-                        style={{
-                            paddingTop: 15
-                        }}>
-                        <TouchableOpacity style={styles.button}>
-                            <Text
-                                style={[
-                                    styles.title, {
-                                        color: 'white',
-                                        fontSize: 13
-                                    }
-                                ]}>+보관함 늘리기</Text>
-                        </TouchableOpacity>
-                    </View>
-
+                </View>
+                <View style={styles.subTitle}>
+                    <Text style={styles.subText}>대충 저장한 번호를 볼 수 있는 곳이라는 문구</Text>
                 </View>
                 <View style={styles.bodyContents}>
                     <ScrollView>
                         {
                             state
-                                .names
+                                .lottoList
                                 .map((item, index) => (
-                                    <View key={item.id} style={styles.item}>
-                                        <Text>{item.name}</Text>
+                                    <View style={styles.lottoCard} key={item.id}>
+                                        <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} />
                                     </View>
                                 ))
                         }
@@ -103,20 +97,44 @@ const MyLotto = (navigation:any) => {
 
 const styles = StyleSheet.create({
     all: {
-        flex: 1
+        flex: 1,
+        paddingTop: 10,
+        backgroundColor: "#E5E5E5"
+    },
+    header: {
+        flex: 1,
+        padding: 20,
+        flexDirection: "row"
+    },
+    body: {
+        flex: 11,
+        justifyContent: 'center',
+        
+    },
+    backBtn: {
+        paddingLeft:10,
+        height: 50,
+        width: 50
     },
     settingButton: {
         height: 50,
         width: 50
     },
-    body: {
-        flex: 9,
-        justifyContent: 'center',
-        
-    },
     titleText: {
-        fontSize: 30,
-        fontWeight: "bold"
+        fontSize: 40,
+        fontFamily: "NanumMyeongjo",
+    },
+    mainTitle: {
+        paddingLeft:40
+    },
+    subTitle: {
+        paddingLeft:40,
+        paddingTop:20
+    },
+    subText: {
+        fontFamily: "NanumMyeongjo",
+        fontSize: 13,
+        paddingTop:5,
     },
     bodyTitle: {
         flex: 1,
@@ -126,8 +144,11 @@ const styles = StyleSheet.create({
     },
     bodyContents: {
         flex: 7,
-        padding: 20,
-        paddingBottom: 50
+        padding: 10,
+        paddingTop:50 
+    },
+    lottoCard: {
+        height: 150  
     },
     button: {
         width: 120,

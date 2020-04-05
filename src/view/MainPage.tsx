@@ -10,8 +10,7 @@ import {
     Alert
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
-import Menu from '../../assets/svg/menu.svg';
-
+import Menu from '../../assets/svg/menu.svg' ;
 
 declare var global: {
     HermesInternal: null | {}
