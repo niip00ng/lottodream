@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-    SafeAreaView,
+    KeyboardAvoidingView,
     StyleSheet,
-    ScrollView,
+    Platform,
     View,
     Text,
     Button,
@@ -18,17 +18,35 @@ import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements'
 const InputWord = (props:any) => {
     const [value, onChangeText] = React.useState('');
-    const [focus, setFocus] = React.useState(false);
     const [word, setWord] = React.useState([]);
 
 
     function activateButton () {
-        if(focus) return;
         if(word.length < 6) return <GenerateNumberOff/>
         
         return <GenerateNumberOn onPress={() => props.navigation.push('GenerateNumber')}/>
     }
 
+    function cleanView () {
+        if(word.length ===0 && value.length ===0) {
+            return (
+                <View style={styles.mainTitle}>
+                    <Text style={styles.titleText}>꿈에서</Text>
+                    <Text style={styles.titleText}>무엇을 봤습니까?</Text>
+                </View>
+            )
+        } 
+        return ;
+    }
+
+    function componentTitle () {
+        if(word.length ===0 && value.length ===0) {
+            return (
+                <View style={{paddingTop: 10, paddingLeft: 12}}><Text>단어 입력하기</Text></View>
+            )
+        } 
+        return ;
+    }
     function activateTextInput () {
         
         if(word.length === 6) return
@@ -37,7 +55,6 @@ const InputWord = (props:any) => {
             <View style={{ borderBottomColor: '#000000', borderBottomWidth: 2}}>    
                 <TextInput
                     style={styles.editBox}
-                    onFocus={onFocus.bind(true)}
                     editable
                     maxLength={40}
                     placeholder='단어를 입력하세요'
@@ -53,47 +70,52 @@ const InputWord = (props:any) => {
         return word.map((candidate ,index)=> {
             return (
                 <View style={{padding: 5}} key={index}>
-                    <Badge value={<Text style={styles.candidateWord}>{candidate}</Text> } badgeStyle={styles.badgeStyle} textStyle={styles.badgeText} onPress={() => {console.log('pressed')}}/>
+                    <Badge value={
+                        <Text style={styles.candidateWord}>{candidate}</Text> 
+                        } 
+                        badgeStyle={styles.badgeStyle} 
+                        textStyle={styles.badgeText} 
+                        onPress={() => {removeWord(candidate)}}/>
                 </View>
             );
         });
     }
-
+    function removeWord (w: never) {
+        word.splice(w, 1)
+        setWord([...word])
+    }
     function addWord () {
         
         if(value === '') {
             Alert.alert('글자를 입력해주세요.');
-            setFocus(false)
             return
         }
         setWord([...word, value]);        
         onChangeText('')
 
     }
-    function onFocus() {
-        setFocus(!focus)
-    }
 
     return (
         <View style={styles.all}>
-            <View style={styles.header}>
-                <View style={styles.backBtn}>
-                    <Back onPress={() => props.navigation.goBack()} />
-                    <View style={{paddingTop: 10, paddingLeft: 12}}><Text>단어 입력하기</Text></View>
-                </View>
-            </View>
-            <View style={styles.body}>
-                <View style={styles.mainTitle}>
-                    <Text style={styles.titleText}>꿈에서</Text>
-                    <Text style={styles.titleText}>무엇을 봤습니까?</Text>
-                </View>
-                <View style={styles.subTitle}>
-                    <View style={styles.wordList}>
-                        {wordList()}
+
+            <KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
+                <View style={styles.header}>
+                    <View style={styles.backBtn}>
+                        <Back onPress={() => props.navigation.goBack()} />
+                        {componentTitle()}
                     </View>
-                    {activateTextInput()}
                 </View>
-            </View>
+                <View style={styles.body}>
+                    {cleanView()}
+                    <View style={styles.subTitle}>
+                        <View style={styles.wordList}>
+                            {wordList()}
+                        </View>
+                        {activateTextInput()}
+                    </View>
+                </View>
+
+            </KeyboardAvoidingView>
             <View style={styles.footer}>
                 <View>
                     {activateButton()}
@@ -110,13 +132,16 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         backgroundColor: "#E5E5E5"
     },
+    keyboardAvoid: {
+        flex: 8
+      },
     header: {
         flex: 1,
         padding: 20,
         flexDirection: "row"
     },
     body: {
-        flex: 6,
+        flex: 7,
     },
     menuBtn: {
         paddingLeft:20,
@@ -125,14 +150,17 @@ const styles = StyleSheet.create({
     },
     mainTitle: {
         paddingLeft:40,
-        paddingTop:60
+        paddingTop:60,
+        paddingBottom:40
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
         fontSize: 30,
     },
     subTitle: {    
-        padding:40,
+        paddingBottom:40,
+        paddingLeft:40,
+        paddingRight:40,
 
     },
     subText: {
@@ -144,7 +172,8 @@ const styles = StyleSheet.create({
     footer: {
         alignItems: 'flex-end',
         padding: 30,
-        paddingBottom: 30
+        paddingBottom: 30,
+        flex:1
     },
     backBtn: {
         paddingLeft:10,
@@ -154,6 +183,8 @@ const styles = StyleSheet.create({
         fontFamily: "NanumMyeongjo",
         fontSize: 20,
     },wordList : {
+        flexDirection: "row",
+        flexWrap: "wrap"
     }, candidateWord : {
         fontFamily: "NanumMyeongjo",
         fontSize: 15,
