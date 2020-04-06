@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import LoadStart from '../../assets/lottie/loading_start.json' ;
-import LoadEnd from '../../assets/svg/load_end.svg' ;
-import ShowResultBtn from '../../assets/svg/show_result.svg' ;
+import LoadEnd from '../../assets/lottie/loading_end.json' ;
+import ShowResultOffBtn from '../../assets/svg/show_result.svg' ;
+import ShowResultOnBtn from '../../assets/svg/show_result_on.svg' ;
 import LottieView from 'lottie-react-native'
 
 const GenerateNumber = (props:any) => {
@@ -26,12 +27,24 @@ const GenerateNumber = (props:any) => {
         }, 2500)
     }, [])
     
+
+    function showResultButton () {
+        if(finish) return (
+            <ShowResultOnBtn onPress={() => props.navigation.push('InputWord')}/>
+        )
+
+        return <ShowResultOffBtn onPress={() => props.navigation.push('InputWord')}/>
+    }
     function nowStatusView () {
         if(finish) {
             return (
                 <View style={styles.body}>
-                    <View>
-                        <LoadEnd/>
+                    <View style={styles.lottieEnd}>
+                        <LottieView
+                            source={LoadEnd}
+                            autoPlay
+                            loop={false}
+                        />
                     </View>
                     <View style={styles.mainTitle}>
                         <Text style={styles.titleText}>숫자를</Text>
@@ -70,7 +83,7 @@ const GenerateNumber = (props:any) => {
             {nowStatusView()}
             <View style={styles.footer}>
                 <View>
-                    <ShowResultBtn onPress={() => props.navigation.push('InputWord')}/>
+                    {showResultButton()}
                 </View>
             </View>
         </View>
@@ -89,6 +102,10 @@ const styles = StyleSheet.create({
         padding: 20,
         flexDirection: "row"
     },
+    lottieEnd : {
+        alignItems: 'center',
+        padding: 100,
+    },
     lottie : {
         padding: 100,
     },
@@ -99,6 +116,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 6,
+        marginTop:50,
     },
     menuBtn: {
         paddingLeft:20,
