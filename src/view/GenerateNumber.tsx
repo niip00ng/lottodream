@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     SafeAreaView,
     StyleSheet,
@@ -10,16 +10,55 @@ import {
     Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
-import LoadStart from '../../assets/svg/load_start.svg' ;
+import LoadStart from '../../assets/lottie/loading_start.json' ;
 import LoadEnd from '../../assets/svg/load_end.svg' ;
 import ShowResultBtn from '../../assets/svg/show_result.svg' ;
-
+import LottieView from 'lottie-react-native'
 
 const GenerateNumber = (props:any) => {
 
-    const [finish, setFinish] =React.useState(false)
+    const [finish, setFinish] = useState(false)
+    const [timerId, setTimerId] = useState(0)
 
+    useEffect(() => {
+        setTimeout(() => {
+            setFinish(!finish)
+        }, 2500)
+    }, [])
     
+    function nowStatusView () {
+        if(finish) {
+            return (
+                <View style={styles.body}>
+                    <View>
+                        <LoadEnd/>
+                    </View>
+                    <View style={styles.mainTitle}>
+                        <Text style={styles.titleText}>숫자를</Text>
+                        <Text style={styles.titleText}>추출하였습니다.</Text>
+                    </View>
+                    <View style={styles.subTitle}>
+                        <Text style={styles.subText}>아래 결과보기 버튼을 눌러서</Text>
+                        <Text style={styles.subText}>행운의 숫자를 확인해보세요.</Text>
+                    </View>
+                </View>
+            )            
+        }  
+        return (
+            <View style={styles.loading}>
+                <View style={styles.lottie}>
+                    <LottieView
+                        source={LoadStart}
+                        autoPlay loop
+                    />
+                </View>
+                <View style={{paddingTop:30, paddingLeft:10}}>
+                    <Text>숫자를 추출 중입니다...</Text>
+                </View>
+            </View>
+        )      
+    }
+
     return ( 
         <View style={styles.all}>
             <View style={styles.header}>
@@ -28,24 +67,7 @@ const GenerateNumber = (props:any) => {
                     <View style={{paddingTop: 10, paddingLeft: 12}}><Text>숫자추출하기</Text></View>
                 </View>
             </View>
-            <View style={styles.loading}>
-                <View>
-                    <LoadStart/>
-                    <View style={{paddingTop:30, paddingLeft:10}}>
-                        <Text>숫자를 추출 중입니다.</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.body}>
-                <View style={styles.mainTitle}>
-                    <Text style={styles.titleText}>숫자를</Text>
-                    <Text style={styles.titleText}>추출하였습니다.</Text>
-                </View>
-                <View style={styles.subTitle}>
-                    <Text style={styles.subText}>아래 결과보기 버튼을 눌러서</Text>
-                    <Text style={styles.subText}>행운의 숫자를 확인해보세요.</Text>
-                </View>
-            </View>
+            {nowStatusView()}
             <View style={styles.footer}>
                 <View>
                     <ShowResultBtn onPress={() => props.navigation.push('InputWord')}/>
@@ -67,9 +89,12 @@ const styles = StyleSheet.create({
         padding: 20,
         flexDirection: "row"
     },
+    lottie : {
+        padding: 100,
+    },
     loading: {
+        flex: 6,
         marginTop:50,
-        justifyContent: 'center',
         alignItems: 'center'
     },
     body: {

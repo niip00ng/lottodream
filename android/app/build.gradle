@@ -191,7 +191,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //add new
     implementation project(':react-native-svg')
-
+    implementation project(':lottie-react-native')
     
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
