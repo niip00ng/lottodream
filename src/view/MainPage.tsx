@@ -38,7 +38,7 @@ const MainPage = (props:any) => {
             </View>
             <View style={styles.footer}>
                 <View style={{}}>
-                    <MainPageStartBtn onPress={() => props.navigation.push('GenerateNumber')}/>
+                    <MainPageStartBtn onPress={() => props.navigation.push('NumberResult')}/>
                 </View>
                 
             </View>

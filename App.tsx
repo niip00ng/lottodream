@@ -18,6 +18,8 @@ import MyLotto from './src/view/MyLotto';
 import Welcome from './src/view/WelcomeUser';
 import InputWord from './src/view/InputWord';
 import GenerateNumber from './src/view/GenerateNumber';
+import NumberResult from './src/view/NumberResult';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="InputWord" component={InputWord} />
                 <Stack.Screen name="GenerateNumber" component={GenerateNumber} />
+                <Stack.Screen name="NumberResult" component={NumberResult} />
                 <Stack.Screen name="MyLotto" component={MyLotto} />
                 <Stack.Screen name="NewLotto" component={NewLotto} />
             </Stack.Navigator>

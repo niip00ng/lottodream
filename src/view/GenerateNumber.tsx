@@ -30,10 +30,10 @@ const GenerateNumber = (props:any) => {
 
     function showResultButton () {
         if(finish) return (
-            <ShowResultOnBtn onPress={() => props.navigation.push('InputWord')}/>
+            <ShowResultOnBtn onPress={() => props.navigation.push('NumberResult')}/>
         )
 
-        return <ShowResultOffBtn onPress={() => props.navigation.push('InputWord')}/>
+        return <ShowResultOffBtn/>
     }
     function nowStatusView () {
         if(finish) {
