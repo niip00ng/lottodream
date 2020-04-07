@@ -64,7 +64,8 @@ const MyLotto = (navigation:any) => {
                     <Text style={styles.subText}>대충 저장한 번호를 볼 수 있는 곳이라는 문구</Text>
                 </View>
                 <View style={styles.bodyContents}>
-                    <ScrollView>
+                    <ScrollView 
+                    showsVerticalScrollIndicator={false}>
                         {
                             state.lottoList.map((item, index) => (
                                     <View style={styles.lottoCard} key={index}>
@@ -131,7 +132,6 @@ const styles = StyleSheet.create({
         flex: 7,
         padding: 10,
         paddingTop:50, 
-        paddingBottom:50,
     },
     lottoCard: {
         height: 170  

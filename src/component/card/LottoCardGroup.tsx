@@ -28,9 +28,9 @@ const LottoCardGroup = (props: any) => {
         console.log('숫자리스트 : ', numbers)
         
         if(numbers === undefined) return ;
-        return numbers.map((element:number) => {
+        return numbers.map((element: any, index:any)  => {
             return (
-                <View style={styles.numberSet}>
+                <View style={styles.numberSet} key={index}>
                     {NumberColor(element)}
                     <Text style={styles.lottoNumber}>{element}</Text>
                 </View>
