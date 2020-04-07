@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import {Button, View, Text, StyleSheet} from 'react-native';
-import Modal from 'react-native-modalbox';
 
 const SaveNumbers = (props:any) => {
     return (
         <View>
-            <Modal isOpen={true} useNativeDriver={true} style={styles.modal} position={"bottom"}>
-                <Text style={styles.text}>Modal on bottom with backdrop</Text>
-            </Modal>
         </View>
     );
 }

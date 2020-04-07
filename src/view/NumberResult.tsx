@@ -12,7 +12,7 @@ import {
 import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
 import SaveModal from '../component/modal/SaveNumbers';
-import Modal from 'react-native-modalbox';
+
 const NumberResult = (props:any) => {
 
     const [isOpen, setIsOpen] = useState(false)
@@ -48,9 +48,6 @@ const NumberResult = (props:any) => {
                     </View>
                 </View>
             </View>
-            <Modal isOpen={isOpen} style={[styles.modal]} position={"bottom"} useNativeDriver>
-                <Text style={styles.text}>Modal on bottom with backdrop</Text>
-            </Modal>
         </View>
     )
 }
