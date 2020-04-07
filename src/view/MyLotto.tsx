@@ -66,10 +66,8 @@ const MyLotto = (navigation:any) => {
                 <View style={styles.bodyContents}>
                     <ScrollView>
                         {
-                            state
-                                .lottoList
-                                .map((item, index) => (
-                                    <View style={styles.lottoCard} key={item.id}>
+                            state.lottoList.map((item, index) => (
+                                    <View style={styles.lottoCard} key={index}>
                                         <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
                                     </View>
                                 ))
@@ -136,7 +134,7 @@ const styles = StyleSheet.create({
         paddingBottom:50,
     },
     lottoCard: {
-        height: 150  
+        height: 170  
     },
     button: {
         width: 120,

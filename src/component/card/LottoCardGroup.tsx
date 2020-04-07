@@ -110,7 +110,6 @@ const styles=StyleSheet.create({
         color: 'gray'
     },numberSet: {
         alignItems: 'center',
-        marginTop:30
     }, successMessege : {
         
         fontSize: 22,
