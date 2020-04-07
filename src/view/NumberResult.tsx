@@ -1,4 +1,4 @@
-import React , {useState}from 'react'
+import React , {useState, useRef,useEffect, createRef }from 'react'
 import {
     SafeAreaView,
     StyleSheet,
@@ -16,10 +16,12 @@ import SaveModal from '../component/modal/SaveNumbers';
 const NumberResult = (props:any) => {
 
     const [isOpen, setIsOpen] = useState(false)
+    const modalOpen = useRef()
 
-    function setModalState () {
-        setIsOpen(!isOpen)
-    }
+    const onClick = () => {
+        modalOpen.current.handleOpen();
+    };
+    
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -44,10 +46,11 @@ const NumberResult = (props:any) => {
                 </View>
                 <View style={{flex:2}}>
                     <View style={styles.rectangle}>
-                        <Text style={styles.button} onPress={() => setIsOpen(true)}>저장하기</Text>
+                        <Text style={styles.button} onPress={onClick}>저장하기</Text>
                     </View>
                 </View>
             </View>
+            <SaveModal ref={modalOpen}/>
         </View>
     )
 }
