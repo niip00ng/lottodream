@@ -81,7 +81,7 @@ const InputWord = (props:any) => {
             return (
                 <View style={{padding: 5}} key={index}>
                     <Badge value={
-                        <Text style={styles.candidateWord}>{candidate}</Text> 
+                        <Text style={styles.candidateWord}>{candidate} ×</Text> 
                         } 
                         badgeStyle={styles.badgeStyle} 
                         textStyle={styles.badgeText} 

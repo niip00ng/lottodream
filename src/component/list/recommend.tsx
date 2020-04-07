@@ -3,22 +3,28 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 const Recommend = (props :any) => {
     const [selected, setSelected] = useState('');
-    
+    const dreamWord = useState(require('../../../assets/meta/dream.json'));
+
     const selectWord = React.useCallback(id => {
         console.log('추천 선택 : ', id)
 
         props.add(id)
     }, [selected],);
 
+
+    // 추천단어 추리기
+    function makeRecommand() {
+        
+    }
     return (
         <View style={styles.all}>
             <FlatList
                 data={[
-                    {key: 'Devin'},
-                    {key: 'Dan'},
-                    {key: 'Dominic'},
-                    {key: 'Jackson'},
-                    {key: 'James'},
+                    {key: '사과'},
+                    {key: '사과나무'},
+                    {key: '사과즙'},
+                    {key: '사과주스'},
+                    {key: '사과박스'},
                 ]}
                 renderItem={({item}) => 
                     <Text 
@@ -27,7 +33,6 @@ const Recommend = (props :any) => {
                         {item.key}
                     </Text>
                 }
-                
             />
         </View>
     )
