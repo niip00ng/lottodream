@@ -27,9 +27,15 @@ const InputWord = (props:any) => {
     function activateButton () {
         if(word.length < 6) return <GenerateNumberOff/>
         
-        return <GenerateNumberOn onPress={() => props.navigation.replace('GenerateNumber')}/>
+        return <GenerateNumberOn onPress={sendNext}/>
     }
 
+    function sendNext() {
+        console.log('넥스트 버튼 클릭')
+        props.navigation.navigate('GenerateNumber', {
+            words: word
+        })
+    }
     // 단어입력시 공간활용을 위해 잠시삭제
     function cleanView () {
         if(word.length ===0 && value.length ===0) {

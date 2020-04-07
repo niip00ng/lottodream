@@ -1,3 +1,47 @@
+export function makeResultNumbersFormat (desc, origin, words) {
+    let ret = [];
+    for(var num in desc) {
+        ret.push({
+            "number" : desc[num],
+            "word" : words[origin.indexOf(desc[num])]
+        })
+    }    
+    return ret
+}
+
+
+//해당 단어에 해당하는 단어 배열을 중복 없이 전달해 줌
+//우선순위 : 검색어가 앞에 있는 단어
+export function searchWord (data){
+	let strArray = [];
+	let firstOrder = [];
+	let lastOrder = [];
+	for(var num in numbers){
+		if(numbers[num].context.includes(data)){
+			let strs = numbers[num].context.split(",");
+			for(var i in strs){
+				if(strs[i].includes(data)) {
+					if(strs[i].startsWith(data)){
+						firstOrder.push(strs[i]);
+					} else {
+						lastOrder.push(strs[i]);
+					}
+				}
+			}
+		}
+	}
+	strArray = firstOrder.concat(lastOrder);
+	return arrayWithKey(Array.from(new Set(strArray)));
+}
+
+var arrayWithKey = (array) =>{
+	let ret = [];
+	for(var i in array){
+		ret.push(array[i]);
+	}
+	return ret;
+}
+
 //해당 단어에 해당하는 숫자 배열을 중복 없이 전달해 줌
 export function selectWord (data) {
 	let numArrays = [];
@@ -11,64 +55,55 @@ export function selectWord (data) {
 	return numArrays;
 }
 
-//해당 단어 배열들에 해당하는 숫자 배열 6개를 만들어 오름차순으로 줌
-// 검색된 숫자가 6개 미만인데, 단어 시드가 6개 미만이면 완전 랜덤 생성함.
-// 1. 검색된 숫자가 6개 이상인 경우 : 그 중에서 6개를 중복 없이 랜덤 픽
-// 2. 검색된 숫자가 6개 미만인 경우 : 모자란 숫자만큼 생성해 주는데, 
+//해당 단어 배열들에 해당하는 숫자 배열 7개를 만들어 오름차순으로 줌 (마지막 숫자는 보너스 숫자. 오름차순 제외)
+// 1. 검색된 숫자가 7개 이상인 경우 : 그 중에서 7개를 중복 없이 랜덤 픽
+// 2. 검색된 숫자가 7개 미만인 경우 : 모자란 숫자만큼 숫자를 생성해 줌. 
 //					동일한 단어 배열일 경우 확정적으로 항상 동일한 숫자를 주도록 함.
-// 3. 숫자가 0개인 경우 : 랜덤 생성
-export function generateLotto (datas){
+// 					대신 단어 시드가 필요한 숫자보다 부족하면 완전 랜덤 생성함.
+export function generateLotto (datas) {
 	let generated = [];
 	for(var i in datas){
 		generated = generated.concat(selectWord(datas[i]));
 	}
 	generated = Array.from(new Set(generated));
-	if(generated.length >= 6){ // 6개 이상인 경우 랜덤 픽
-		console.log("숫자가 6개 이상입니다. 그 중에 랜덤으로 6개를 선택합니다.");
-		generated = shuffleArray(generated).slice(0,6);
-	} else { //1개 이상, 6개 미만인 경우
-		genlen = 6 - generated.length;
+	if(generated.length >= 7){ // 7개 이상인 경우 랜덤 픽
+		console.log("숫자가 7개 이상입니다. 그 중에 랜덤으로 6개와 마지막 보너스 숫자를 선택합니다.");
+		generated = shuffleArray(generated).slice(0,7);
+	} else { //1개 이상, 7개 미만인 경우
+		let genlen = 7 - generated.length;
 		if(datas.length >= genlen){
-			console.log(genlen+"개의 숫자가 부족합니다. 데이터 시드가 충분하므로 항상 동일하게 확정적으로 숫자를 생성합니다.");
+			console.log(genlen+"개의 숫자가 부족합니다. 데이터 시드가 충분하므로 항상 동일하게 확정적으로 나머지 숫자를 생성하고 보너스 숫자를 선택합니다.");
 			for(var i=0; i<genlen; i++){ // 필요한 만큼 숫자를 생성한다.
-				genNum = deldup(word2Lotto(datas[i]),generated); //단어기반으로 로또 생성하되 중복없이.)
+				let genNum = deldup(word2Lotto(datas[i]),generated); //단어기반으로 로또 생성하되 중복없이.)
 				generated.push(genNum);
 			}
 		} else {
-			console.log(genlen+"개의 숫자가 부족합니다., 데이터 시드가 부족하므로 해당 갯수만큼 랜덤하게 생성합니다.");
+			console.log(genlen+"개의 숫자가 부족합니다., 데이터 시드가 부족하므로 나머지 숫자를 생성하고 보너스 숫자를 선택합니다.");
 			let nums = [];
 			for(i=1; i<=45; i++) nums.push(i);
 			generated = generated.concat(shuffleArray(nums).slice(0,genlen));
 		}
 	}
-	return generated.sort(function(a, b) { // 오름차순
+	return generated
+}
+export function  getDreamNumber (array){
+    let res = []
+    for(var i = 0; i<array.length -1; i++ ) res.push(array[i])
+	return res
+}
+export function  getBonusWithArray (array){
+    let res = []
+    for(var i = 0; i<array.length; i++ ) res.push(array[i])
+
+	res.sort(function(a, b) { // 오름차순
 		return a - b;
 	});
+	bonus = res[Math.floor(Math.random() * res.length)];
+    res.splice(res.indexOf(bonus),1);
+
+	res.push(bonus);
+	return res
 }
-
-
-//해당 단어에 해당하는 단어 배열을 중복 없이 전달해 줌
-export function searchWord (data) {
-    let strArray = [];
-    let firstOrder = [];
-    let lastOrder = [];
-    for(var num in numbers){
-       if(numbers[num].context.includes(data)){
-          let strs = numbers[num].context.split(",");
-          for(var i in strs){
-             if(strs[i].includes(data)) {
-                if(strs[i].startsWith(data)){
-                   firstOrder.push(strs[i]);
-                } else {
-                   lastOrder.push(strs[i]);
-                }
-             }
-          }
-       }
-    }
-    strArray = firstOrder.concat(lastOrder);
-    return Array.from(new Set(strArray));
- }
 
 // 배열 랜덤하게 셔플해주는 함수
 var shuffleArray = (array) => {

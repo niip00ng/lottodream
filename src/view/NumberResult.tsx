@@ -13,7 +13,7 @@ import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 
-const NumberResult = (props:any) => {
+const NumberResult = (props : any) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const modalOpen = useRef()
@@ -26,6 +26,11 @@ const NumberResult = (props:any) => {
         console.log('보관함으로 이동')
         props.navigation.replace('MyLotto')
     }
+
+    useEffect(() => {
+        console.log('결과 진입 ', props.route.params.words)
+    }, [])
+
     return (
         <View style={styles.all}>
             <View style={styles.header}>

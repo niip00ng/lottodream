@@ -16,21 +16,46 @@ import ShowResultOffBtn from '../../assets/svg/show_result.svg' ;
 import ShowResultOnBtn from '../../assets/svg/show_result_on.svg' ;
 import LottieView from 'lottie-react-native'
 
-const GenerateNumber = (props:any) => {
+const GenerateNumber = (props : any) => {
 
     const [finish, setFinish] = useState(false)
     const [timerId, setTimerId] = useState(0)
+    const [numbers, setNumber] = useState([])
+    const genLib = require('../util/recommandLib')
 
     useEffect(() => {
+        
+        const origin = genLib.generateLotto(props.route.params.words);
+        console.log('결과 origin : ',  origin)
+        const bonus = origin[origin.length-1]
+        const dream = genLib.getDreamNumber(origin)
+        console.log('보너스수 : ',  bonus)
+        console.log('드림넘버 : ',  dream)
+
+        let desc = genLib.getBonusWithArray(dream)
+        console.log('정렬넘버 : ',  desc)
+
+        const data = genLib.makeResultNumbersFormat(desc, origin, props.route.params.words)
+        
+        data.push({
+            "number" : bonus,
+            "word" : 'bonus'
+        })
+        setNumber(data)
+        
         setTimeout(() => {
             setFinish(!finish)
         }, 2500)
     }, [])
     
-
     function showResultButton () {
         if(finish) return (
-            <ShowResultOnBtn onPress={() => props.navigation.replace('NumberResult')}/>
+            <ShowResultOnBtn onPress={() => {
+                props.navigation.navigate('NumberResult', {
+                    words: props.route.params.words,
+                    numbers: ''
+                })
+            }}/>
         )
 
         return <ShowResultOffBtn/>
