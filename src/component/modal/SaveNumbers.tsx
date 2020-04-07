@@ -1,11 +1,14 @@
 import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react';
-import {Dimensions, View, Animated, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Dimensions, View, Animated, Text, StyleSheet, TextInput, Alert} from 'react-native';
+import ButtonCancel from '../../../assets/svg/btn_cancel.svg' ;
+import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
 
 // 부모로부터 
-const SaveNumbers = forwardRef((props, ref) => {
+const SaveNumbers = forwardRef((props:any, ref) => {
 
     const [animation, setAnimation] = useState(new Animated.Value(0))
-    
+    const [value, onChangeText] = useState('');
+    const [word, setWord] = useState([]);
 
     //Parents 에서 실행가능한 함수
     // Open
@@ -15,7 +18,6 @@ const SaveNumbers = forwardRef((props, ref) => {
     }));
     
     function handleOpen() {
-        console.log(12313)
         Animated.timing(animation, {
                 toValue: 1,
                 duration: 300,
@@ -24,12 +26,28 @@ const SaveNumbers = forwardRef((props, ref) => {
     }
 
     function handleClose() {
+        
         Animated.timing(animation, {
                 toValue: 0,
                 duration: 200,
                 useNativeDriver: true
-            })
-            .start();
+            }).start();
+    }
+
+    function addWord () {
+        
+        if(value === '') {
+            Alert.alert('글자를 입력해주세요.');
+            return
+        }
+        setWord([...word, value]);        
+        onChangeText('')
+
+    }
+
+    function sendDreamName() {
+        props.end()
+        handleClose()
     }
 
     const screenHeight = Dimensions.get("window").height;
@@ -62,14 +80,39 @@ const SaveNumbers = forwardRef((props, ref) => {
             }
         ]
     };
+
     return (
         <Animated.View style={[StyleSheet.absoluteFill, styles.cover, backdrop]}>
             <View style={[styles.sheet]}>
                 <Animated.View style={[styles.popup, slideUp]}>
-                    <TouchableOpacity onPress={handleClose}>
-                        <Text>Close</Text>
-                    </TouchableOpacity>
-                    <Text>ddd</Text>
+                    <View style={styles.header}>
+                        <View style={{paddingTop: 15, paddingLeft: 12}}>
+                            <Text style={styles.titleText} >꿈 이름 정하기</Text>
+                        </View>
+                    </View>
+                    <View style={styles.body}>
+                        <View style={{paddingLeft:40, paddingRight:40}}>
+                            <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1}}>    
+                                <TextInput
+                                    style={styles.editBox}
+                                    editable
+                                    maxLength={40}
+                                    placeholder='골프공에 귀신들린 꿈'
+                                    numberOfLines={1}
+                                    onChangeText={(text:string) => onChangeText(text)}
+                                    onSubmitEditing={addWord}
+                                    value={value} />
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.footer}>
+                            <View>
+                                <ButtonCancel onPress={handleClose}/>
+                            </View>
+                            <View>
+                                <ButtonOk onPress={sendDreamName}/>
+                            </View>
+                    </View>
                 </Animated.View>
             </View>
         </Animated.View>
@@ -78,30 +121,51 @@ const SaveNumbers = forwardRef((props, ref) => {
 
 
 const styles = StyleSheet.create({
-    container: {
+    all: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        backgroundColor: "#E5E5E5"
+    },
+    header: {
+        flex: 1,
+        paddingTop: 30,
+        paddingLeft: 30,
+    },
+    body: {
+        flex: 1,
+    },
+    footer: {
+        flexDirection: "row",
+        paddingBottom: 30,
+        justifyContent: "flex-end",
+        flex:1
     },
     cover: {
         backgroundColor: "rgba(0,0,0,.3)"
     },
+    editBox : {
+        fontFamily: "NanumMyeongjo",
+        fontSize: 18,
+    },
+    titleText: {
+        fontFamily: "NanumMyeongjo",
+        fontSize: 20,
+    },
     sheet: {
         position: "absolute",
         top: Dimensions.get("window").height,
-        left: 0,
-        right: 0,
+        left: -10,
+        right: -10,
         height: "100%",
         justifyContent: "flex-end"
     },
     popup: {
         backgroundColor: "#FFF",
         marginHorizontal: 10,
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        alignItems: "center",
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
         justifyContent: "center",
-        minHeight: 50
-    }
+        minHeight: 250
+    },
+
 });
 export default SaveNumbers;

@@ -10,7 +10,7 @@ import {
     Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
-import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
+import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 
 const NumberResult = (props:any) => {
@@ -22,6 +22,10 @@ const NumberResult = (props:any) => {
         modalOpen.current.handleOpen();
     };
     
+    const moveMyLotto = () => {
+        console.log('보관함으로 이동')
+        props.navigation.push('MyLotto')
+    }
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -50,7 +54,7 @@ const NumberResult = (props:any) => {
                     </View>
                 </View>
             </View>
-            <SaveModal ref={modalOpen}/>
+            <SaveModal ref={modalOpen} end={moveMyLotto}/>
         </View>
     )
 }

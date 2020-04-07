@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    Button,
-    StatusBar,
-    Alert
-} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import MainPage from './src/view/MainPage';
-import NewLotto from './src/view/NewLotto';
 import MyLotto from './src/view/MyLotto';
 import Welcome from './src/view/WelcomeUser';
 import InputWord from './src/view/InputWord';
@@ -32,7 +21,6 @@ const App = () => {
                 <Stack.Screen name="GenerateNumber" component={GenerateNumber} />
                 <Stack.Screen name="NumberResult" component={NumberResult} />
                 <Stack.Screen name="MyLotto" component={MyLotto} />
-                <Stack.Screen name="NewLotto" component={NewLotto} />
             </Stack.Navigator>
         </NavigationContainer>
     );

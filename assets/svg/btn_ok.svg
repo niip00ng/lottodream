@@ -1,0 +1,21 @@
+<svg
+    width="75"
+    height="74"
+    viewBox="0 0 75 74"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <line
+        y1="-0.75"
+        x2="14.9693"
+        y2="-0.75"
+        transform="matrix(0.640492 0.767964 -0.640492 0.767964 24 34.0041)"
+        stroke="black"
+        stroke-width="1.5"/>
+    <line
+        y1="-0.75"
+        x2="23.9509"
+        y2="-0.75"
+        transform="matrix(-0.640492 0.767964 -0.640493 -0.767964 48.9285 27.1066)"
+        stroke="black"
+        stroke-width="1.5"/>
+</svg>
