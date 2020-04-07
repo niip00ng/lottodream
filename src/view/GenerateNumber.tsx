@@ -52,8 +52,7 @@ const GenerateNumber = (props : any) => {
         if(finish) return (
             <ShowResultOnBtn onPress={() => {
                 props.navigation.navigate('NumberResult', {
-                    words: props.route.params.words,
-                    numbers: ''
+                    result: numbers
                 })
             }}/>
         )

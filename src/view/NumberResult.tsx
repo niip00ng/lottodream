@@ -28,7 +28,7 @@ const NumberResult = (props : any) => {
     }
 
     useEffect(() => {
-        console.log('결과 진입 ', props.route.params.words)
+        console.log('결과 진입 ', props.route.params.result)
     }, [])
 
     return (
