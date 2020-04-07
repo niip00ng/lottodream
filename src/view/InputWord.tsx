@@ -16,7 +16,7 @@ import GenerateNumberOff from '../../assets/svg/gen_number_off.svg' ;
 import BtnX from '../../assets/svg/btn_x.svg' ;
 import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
-import Recommand from '../component/list/recommend'
+import Recommand from '../component/list/Recommend'
 
 const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
@@ -96,7 +96,7 @@ const InputWord = (props:any) => {
         if(value.length !==0) {
             return(                    
                 <View style={styles.recommendFrame}>
-                    <Recommand in={value} add={addRecommand}/>
+                    <Recommand in={value} add={addRecommand} value={value}/>
                 </View>
             )
         }
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
         fontFamily: "NanumMyeongjo",
         backgroundColor: "#00ff0000"
     },recommendFrame :{
-
+        height: 400
     }
 });
 
