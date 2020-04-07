@@ -30,7 +30,7 @@ const GenerateNumber = (props:any) => {
 
     function showResultButton () {
         if(finish) return (
-            <ShowResultOnBtn onPress={() => props.navigation.push('NumberResult')}/>
+            <ShowResultOnBtn onPress={() => props.navigation.replace('NumberResult')}/>
         )
 
         return <ShowResultOffBtn/>

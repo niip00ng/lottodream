@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     KeyboardAvoidingView,
     StyleSheet,
     Platform,
     View,
     Text,
-    Button,
-    StatusBar,
+    TextInputSubmitEditingEventData,
+    NativeSyntheticEvent,
     Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
@@ -15,18 +15,22 @@ import GenerateNumberOn from '../../assets/svg/gen_number_on.svg' ;
 import GenerateNumberOff from '../../assets/svg/gen_number_off.svg' ;
 import BtnX from '../../assets/svg/btn_x.svg' ;
 import { TextInput } from 'react-native-gesture-handler';
-import {Badge} from 'react-native-elements'
+import {Badge} from 'react-native-elements';
+import Recommand from '../component/list/recommend'
+
 const InputWord = (props:any) => {
-    const [value, onChangeText] = React.useState('');
-    const [word, setWord] = React.useState([]);
+    const [value, onChangeText] = useState('');
+    const [word, setWord] = useState(['']);
 
 
+    // next 버튼 활성화
     function activateButton () {
         if(word.length < 6) return <GenerateNumberOff/>
         
-        return <GenerateNumberOn onPress={() => props.navigation.push('GenerateNumber')}/>
+        return <GenerateNumberOn onPress={() => props.navigation.replace('GenerateNumber')}/>
     }
 
+    // 단어입력시 공간활용을 위해 잠시삭제
     function cleanView () {
         if(word.length ===0 && value.length ===0) {
             return (
@@ -39,6 +43,7 @@ const InputWord = (props:any) => {
         return ;
     }
 
+    // 단어입력시 공간활용을 위해 잠시삭제
     function componentTitle () {
         if(word.length ===0 && value.length ===0) {
             return (
@@ -47,6 +52,8 @@ const InputWord = (props:any) => {
         } 
         return ;
     }
+
+    // 단어를 6개 모두 선택면 텍스트 입력창 삭제
     function activateTextInput () {
         
         if(word.length === 6) return
@@ -60,14 +67,18 @@ const InputWord = (props:any) => {
                     placeholder='단어를 입력하세요'
                     numberOfLines={1}
                     onChangeText={(text:string) => onChangeText(text)}
-                    onSubmitEditing={addWord}
+                    onSubmitEditing={(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+                        addWord(e.nativeEvent.text)}}
                     value={value} />
             </View>
         )
     }
 
+    // 내가 선택한 단어 뱃지 보여주기
     function wordList () {
         return word.map((candidate ,index)=> {
+
+            if(candidate!='')
             return (
                 <View style={{padding: 5}} key={index}>
                     <Badge value={
@@ -80,19 +91,38 @@ const InputWord = (props:any) => {
             );
         });
     }
-    function removeWord (w: never) {
-        word.splice(w, 1)
-        setWord([...word])
-    }
-    function addWord () {
-        
-        if(value === '') {
-            Alert.alert('글자를 입력해주세요.');
-            return
-        }
-        setWord([...word, value]);        
-        onChangeText('')
 
+    // 추천 단어 보여주기
+    function showRecommand () {
+        if(value.length !==0) {
+            return(                    
+                <View style={styles.recommendFrame}>
+                    <Recommand in={value} add={addRecommand}/>
+                </View>
+            )
+        }
+    }
+
+    // 추천 선택 단어 뱃지추가
+    function addRecommand (e:string) {
+        if(e!== undefined || e !== null || e!== '') addWord(e)
+    }
+
+    // 산텍 딘어 삭제
+    function removeWord (w: string | number) {
+        setWord([...word.filter(e => e !== w)])
+    }
+
+    // 산텍 딘어 추가
+    function addWord (e?: string) {
+        
+        if(value === '') return Alert.alert('글자를 입력해주세요.');
+        console.log('선택한 단어', e)
+        
+        if(e !== undefined) setWord([...word, e]);
+        else setWord([...word, value]);        
+        
+        onChangeText('')
     }
 
     return (
@@ -112,7 +142,9 @@ const InputWord = (props:any) => {
                             {wordList()}
                         </View>
                         {activateTextInput()}
+                        {showRecommand()}
                     </View>
+
                 </View>
 
             </KeyboardAvoidingView>
@@ -197,6 +229,8 @@ const styles = StyleSheet.create({
     }, badgeText: {
         fontFamily: "NanumMyeongjo",
         backgroundColor: "#00ff0000"
+    },recommendFrame :{
+
     }
 });
 

@@ -24,7 +24,7 @@ const NumberResult = (props:any) => {
     
     const moveMyLotto = () => {
         console.log('보관함으로 이동')
-        props.navigation.push('MyLotto')
+        props.navigation.replace('MyLotto')
     }
     return (
         <View style={styles.all}>

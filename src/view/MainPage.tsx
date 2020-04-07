@@ -22,7 +22,7 @@ const MainPage = (props:any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.menuBtn}>
-                    <Menu onPress={() => Alert.alert('Menu button click')}/>
+                    <Menu onPress={() => props.navigation.push('MyLotto')}/>
                 </View>
             </View>
             <View style={styles.body}>

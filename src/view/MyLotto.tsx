@@ -13,7 +13,7 @@ import CustomButton from '../component/button/CustomButton';
 import LottoCardGroup from '../component/card/LottoCardGroup'
 import Back from '../../assets/svg/back.svg' ;
 
-const MyLotto = (navigation:any) => {
+const MyLotto = (props:any) => {
 
     const state = {
         lottoList: [
@@ -53,7 +53,7 @@ const MyLotto = (navigation:any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={navigation.goBack}/>
+                    <Back onPress={() => props.navigation.goBack()} />
                 </View>
             </View>
             <View style={styles.body}>
