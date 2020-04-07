@@ -1,6 +1,6 @@
 import React , {useState, useRef,useEffect, createRef }from 'react'
 import {
-    SafeAreaView,
+    Platform,
     StyleSheet,
     ScrollView,
     View,
@@ -12,6 +12,7 @@ import {
 import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
+import DefaultPreference from 'react-native-default-preference';
 
 const NumberResult = (props : any) => {
 
@@ -29,6 +30,11 @@ const NumberResult = (props : any) => {
 
     useEffect(() => {
         console.log('결과 진입 ', props.route.params.result)
+        if (Platform.OS === 'android') DefaultPreference.setName('NativeStorage');
+        DefaultPreference.getName().then(function(value) {console.log(value)});
+        DefaultPreference.set('my key', 'my value').then(function() {console.log('done')});
+        DefaultPreference.get('my key').then(function(value) {console.log(value)});
+        DefaultPreference.clearAll()
     }, [])
 
     return (
