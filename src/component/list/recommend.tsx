@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
     },
     item: {
       padding: 0,
-      fontSize: 15,
+      fontSize: 16,
       height: 35,
+      color: '#383838'
     },
   })
 

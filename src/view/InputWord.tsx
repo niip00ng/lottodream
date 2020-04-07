@@ -20,7 +20,7 @@ import Recommand from '../component/list/recommend'
 
 const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
-    const [word, setWord] = useState(['']);
+    const [word, setWord] = useState([]);
 
 
     // next 버튼 활성화
@@ -77,7 +77,6 @@ const InputWord = (props:any) => {
     // 내가 선택한 단어 뱃지 보여주기
     function wordList () {
         return word.map((candidate ,index)=> {
-
             if(candidate!='')
             return (
                 <View style={{padding: 5}} key={index}>
@@ -114,15 +113,22 @@ const InputWord = (props:any) => {
     }
 
     // 산텍 딘어 추가
-    function addWord (e?: string) {
+    function addWord (e: string) {
         
+        if(e === undefined) return Alert.alert('글자를 입력해주세요.');
         if(value === '') return Alert.alert('글자를 입력해주세요.');
-        console.log('선택한 단어', e)
         
-        if(e !== undefined) setWord([...word, e]);
-        else setWord([...word, value]);        
+        console.log('선택한 단어', e, word.indexOf(e))
         
+        if(word.indexOf(e) !== -1) {
+            Alert.alert('이미 선택된 단어입니다.');
+            onChangeText('')    
+            return 
+        }
+
+        setWord([...word, e]);
         onChangeText('')
+        
     }
 
     return (
