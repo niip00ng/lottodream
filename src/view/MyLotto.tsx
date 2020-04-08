@@ -1,56 +1,55 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import {
-    SafeAreaView,
     StyleSheet,
     ScrollView,
     View,
     Text,
-    TouchableOpacity,
-    StatusBar,
-    Alert
 } from 'react-native';
-import CustomButton from '../component/button/CustomButton';
 import LottoCardGroup from '../component/card/LottoCardGroup'
 import Back from '../../assets/svg/back.svg' ;
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const MyLotto = (props:any) => {
+    const Constant = require('../util/Constant')
+    const [myLotto, setMyLotto] = useState(    [
+        // {
+        //     //꿈이름
+        //     'name': '꿈이름',
+        //     // 내 로또번호 이번주 등수
+        //     'status' : 5,
+        //     // 로또 회차
+        //     'round' : 749,
+        //     // 산출 날짜
+        //     'date': '2020.04.01  12:34',
+        //     // 번호 6개 + 보너스 1개
+        //     'numbers' : [1,20,30,40,41,42,8],
+        //     // 꿈 6개
+        //     'dreams' : ['개','소','말','돼지','똥','병아리', ''],
+        // }
+    ]);
 
-    const state = {
-        lottoList: [
-            {
-                'name': '개꿈',
-                'status' : 5,
-                'round' : 749,
-                'date': '2020.04.01  12:34',
-                'numbers' : [1,20,30,40,41,42,8],
-                'dreams' : ['개','소','말','돼지','똥','병아리', ''],
-            }, {
-                'name': '할아버지 나오는꿈',
-                'status' : 0,
-                'round' : 748,
-                'date': '2020.04.01  12:34',
-                'numbers' : [2,20,30,40,41,42,8],
-                'dreams' : ['개','소','말','돼지','똥','병아리', ''],
-                
-            }, {
-                'name': '똥꿈',
-                'status' : 0,
-                'round' : 747,
-                'date': '2020.04.01  12:34',
-                'dreams' : ['개','소','말','돼지','똥','병아리', ''],
-                'numbers' : [2,20,30,40,41,42,8],
-                
-            }, {
-                'round' : 746,
-                'name': '옥상에서 수박먹은꿈',
-                'status' : 0,
-                'date': '2020.04.01  12:34',
-                'numbers' : [2,20,30,40,41,42,8],
-                'dreams' : ['개','소','말','돼지','똥','병아리', ''],
-            }
-        ]
+    // 나의 로또 정보 가져오기
+    const retrieveData = async (key : string) => {
+        try {
+            let value = await AsyncStorage.getItem(key);
+            if (value === null) return ;
+            console.log(value)
+            //@ts-ignore
+            const lottoData = JSON.parse(value);
+            setMyLotto(lottoData);
+        
+        } catch (error) {
+            console.log('::: AsyncStorage get ERROR !! ')
+        }
     }
 
+    // 초기화
+    useEffect(() => {
+        retrieveData(Constant.LOTTO_KEY);
+    }, [])
+
+    
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -69,7 +68,7 @@ const MyLotto = (props:any) => {
                     <ScrollView 
                     showsVerticalScrollIndicator={false}>
                         {
-                            state.lottoList.map((item, index) => (
+                            myLotto.map((item, index) => (
                                     <View style={styles.lottoCard} key={index}>
                                         <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
                                     </View>
