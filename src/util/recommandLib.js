@@ -1,10 +1,7 @@
 export function makeResultNumbersFormat (desc, origin, words) {
     let ret = [];
     for(var num in desc) {
-        ret.push({
-            "number" : desc[num],
-            "word" : words[origin.indexOf(desc[num])]
-        })
+        ret.push(words[origin.indexOf(desc[num])])
     }    
     return ret
 }
@@ -98,10 +95,7 @@ export function  getBonusWithArray (array){
 	res.sort(function(a, b) { // 오름차순
 		return a - b;
 	});
-	bonus = res[Math.floor(Math.random() * res.length)];
-    res.splice(res.indexOf(bonus),1);
-
-	res.push(bonus);
+	
 	return res
 }
 

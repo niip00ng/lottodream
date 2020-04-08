@@ -1,4 +1,4 @@
-import React , {useState, useRef,useEffect, createRef }from 'react'
+import React , {useState, useRef,useEffect }from 'react'
 import {
     Platform,
     StyleSheet,
@@ -6,44 +6,102 @@ import {
     View,
     Text,
     Button,
-    Animated,
     Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
-import DefaultPreference from 'react-native-default-preference';
 import moment from 'moment'
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const NumberResult = (props : any) => {
 
     const [dateTitle, setDateTitle] = useState('')
-    const [isOpen, setIsOpen] = useState(false)
+    const [nowDate, setNowDate] = useState('')
     const modalOpen = useRef()
-    let date = ''
     
+    let date=''
+
     const onClick = () => {
         modalOpen.current.handleOpen();
     };
     
-    const moveMyLotto = () => {
+    const moveMyLotto = (dreamName: string) => {
+        
+        let numList = props.route.params.nums
+        let dreamList = props.route.params.dreams
+
+        if(numList.length <7) {
+            numList.push(props.route.params.bonus)
+            dreamList.push('')
+        }
+ 
+        console.log(nowDate)
+        let newItem = {
+            name: dreamName,
+            status: 0,
+            round: '',
+            date: nowDate,
+            dreams: dreamList,
+            numbers: numList,
+        };
+        
+        console.log(newItem)
+        // if(storeData('key', 'nice')) {
+        //     retrieveData('key');
+        // }
+
+        //잘 저장 되었을떄 이동
         console.log('보관함으로 이동')
-        props.navigation.replace('MyLotto')
+        //props.navigation.replace('MyLotto')
     }
 
-    useEffect(() => {
-        var d = new Date();
-        date = moment(d).format('YYYY-MM-DD-HH-mm-ss');
+    const clickSaveButton = () => {
+        let lottos = []
+
+
+    } 
+
+    useEffect( () => {
+        date = moment(new Date()).format('YYYY-MM-DD-HH-mm-ss');
         let token = date.split('-')
+
+        // 실제 데이터 저장할 포멧
+        setNowDate(token[0]+'.'+token[1]+"."+token[2]+'  '+token[3]+":"+token[4]+":"+token[5])
+        
+        // 화면에 표시할 데이트 포멧
         setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
         
-        console.log('결과 진입 ', props.route.params.result)
-        if (Platform.OS === 'android') DefaultPreference.setName('NativeStorage');
-        DefaultPreference.getName().then(function(value) {console.log(value)});
-        DefaultPreference.set('my key', 'my value').then(function() {console.log('done')});
-        DefaultPreference.get('my key').then(function(value) {console.log(value)});
-        DefaultPreference.clearAll()
+        console.log('결과 진입 nums', props.route.params.nums)
+        console.log('결과 진입 dreams', props.route.params.dreams)
+        console.log('결과 진입 bonus', props.route.params.bonus)
+        
     }, [])
+
+    const storeData = async (key: string, value: any) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (error) {
+            console.log('::: AsyncStorage set ERROR !! ')
+            return false
+        }
+
+        return true
+    };
+    
+    const retrieveData = async (key : string) => {
+        
+        try {
+            const value = await AsyncStorage.getItem(key);
+            if (value === null) return null; 
+            console.log(value);
+            return value
+        } catch (error) {
+            console.log('::: AsyncStorage get ERROR !! ')
+            return null; 
+        }
+    };
 
     return (
         <View style={styles.all}>

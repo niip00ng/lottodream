@@ -20,6 +20,9 @@ const GenerateNumber = (props : any) => {
 
     const [finish, setFinish] = useState(false)
     const [numbers, setNumber] = useState([])
+    const [dreams, setDreams] = useState([])
+    const [bonus, setBonus] = useState('')
+
     const genLib = require('../util/recommandLib')
 
     useEffect(() => {
@@ -28,20 +31,18 @@ const GenerateNumber = (props : any) => {
         console.log('결과 origin : ',  origin)
         const bonus = origin[origin.length-1]
         const dream = genLib.getDreamNumber(origin)
-        console.log('보너스수 : ',  bonus)
-        console.log('드림넘버 : ',  dream)
-
         let desc = genLib.getBonusWithArray(dream)
-        console.log('정렬넘버 : ',  desc)
 
+        console.log('꿈 목록 : ',  props.route.params.words)
+        console.log('드림넘버 : ',  dream)
+        console.log('정렬넘버 : ',  desc)
+        console.log('보너스수 : ',  bonus)
         const data = genLib.makeResultNumbersFormat(desc, origin, props.route.params.words)
         
-        data.push({
-            "number" : bonus,
-            "word" : 'bonus'
-        })
-        setNumber(data)
-        
+        setNumber(desc)
+        setDreams(data)
+        setBonus(bonus)
+
         setTimeout(() => {
             setFinish(!finish)
         }, 2500)
@@ -51,7 +52,9 @@ const GenerateNumber = (props : any) => {
         if(finish) return (
             <ShowResultOnBtn onPress={() => {
                 props.navigation.navigate('NumberResult', {
-                    result: numbers
+                    nums: numbers,
+                    dreams: dreams,
+                    bonus: bonus
                 })
             }}/>
         )

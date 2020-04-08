@@ -36,17 +36,18 @@ const SaveNumbers = forwardRef((props:any, ref) => {
 
     function addWord () {
         
-        if(value === '') {
-            Alert.alert('글자를 입력해주세요.');
-            return
-        }
+
         setWord([...word, value]);        
         onChangeText('')
 
     }
 
     function sendDreamName() {
-        props.end()
+        if(value === '') {
+            Alert.alert('글자를 입력해주세요.');
+            return
+        }
+        props.end(value)
         handleClose()
     }
 
@@ -100,7 +101,7 @@ const SaveNumbers = forwardRef((props:any, ref) => {
                                     placeholder='골프공에 귀신들린 꿈'
                                     numberOfLines={1}
                                     onChangeText={(text:string) => onChangeText(text)}
-                                    onSubmitEditing={addWord}
+                                    onSubmitEditing={sendDreamName}
                                     value={value} />
                             </View>
                         </View>
