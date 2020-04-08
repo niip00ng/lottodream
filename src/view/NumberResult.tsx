@@ -143,7 +143,7 @@ const NumberResult = (props : any) => {
             <View style={styles.footer}>
                 <View style={{flex:2}}>
                     <View style={styles.rectangle} >
-                        <Text style={styles.button} onPress={() => Alert.alert('다시하기')}>다시하기</Text>
+                        <Text style={styles.button} onPress={() => props.navigation.replace('InputWord')}>다시하기</Text>
                     </View>
                 </View>
                 <View style={{flex:1}}>

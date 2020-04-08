@@ -31,7 +31,7 @@ const InputWord = (props:any) => {
 
     function sendNext() {
         console.log('넥스트 버튼 클릭')
-        props.navigation.navigate('GenerateNumber', {
+        props.navigation.replace('GenerateNumber', {
             words: word
         })
     }

@@ -51,7 +51,7 @@ const GenerateNumber = (props : any) => {
     function showResultButton () {
         if(finish) return (
             <ShowResultOnBtn onPress={() => {
-                props.navigation.navigate('NumberResult', {
+                props.navigation.replace('NumberResult', {
                     nums: numbers,
                     dreams: dreams,
                     bonus: bonus

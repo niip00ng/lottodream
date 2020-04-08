@@ -39,7 +39,7 @@ const MyLotto = (props:any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => props.navigation.goBack()} />
+                    <Back onPress={() => props.navigation.goBack({key: 'MainPage'})} />
                 </View>
             </View>
             <View style={styles.body}>
