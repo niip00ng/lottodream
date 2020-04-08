@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 const Recommend = (props :any) => {
     const [selected, setSelected] = useState('');
     const [recommandData, setRecommandData] = useState();
-    const genLib = require('../../util/recommandLib')
+    const genLib = require('../../util/RecommandLib')
 
     const selectWord = React.useCallback(id => {
         props.add(id)

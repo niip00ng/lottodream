@@ -13,17 +13,15 @@ import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
-
-
+const Constant = require('../util/Constant')
 const NumberResult = (props : any) => {
 
     const [dateTitle, setDateTitle] = useState('')
     const [nowDate, setNowDate] = useState('')
     const modalOpen = useRef()
-    
-    let date=''
 
     const onClick = () => {
+        //@ts-ignore
         modalOpen.current.handleOpen();
     };
     
@@ -36,9 +34,8 @@ const NumberResult = (props : any) => {
             numList.push(props.route.params.bonus)
             dreamList.push('')
         }
- 
-        console.log(nowDate)
-        let newItem = {
+
+        const newItem = {
             name: dreamName,
             status: 0,
             round: '',
@@ -48,36 +45,17 @@ const NumberResult = (props : any) => {
         };
         
         console.log(newItem)
-        // if(storeData('key', 'nice')) {
-        //     retrieveData('key');
-        // }
 
-        //잘 저장 되었을떄 이동
-        console.log('보관함으로 이동')
-        //props.navigation.replace('MyLotto')
+        
+        //잘 저장 되었을
+        saveNewLotto(Constant.LOTTO_KEY, newItem);
     }
 
     const clickSaveButton = () => {
         let lottos = []
 
 
-    } 
-
-    useEffect( () => {
-        date = moment(new Date()).format('YYYY-MM-DD-HH-mm-ss');
-        let token = date.split('-')
-
-        // 실제 데이터 저장할 포멧
-        setNowDate(token[0]+'.'+token[1]+"."+token[2]+'  '+token[3]+":"+token[4]+":"+token[5])
-        
-        // 화면에 표시할 데이트 포멧
-        setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
-        
-        console.log('결과 진입 nums', props.route.params.nums)
-        console.log('결과 진입 dreams', props.route.params.dreams)
-        console.log('결과 진입 bonus', props.route.params.bonus)
-        
-    }, [])
+    }
 
     const storeData = async (key: string, value: any) => {
         try {
@@ -86,22 +64,70 @@ const NumberResult = (props : any) => {
             console.log('::: AsyncStorage set ERROR !! ')
             return false
         }
-
+    
         return true
     };
+
     
-    const retrieveData = async (key : string) => {
-        
+    const saveNewLotto = async (key : string, data:{}) => {
         try {
-            const value = await AsyncStorage.getItem(key);
-            if (value === null) return null; 
-            console.log(value);
-            return value
+            let value = await AsyncStorage.getItem(key);
+            if (value === null) {
+                console.log('널값 ',value); 
+                //@ts-ignore
+                value = JSON.stringify({ "lottoList": []});
+                console.log('널값이후 ',value); 
+            }
+            
+            //@ts-ignore
+            const lottoData = JSON.parse(value);
+            console.log('널값 ',lottoData); 
+            let lottoList = lottoData.lottoList
+            console.log('널값 ',lottoList); 
+            lottoList.push(data)
+            
+            console.log('retrieveData 내부값 : ', lottoList);
+            
+            if(storeData(Constant.LOTTO_KEY, JSON.stringify(lottoList))) {
+                console.log('SAVE SUCCESS');
+                console.log('보관함으로 이동')
+                props.navigation.replace('MyLotto')
+            }
+            else {
+                console.log('SAVE fail');
+            }
+            
         } catch (error) {
             console.log('::: AsyncStorage get ERROR !! ')
-            return null; 
         }
     };
+
+    const retrieveData = async (key : string) => {
+        try {
+            let value = await AsyncStorage.getItem(key);
+            if (value === null) return console.log('retrieveData 없음 ');; 
+            console.log('retrieveData 내부값 : ', value);
+        } catch (error) {
+            console.log('::: AsyncStorage get ERROR !! ')
+        }
+    }
+
+    useEffect( () => {
+        let date = moment(new Date()).format('YYYY-MM-DD-HH-mm-ss');
+        let token = date.split('-')
+
+        // 실제 데이터 저장할 포멧
+        setNowDate(token[0]+'.'+token[1]+"."+token[2]+'  '+token[3]+":"+token[4]+":"+token[5])
+        
+        // 화면에 표시할 데이트 포멧
+        setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
+        
+        AsyncStorage.removeItem(Constant.LOTTO_KEY);
+
+        retrieveData(Constant.LOTTO_KEY);
+    }, [])
+
+
 
     return (
         <View style={styles.all}>

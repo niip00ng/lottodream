@@ -23,7 +23,7 @@ const GenerateNumber = (props : any) => {
     const [dreams, setDreams] = useState([])
     const [bonus, setBonus] = useState('')
 
-    const genLib = require('../util/recommandLib')
+    const genLib = require('../util/RecommandLib')
 
     useEffect(() => {
         
