@@ -22,7 +22,6 @@ const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
     const [word, setWord] = useState([]);
 
-
     // next 버튼 활성화
     function activateButton () {
         if(word.length < 6) return <GenerateNumberOff/>
