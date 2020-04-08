@@ -13,12 +13,15 @@ import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 import DefaultPreference from 'react-native-default-preference';
+import moment from 'moment'
 
 const NumberResult = (props : any) => {
 
+    const [dateTitle, setDateTitle] = useState('')
     const [isOpen, setIsOpen] = useState(false)
     const modalOpen = useRef()
-
+    let date = ''
+    
     const onClick = () => {
         modalOpen.current.handleOpen();
     };
@@ -29,6 +32,11 @@ const NumberResult = (props : any) => {
     }
 
     useEffect(() => {
+        var d = new Date();
+        date = moment(d).format('YYYY-MM-DD-HH-mm-ss');
+        let token = date.split('-')
+        setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
+        
         console.log('결과 진입 ', props.route.params.result)
         if (Platform.OS === 'android') DefaultPreference.setName('NativeStorage');
         DefaultPreference.getName().then(function(value) {console.log(value)});
@@ -41,7 +49,7 @@ const NumberResult = (props : any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.todayView}>
-                    <View><Text style={styles.todayTitle}>2020년 4월 21일</Text></View>
+                    <View><Text style={styles.todayTitle}>{dateTitle}</Text></View>
                 </View>
             </View>
             <View style={styles.body}>

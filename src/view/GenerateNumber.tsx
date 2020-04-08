@@ -19,7 +19,6 @@ import LottieView from 'lottie-react-native'
 const GenerateNumber = (props : any) => {
 
     const [finish, setFinish] = useState(false)
-    const [timerId, setTimerId] = useState(0)
     const [numbers, setNumber] = useState([])
     const genLib = require('../util/recommandLib')
 
