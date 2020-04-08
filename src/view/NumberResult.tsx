@@ -72,23 +72,21 @@ const NumberResult = (props : any) => {
     const saveNewLotto = async (key : string, data:{}) => {
         try {
             let value = await AsyncStorage.getItem(key);
+                console.log('현재 보관함 리스트 : ',value); 
             if (value === null) {
-                console.log('널값 ',value); 
                 //@ts-ignore
-                value = JSON.stringify({ "lottoList": []});
-                console.log('널값이후 ',value); 
+                value = JSON.stringify([]);
             }
             
             //@ts-ignore
             const lottoData = JSON.parse(value);
-            console.log('널값 ',lottoData); 
-            let lottoList = lottoData.lottoList
-            console.log('널값 ',lottoList); 
-            lottoList.push(data)
+            console.log('lottoData ',lottoData); 
             
-            console.log('retrieveData 내부값 : ', lottoList);
+            lottoData.push(data)
             
-            if(storeData(Constant.LOTTO_KEY, JSON.stringify(lottoList))) {
+            console.log('saveNewLotto 내부값 : ', lottoData);
+            
+            if(storeData(Constant.LOTTO_KEY, JSON.stringify(lottoData))) {
                 console.log('SAVE SUCCESS');
                 console.log('보관함으로 이동')
                 props.navigation.replace('MyLotto')
@@ -124,7 +122,7 @@ const NumberResult = (props : any) => {
         
         //AsyncStorage.removeItem(Constant.LOTTO_KEY);
 
-        retrieveData(Constant.LOTTO_KEY);
+        //retrieveData(Constant.LOTTO_KEY);
     }, [])
 
 
