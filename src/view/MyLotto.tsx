@@ -12,22 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const MyLotto = (props:any) => {
     const Constant = require('../util/Constant')
-    const [myLotto, setMyLotto] = useState(    [
-        // {
-        //     //꿈이름
-        //     'name': '꿈이름',
-        //     // 내 로또번호 이번주 등수
-        //     'status' : 5,
-        //     // 로또 회차
-        //     'round' : 749,
-        //     // 산출 날짜
-        //     'date': '2020.04.01  12:34',
-        //     // 번호 6개 + 보너스 1개
-        //     'numbers' : [1,20,30,40,41,42,8],
-        //     // 꿈 6개
-        //     'dreams' : ['개','소','말','돼지','똥','병아리', ''],
-        // }
-    ]);
+    const [myLotto, setMyLotto] = useState(    []);
 
     // 나의 로또 정보 가져오기
     const retrieveData = async (key : string) => {

@@ -15,16 +15,22 @@ import Dot40 from '../../../assets/svg/dot40.svg' ;
 const LottoCardGroup = (props: any) => {
 
     const [numList, setNumList] = useState([]);
-    
+    const [bonus, setBonus] = useState(0);
     
     useEffect(() => {
         console.log('초기화 중 ...');
         console.log('numbers : ', props.numbers)
-        setNumList(props.numbers)
+        let mainNum = props.numbers;
+        // 보너스 번호만 추려내기
+        console.log('보너스번호 : ', mainNum[mainNum.length - 1])
+        setBonus(mainNum[mainNum.length - 1]);
+
+        mainNum.splice(mainNum.length-1, 1);
+        setNumList(mainNum)
     }, [])
 
     function NumberList(props : any) {
-        const numbers = props.num;
+        const numbers = props.numbers;
         console.log('숫자리스트 : ', numbers)
         
         if(numbers === undefined) return ;
@@ -64,7 +70,14 @@ const LottoCardGroup = (props: any) => {
                 </View> 
             </View>
             <View style={styles.body}>
-                <NumberList num={numList}></NumberList>
+                <NumberList numbers={numList}></NumberList>
+                <View style={styles.numberSet}>
+                    <Text style={styles.lottoNumber}>+</Text>
+                </View>
+                <View style={styles.numberSet}>
+                    {NumberColor(bonus)}
+                    <Text style={styles.lottoNumber}>{bonus}</Text>
+                </View>
             </View>
         </View>
         

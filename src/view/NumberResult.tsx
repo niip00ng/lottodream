@@ -122,7 +122,7 @@ const NumberResult = (props : any) => {
         // 화면에 표시할 데이트 포멧
         setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
         
-        AsyncStorage.removeItem(Constant.LOTTO_KEY);
+        //AsyncStorage.removeItem(Constant.LOTTO_KEY);
 
         retrieveData(Constant.LOTTO_KEY);
     }, [])
