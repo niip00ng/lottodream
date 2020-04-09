@@ -16,14 +16,14 @@ let { width, height } = Dimensions.get('window');
 
 // 해당 화면의 가로와 높이
 let w = width
-let h = height*0.64
+let h = height/2
 
 // 사각형 가로, 대각선길이
-let radus = h/6
+let radus = h/4.5
 let diagonal = radus * 1.5
 
 // 기준점
-let baseLeft = w/2 - radus/2;
+let baseLeft = w/2 - radus/1.2;
 let baseTop = h/2 - radus/2;
 
 // 간격
@@ -61,14 +61,19 @@ const NumberCard = (props : any) => {
         top : baseTop + diagonal/gapHeight * 2
     }, ]
 
-    function setCard() {
-        return props.nums.map((num: any, index:any)  => {
+    function SetCard(props : any) {
+        const numbers = props.number;
+        console.log(numbers)
+
+        if(numbers === undefined) return;
+
+        return props.number.map((num: any, index:any)  => {
             return (
                  <View style={[styles.rectangle, recStyle[index]]} key={index}>
                      <View style={{right: radus/6}}>
                         <NumberColor num={num}/>
                      </View>
-                    <Text style={styles.cardText}> {num} </Text>
+                    <Text style={styles.cardText} onPress={() => {console.log(123123)}}> {num} </Text>
                 </View>
             );
         });
@@ -82,9 +87,9 @@ const NumberCard = (props : any) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.overlayTop}>
-                {setCard()}
-            </View>
+            
+                <SetCard number={props.nums}/>
+            
         </View>
     )
 }
@@ -92,20 +97,13 @@ const NumberCard = (props : any) => {
 var styles = StyleSheet.create({
     container: {
       
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      width: w,
+      height: h
     },
     welcome: {
       fontSize: 20,
       textAlign: 'center',
       padding: 0
-    },
-    overlayTop: {
-      flex: 1,
-      position: 'absolute', 
-      width: w,
-      height: h
     },
     rectangle : {
         position: 'absolute',

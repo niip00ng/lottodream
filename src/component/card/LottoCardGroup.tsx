@@ -39,7 +39,7 @@ const LottoCardGroup = (props: any) => {
             return (
                 <View style={styles.numberSet} key={index}>
                     <NumberColor num={element}/>
-                    <Text style={styles.lottoNumber}>{element}</Text>
+                    <Text style={styles.lottoNumber} >{element}</Text>
                 </View>
             );
         });
