@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator headerMode="none" initialRouteName="NumberResultTest">
+            <Stack.Navigator headerMode="none" initialRouteName="MainPage">
                 <Stack.Screen name="MainPage" component={MainPage} />
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="InputWord" component={InputWord} />

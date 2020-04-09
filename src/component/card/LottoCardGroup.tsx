@@ -5,6 +5,7 @@ import {
     Text,
     View
 } from 'react-native';
+import NumberColor from './NumberColor';
 import Lines from '../../../assets/svg/line.svg' ;
 import Dot01 from '../../../assets/svg/dot01.svg' ;
 import Dot20 from '../../../assets/svg/dot20.svg' ;
@@ -37,19 +38,11 @@ const LottoCardGroup = (props: any) => {
         return numbers.map((element: any, index:any)  => {
             return (
                 <View style={styles.numberSet} key={index}>
-                    {NumberColor(element)}
+                    <NumberColor num={element}/>
                     <Text style={styles.lottoNumber}>{element}</Text>
                 </View>
             );
         });
-    };
-    function NumberColor(num:number) {
-
-        if(num < 11) return <Dot01/>;
-        else if(num <21) return <Dot01/>;
-        else if(num <31) return <Dot20/>;
-        else if(num <41) return <Dot30/>;
-        else return <Dot40/>;
     };
 
     function LottoStatus(status:number, round:number) {
@@ -75,7 +68,7 @@ const LottoCardGroup = (props: any) => {
                     <Text style={styles.lottoNumber}>+</Text>
                 </View>
                 <View style={styles.numberSet}>
-                    {NumberColor(bonus)}
+                    <NumberColor num={bonus}/>
                     <Text style={styles.lottoNumber}>{bonus}</Text>
                 </View>
             </View>

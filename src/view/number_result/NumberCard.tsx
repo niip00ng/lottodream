@@ -29,34 +29,55 @@ let gapWidth = 1.33;
 let gapHeight = 2;
 
 const NumberCard = (props : any) => {
-    
+    const numbers = [1,20,30,40,41,42,45]
+    const recStyle = [{
+        left: baseLeft,
+        top : baseTop - diagonal/gapHeight * 2
+    },
+    {
+        left: baseLeft - radus/gapWidth,
+        top : baseTop - diagonal/gapHeight
+    },
+    {
+        left: baseLeft + radus/gapWidth,
+        top : baseTop - diagonal/gapHeight
+    },
+    {
+        left: baseLeft,
+        top : baseTop
+    },
+    {
+        left: baseLeft - radus/gapWidth,
+        top : baseTop + diagonal/gapHeight
+    },
+    {
+        left: baseLeft + radus/gapWidth,
+        top : baseTop + diagonal/gapHeight
+    },
+    {
+        left: baseLeft,
+        top : baseTop + diagonal/gapHeight * 2
+    }, ]
+
+    function setCard() {
+        const numberList = numbers;
+        console.log('숫자리스트 : ', numberList)
+        
+        if(numberList === undefined) return ;
+        return numberList.map((num: any, index:any)  => {
+            console.log(num)
+            return (
+                 <View style={[styles.rectangle, recStyle[index]]} key={index}>
+                    <Text style={styles.cardText}> {num} </Text>
+                </View>
+            );
+        });
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.overlayTop}>
-                <View>
-                    <BaseCard style={[styles.recTop]}/>
-                </View>
-                <View style={[styles.rectangle, styles.rec1]}>
-                    <Text style={styles.cardText}>1</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec2]}>
-                    <Text style={styles.cardText}>2</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec3]}>
-                    <Text style={styles.cardText}>3</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec4]}>
-                    <Text style={styles.cardText}>4</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec5]}>
-                    <Text style={styles.cardText}> 5</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec6]}>
-                    <Text style={styles.cardText}>6</Text>
-                </View>
-                <View style={[styles.rectangle, styles.rec7]}>
-                    <Text style={styles.cardText}>7</Text>
-                </View>
+                {setCard()}
             </View>
         </View>
     )
