@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import BaseCard from '../../../assets/svg/base_card.svg';
+import BaseBottom from '../../../assets/svg/base_bottom.svg';
 import NumberColor from '../../component/card/NumberColor';
 
 let { width, height } = Dimensions.get('window');
@@ -141,9 +142,9 @@ const NumberCard = (props : any) => {
             return (
                 <TouchableOpacity style={[styles.rectangle, recStyle[index], recColor()]} onPress={() => {call(param.number)}} key={index}>
                         <View style={{right: radus/6}}>
-                        <NumberColor num={param.number}/>
-                    </View>
-                    {contents()}
+                            <NumberColor num={param.number}/>
+                        </View>
+                        {contents()}
                 </TouchableOpacity>
             );
         });
@@ -168,9 +169,15 @@ const NumberCard = (props : any) => {
     ]
     return (
         <View style={styles.container}>
-            <BaseCard/>
+            <View style={styles.baseTop}>
+                <BaseCard/>
+            </View>
             {/* <SetCard params={props.params}/> */}
             <SetCard params={sample}/>
+
+            <View style={styles.baseBottom}>
+                <BaseBottom/>
+            </View>
         </View>
     )
 }
@@ -196,9 +203,13 @@ var styles = StyleSheet.create({
     },
     //let baseLeft = w/2 - radus/2;
     //let baseTop = diagonal;
-    recTop: {
-        left: baseLeft + 7.7,
+    baseTop: {
+        left: baseLeft + 9,
         top: baseTop - diagonal/gapHeight * 2.7,
+    }, 
+    baseBottom: {
+        left: baseLeft + 9,
+        top: baseTop + diagonal/gapHeight * 2.2,
     }, 
     cardText : {
         fontSize: 24,
