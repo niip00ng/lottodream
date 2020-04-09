@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -12,17 +12,20 @@ import {
 import CustomButton from '../component/button/CustomButton';
 import Menu from '../../assets/svg/menu.svg' ;
 import MainPageStartBtn from '../../assets/svg/mainpage_start.svg' ;
-
-declare var global: {
-    HermesInternal: null | {}
-};
+const clickSafe =require('../util/click_safe')
 
 const MainPage = (props:any) => {
+    
+    useEffect(() => {
+        
+    }, [])
     return (
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.menuBtn}>
-                    <Menu onPress={() => props.navigation.push('MyLotto')}/>
+                    <Menu onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.push('MyLotto')
+                    }}/>
                 </View>
             </View>
             <View style={styles.body}>
@@ -38,7 +41,10 @@ const MainPage = (props:any) => {
             </View>
             <View style={styles.footer}>
                 <View style={{}}>
-                    <MainPageStartBtn onPress={() => props.navigation.push('Welcome')}/>
+                    <MainPageStartBtn onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.push('Welcome')
+                    }   
+                    }/>
                 </View>
                 
             </View>

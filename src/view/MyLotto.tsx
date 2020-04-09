@@ -8,10 +8,11 @@ import {
 import LottoCardGroup from '../component/card/LottoCardGroup'
 import Back from '../../assets/svg/back.svg' ;
 import AsyncStorage from '@react-native-community/async-storage';
-
+const constant = require('../util/Constant')
+const clickSafe =require('../util/click_safe')
 
 const MyLotto = (props:any) => {
-    const Constant = require('../util/Constant')
+
     const [myLotto, setMyLotto] = useState(    []);
 
     // 나의 로또 정보 가져오기
@@ -31,7 +32,7 @@ const MyLotto = (props:any) => {
 
     // 초기화
     useEffect(() => {
-        retrieveData(Constant.LOTTO_KEY);
+        retrieveData(constant.LOTTO_KEY);
     }, [])
 
     
@@ -39,7 +40,9 @@ const MyLotto = (props:any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => props.navigation.goBack({key: 'MainPage'})} />
+                    <Back onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
+                    }} />
                 </View>
             </View>
             <View style={styles.body}>

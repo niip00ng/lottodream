@@ -17,6 +17,7 @@ import BtnX from '../../assets/svg/btn_x.svg' ;
 import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
+const clickSafe =require('../util/click_safe')
 
 const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
@@ -26,11 +27,12 @@ const InputWord = (props:any) => {
     function activateButton () {
         if(word.length < 6) return <GenerateNumberOff/>
         
-        return <GenerateNumberOn onPress={sendNext}/>
+        return <GenerateNumberOn onPress={() => {
+            if(clickSafe.safeClicked()) sendNext()
+        }}/>
     }
 
     function sendNext() {
-        console.log('넥스트 버튼 클릭')
         props.navigation.replace('GenerateNumber', {
             words: word
         })
@@ -133,7 +135,6 @@ const InputWord = (props:any) => {
 
         setWord([...word, e]);
         onChangeText('')
-        
     }
 
     return (
@@ -142,7 +143,9 @@ const InputWord = (props:any) => {
             <KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
                 <View style={styles.header}>
                     <View style={styles.backBtn}>
-                        <Back onPress={() => props.navigation.goBack()} />
+                        <Back onPress={() => {
+                            if(clickSafe.safeClicked()) props.navigation.goBack()
+                        }} />
                         {componentTitle()}
                     </View>
                 </View>

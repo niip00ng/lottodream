@@ -15,6 +15,7 @@ import LoadEnd from '../../assets/lottie/loading_end.json' ;
 import ShowResultOffBtn from '../../assets/svg/show_result.svg' ;
 import ShowResultOnBtn from '../../assets/svg/show_result_on.svg' ;
 import LottieView from 'lottie-react-native'
+const clickSafe =require('../util/click_safe')
 
 const GenerateNumber = (props : any) => {
 
@@ -23,7 +24,7 @@ const GenerateNumber = (props : any) => {
     const [dreams, setDreams] = useState([])
     const [bonus, setBonus] = useState('')
 
-    const genLib = require('../util/RecommandLib')
+    const genLib = require('../util/recommandLib')
 
     useEffect(() => {
         
@@ -51,11 +52,13 @@ const GenerateNumber = (props : any) => {
     function showResultButton () {
         if(finish) return (
             <ShowResultOnBtn onPress={() => {
-                props.navigation.replace('NumberResult', {
-                    nums: numbers,
-                    dreams: dreams,
-                    bonus: bonus
-                })
+                if(clickSafe.safeClicked()) {
+                    props.navigation.replace('NumberResult', {
+                        nums: numbers,
+                        dreams: dreams,
+                        bonus: bonus
+                    })
+                }
             }}/>
         )
 
@@ -102,7 +105,9 @@ const GenerateNumber = (props : any) => {
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => props.navigation.goBack({key: 'MainPage'})} />
+                    <Back onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
+                    }} />
                     <View style={{paddingTop: 10, paddingLeft: 12}}><Text>숫자추출하기</Text></View>
                 </View>
             </View>

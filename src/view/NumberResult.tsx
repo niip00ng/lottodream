@@ -13,6 +13,8 @@ import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
+import { safeClicked } from 'src/util/click_safe';
+const clickSafe =require('../util/click_safe')
 const Constant = require('../util/Constant')
 const NumberResult = (props : any) => {
 
@@ -143,7 +145,9 @@ const NumberResult = (props : any) => {
             <View style={styles.footer}>
                 <View style={{flex:2}}>
                     <View style={styles.rectangle} >
-                        <Text style={styles.button} onPress={() => props.navigation.replace('InputWord')}>다시하기</Text>
+                        <Text style={styles.button} onPress={() => {
+                            if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
+                        }}>다시하기</Text>
                     </View>
                 </View>
                 <View style={{flex:1}}>
@@ -151,7 +155,9 @@ const NumberResult = (props : any) => {
                 </View>
                 <View style={{flex:2}}>
                     <View style={styles.rectangle}>
-                        <Text style={styles.button} onPress={onClick}>저장하기</Text>
+                        <Text style={styles.button} onPress={ () => {
+                            if(clickSafe.safeClicked()) onClick()
+                        }}>저장하기</Text>
                     </View>
                 </View>
             </View>

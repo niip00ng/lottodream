@@ -11,14 +11,16 @@ import {
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
-
+const clickSafe =require('../util/click_safe')
 
 const WelcomeUser = (props:any) => {
     return (
         <View style={styles.all}>
             <View style={styles.header}>
                 <View style={styles.backBtn}>
-                    <Back onPress={() => props.navigation.goBack({key: 'MainPage'})} />
+                    <Back onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
+                    }} />
                     <View style={{paddingTop: 10, paddingLeft: 12}}><Text>시작하기</Text></View>
                     
                 </View>
@@ -35,7 +37,9 @@ const WelcomeUser = (props:any) => {
             </View>
             <View style={styles.footer}>
                 <View>
-                    <WelcomeStartBtn onPress={() => props.navigation.push('InputWord')}/>
+                    <WelcomeStartBtn onPress={() => {
+                        if(clickSafe.safeClicked()) props.navigation.push('InputWord')
+                    }}/>
                 </View>
             </View>
         </View>
