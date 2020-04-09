@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import BaseCard from '../../../assets/svg/base_card.svg';
+import NumberColor from '../../component/card/NumberColor';
+
 let { width, height } = Dimensions.get('window');
 
 // 해당 화면의 가로와 높이
@@ -68,6 +70,9 @@ const NumberCard = (props : any) => {
             console.log(num)
             return (
                  <View style={[styles.rectangle, recStyle[index]]} key={index}>
+                     <View style={{right: radus/6}}>
+                        <NumberColor num={num}/>
+                     </View>
                     <Text style={styles.cardText}> {num} </Text>
                 </View>
             );
@@ -145,6 +150,8 @@ var styles = StyleSheet.create({
         top : baseTop + diagonal/gapHeight * 2
     }, 
     cardText : {
+        fontSize: 24,
+        fontFamily: "NanumMyeongjo",
         transform: [{ rotate: "-45deg" }]
     },
   });

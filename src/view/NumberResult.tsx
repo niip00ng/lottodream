@@ -13,9 +13,12 @@ import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
 import SaveModal from '../component/modal/SaveNumbers';
 import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
-import { safeClicked } from 'src/util/click_safe';
+import El from '../../assets/svg/el.svg';
+import NumberCard from './number_result/NumberCard'
 const clickSafe =require('../util/click_safe')
 const Constant = require('../util/Constant')
+
+
 const NumberResult = (props : any) => {
 
     const [dateTitle, setDateTitle] = useState('')
@@ -141,6 +144,26 @@ const NumberResult = (props : any) => {
                     <Text style={styles.titleText}>당신의</Text>
                     <Text style={styles.titleText}>해몽 숫자는</Text>
                 </View>
+                <View style={styles.cardSet}>
+                    <View style={styles.eltop}>
+                        <View>
+                            <El/>
+                        </View>
+                        <View style={{ transform: [{ rotate: "90deg" }]}}>
+                            <El/>
+                        </View>
+                    </View>
+                    <NumberCard/>
+                    <View style={styles.eltop}>
+                        <View style={{ transform: [{ rotate: "270deg" }]}}>
+                            <El/>
+                        </View>
+                        <View style={{ transform: [{ rotate: "180deg" }]}}>
+                            <El/>
+                        </View>
+                    </View>
+
+                </View>
             </View>
             <View style={styles.footer}>
                 <View style={{flex:2}}>
@@ -166,7 +189,6 @@ const NumberResult = (props : any) => {
     )
 }
 
-
 const styles = StyleSheet.create({
     modal: {
         justifyContent: 'center',
@@ -187,7 +209,8 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     body: {
-        flex: 6,
+        flex: 15,
+        paddingBottom: 40
     },
     menuBtn: {
         paddingLeft:20,
@@ -201,22 +224,13 @@ const styles = StyleSheet.create({
         fontFamily: "NanumMyeongjo",
         fontSize: 32,
     },
-    subTitle: {    
-        padding:40
-    },
-    subText: {
-        fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        width:350,
-        lineHeight: 30,
-    },
     footer: {
         flexDirection: 'row',
-        flex: 1,
+        flex: 2,
     },
     todayView: {
         paddingLeft:10,
-        height: 80,
+        height: 50,
         width: 300
     },
     todayTitle: {
@@ -226,9 +240,6 @@ const styles = StyleSheet.create({
     button: {
         fontFamily: "NanumMyeongjo",
         fontSize: 20,
-    },
-    recView : {
-        alignItems: 'center',
     },
     rectangle: {
         alignSelf:'center',
@@ -240,7 +251,19 @@ const styles = StyleSheet.create({
         width: 80,
         height: 30,
         backgroundColor: '#E5E5E5',
-      }
+    },
+      cardSet : {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
+        paddingTop: 40,
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+    eltop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 });
 
 export default NumberResult;
