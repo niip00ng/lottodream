@@ -46,7 +46,7 @@ const NumberResultTest = (props : any) => {
                         <View>
                             <El/>
                         </View>
-                        <View style={{ transform: [{ rotate: "0deg" }]}}>
+                        <View style={{ transform: [{ rotate: "90deg" }]}}>
                             <El/>
                         </View>
                     </View>
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 15,
+        paddingBottom: 40
     },
     menuBtn: {
         paddingLeft:20,
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 30,
         marginRight: 30,
-        backgroundColor: '#5ED954',
+        paddingTop: 40,
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
