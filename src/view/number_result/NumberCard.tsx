@@ -1,8 +1,8 @@
 import React , {useState, useRef,useEffect }from 'react'
 import {
-    Platform,
+    TouchableOpacity,
     StyleSheet,
-    ScrollView,
+    Animated,
     View,
     Dimensions,
     Text,
@@ -62,41 +62,119 @@ const NumberCard = (props : any) => {
     }, ]
 
     function SetCard(props : any) {
-        const numbers = props.number;
-        console.log(numbers)
+        
+        return props.params.map((param: any, index:any)  => {
 
-        if(numbers === undefined) return;
+            const [front] = useState(new Animated.Value(0))
+            const [backend] = useState(new Animated.Value(0))
 
-        return props.number.map((num: any, index:any)  => {
+            function fadeIn() {
+                Animated.timing(front, {
+                        toValue: 1,
+                        duration: 500,
+                        useNativeDriver: true
+                    }).start();
+            }
+            function fadeOut() {
+                
+                Animated.timing(front, {
+                        toValue: 0,
+                        duration: 200,
+                        useNativeDriver: true
+                    }).start();
+            }
+            function fadeInB() {
+                Animated.timing(backend, {
+                        toValue: 1,
+                        duration: 500,
+                        useNativeDriver: true
+                    }).start();
+            }
+        
+            function fadeOutB() {
+                Animated.timing(backend, {
+                        toValue: 0,
+                        duration: 200,
+                        useNativeDriver: true
+                    }).start();
+            }
+            const [clicked, setClicked] = useState(false)
+
+            function call (num:any) {
+                if(clicked) {
+                    fadeIn()
+                    fadeOutB()
+                }else {
+                    fadeOut()
+                    fadeInB()
+                }
+                setClicked(!clicked)
+            }
+            useEffect(() => {
+                fadeIn()
+            }, [])
+
+
+            function contents () {
+                if(clicked) {
+                    return (
+                        <Animated.View style={{opacity: backend}}>
+                            <Text style={[styles.cardText, {color:'#FFFFFF'}]} > {param.word} </Text>
+                        </Animated.View>
+                    )
+                }
+                return (
+                    <Animated.View style={{opacity: front}}>
+                        <Text style={styles.cardText} > {param.number} </Text>
+                    </Animated.View>
+                )
+            }
+            const recColor=() => {
+                if(!clicked) return {
+
+                }
+
+                return {
+                    backgroundColor: '#383838',
+                }
+            }
             return (
-                 <View style={[styles.rectangle, recStyle[index]]} key={index}>
-                     <View style={{right: radus/6}}>
-                        <NumberColor num={num}/>
-                     </View>
-                    <Text style={styles.cardText} onPress={() => {console.log(123123)}}> {num} </Text>
-                </View>
+                <TouchableOpacity style={[styles.rectangle, recStyle[index], recColor()]} onPress={() => {call(param.number)}} key={index}>
+                        <View style={{right: radus/6}}>
+                        <NumberColor num={param.number}/>
+                    </View>
+                    {contents()}
+                </TouchableOpacity>
             );
         });
     };
 
 
     useEffect(() => {
-        console.log('NumberCard : ', props.nums)
-        console.log('NumberCard : ', props.words)
+        //console.log('NumberCard : ', props.nums)
+        //console.log('NumberCard : ', props.words)
+        console.log(props.params)
     }, [])
 
+
+    const sample = [
+        {'number': 1, 'word': 'a'},
+        {'number': 10, 'word': 'b'},
+        {'number': 20, 'word': 'c'},
+        {'number': 30, 'word': 'd'},
+        {'number': 40, 'word': 'e'},
+        {'number': 45, 'word': 'F'},
+        {'number': 41, 'word': 'bonus'},
+    ]
     return (
         <View style={styles.container}>
-            
-                <SetCard number={props.nums}/>
-            
+            <SetCard params={props.params}/>
         </View>
     )
 }
 
 var styles = StyleSheet.create({
     container: {
-      
       width: w,
       height: h
     },
@@ -123,7 +201,7 @@ var styles = StyleSheet.create({
     cardText : {
         fontSize: 24,
         fontFamily: "NanumMyeongjo",
-        transform: [{ rotate: "-45deg" }]
+        transform: [{ rotate: "-45deg" }],
     },
   });
 

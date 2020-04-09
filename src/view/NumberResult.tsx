@@ -25,14 +25,15 @@ const NumberResult = (props : any) => {
     const [nowDate, setNowDate] = useState('')
     const modalOpen = useRef()
 
-    const [cardNum, setCardNum] = useState([])
-    const [cardWords, setCardWords] = useState([])
+    const [params, setParams] = useState([])
     const onClick = () => {
         //@ts-ignore
         modalOpen.current.handleOpen();
     };
     
-    const moveMyLotto = (dreamName: string) => {
+
+    // 꿈이름 넘어와서 저장
+    const confirmDreamName = (dreamName: string) => {
         
         let numList = props.route.params.nums
         let dreamList = props.route.params.dreams
@@ -56,12 +57,6 @@ const NumberResult = (props : any) => {
         
         //잘 저장 되었을
         saveNewLotto(Constant.LOTTO_KEY, newItem);
-    }
-
-    const clickSaveButton = () => {
-        let lottos = []
-
-
     }
 
     const storeData = async (key: string, value: any) => {
@@ -129,14 +124,23 @@ const NumberResult = (props : any) => {
         // array 복사
         let cNum = JSON.parse(JSON.stringify(props.route.params.nums))
         let cWords = JSON.parse(JSON.stringify(props.route.params.dreams))
-        
-        // 마지막에 각각 보너스 번호와 이름을 추가
-        cNum.push(props.route.params.bonus)
-        cWords.push('보너스')
 
-        setCardNum(cNum)
-        setCardWords(cWords)
+        let params = []
+        for(let i in props.route.params.nums) {
+            params.push({
+                'number' : props.route.params.nums[i],
+                'word' : props.route.params.dreams[i]
+            })
+        }
+
+        params.push({
+            'number' : props.route.params.bonus,
+            'word' : '보너스'
+        })
         
+        console.log('NumberResult : ', params)
+        setParams(params)
+
         // 실제 데이터 저장할 포멧
         setNowDate(token[0]+'.'+token[1]+"."+token[2]+'  '+token[3]+":"+token[4]+":"+token[5])
         
@@ -170,7 +174,7 @@ const NumberResult = (props : any) => {
                             <El/>
                         </View>
                     </View>
-                    <NumberCard nums={cardNum} words={cardWords} />
+                    <NumberCard params={params}/>
                     <View style={styles.eltop}>
                         <View style={{ transform: [{ rotate: "270deg" }]}}>
                             <El/>
@@ -201,7 +205,7 @@ const NumberResult = (props : any) => {
                     </View>
                 </View>
             </View>
-            <SaveModal ref={modalOpen} end={moveMyLotto}/>
+            <SaveModal ref={modalOpen} end={confirmDreamName}/>
         </View>
     )
 }
