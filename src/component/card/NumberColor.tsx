@@ -10,7 +10,6 @@ import Dot40 from '../../../assets/svg/dot40.svg' ;
 const NumberColor = (props : any) => {
 
     function defineColor() {
-        console.log(props.num)
         if(props.num < 10) return <Dot01/>;
         else if(props.num <20) return <Dot10/>;
         else if(props.num <30) return <Dot20/>;

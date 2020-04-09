@@ -25,6 +25,8 @@ const NumberResult = (props : any) => {
     const [nowDate, setNowDate] = useState('')
     const modalOpen = useRef()
 
+    const [cardNum, setCardNum] = useState([])
+    const [cardWords, setCardWords] = useState([])
     const onClick = () => {
         //@ts-ignore
         modalOpen.current.handleOpen();
@@ -119,14 +121,29 @@ const NumberResult = (props : any) => {
         let date = moment(new Date()).format('YYYY-MM-DD-HH-mm-ss');
         let token = date.split('-')
 
+        console.log('NumberResult : ' , props.route.params.nums)
+        console.log('NumberResult : ' , props.route.params.dreams)
+        console.log('NumberResult : ' , props.route.params.bonus)
+
+
+        // array 복사
+        let cNum = JSON.parse(JSON.stringify(props.route.params.nums))
+        let cWords = JSON.parse(JSON.stringify(props.route.params.dreams))
+        
+        // 마지막에 각각 보너스 번호와 이름을 추가
+        cNum.push(props.route.params.bonus)
+        cWords.push('보너스')
+
+        setCardNum(cNum)
+        setCardWords(cWords)
+        
         // 실제 데이터 저장할 포멧
         setNowDate(token[0]+'.'+token[1]+"."+token[2]+'  '+token[3]+":"+token[4]+":"+token[5])
         
         // 화면에 표시할 데이트 포멧
         setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
-        
-        //AsyncStorage.removeItem(Constant.LOTTO_KEY);
 
+        //AsyncStorage.removeItem(Constant.LOTTO_KEY);
         //retrieveData(Constant.LOTTO_KEY);
     }, [])
 
@@ -153,7 +170,7 @@ const NumberResult = (props : any) => {
                             <El/>
                         </View>
                     </View>
-                    <NumberCard/>
+                    <NumberCard nums={cardNum} words={cardWords} />
                     <View style={styles.eltop}>
                         <View style={{ transform: [{ rotate: "270deg" }]}}>
                             <El/>

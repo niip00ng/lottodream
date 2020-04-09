@@ -29,15 +29,15 @@ const GenerateNumber = (props : any) => {
     useEffect(() => {
         
         const origin = genLib.generateLotto(props.route.params.words);
-        console.log('결과 origin : ',  origin)
+        console.log('GenerateNumber 결과 origin : ',  origin)
         const bonus = origin[origin.length-1]
         const dream = genLib.getDreamNumber(origin)
         let desc = genLib.getBonusWithArray(dream)
 
-        console.log('꿈 목록 : ',  props.route.params.words)
-        console.log('드림넘버 : ',  dream)
-        console.log('정렬넘버 : ',  desc)
-        console.log('보너스수 : ',  bonus)
+        console.log('GenerateNumber 꿈 목록 : ',  props.route.params.words)
+        console.log('GenerateNumber 드림넘버 : ',  dream)
+        console.log('GenerateNumber 정렬넘버 : ',  desc)
+        console.log('GenerateNumber 보너스수 : ',  bonus)
         const data = genLib.makeResultNumbersFormat(desc, origin, props.route.params.words)
         
         setNumber(desc)

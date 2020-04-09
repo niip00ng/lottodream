@@ -62,12 +62,7 @@ const NumberCard = (props : any) => {
     }, ]
 
     function setCard() {
-        const numberList = numbers;
-        console.log('숫자리스트 : ', numberList)
-        
-        if(numberList === undefined) return ;
-        return numberList.map((num: any, index:any)  => {
-            console.log(num)
+        return props.nums.map((num: any, index:any)  => {
             return (
                  <View style={[styles.rectangle, recStyle[index]]} key={index}>
                      <View style={{right: radus/6}}>
@@ -78,6 +73,12 @@ const NumberCard = (props : any) => {
             );
         });
     };
+
+
+    useEffect(() => {
+        console.log('NumberCard : ', props.nums)
+        console.log('NumberCard : ', props.words)
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -120,34 +121,6 @@ var styles = StyleSheet.create({
     recTop: {
         left: baseLeft + 7.7,
         top: baseTop - diagonal/gapHeight * 2.7,
-    },
-    rec1 : {
-        left: baseLeft,
-        top : baseTop - diagonal/gapHeight * 2
-    },
-    rec2 : {
-        left: baseLeft - radus/gapWidth,
-        top : baseTop - diagonal/gapHeight
-    },
-    rec3 : {
-        left: baseLeft + radus/gapWidth,
-        top : baseTop - diagonal/gapHeight
-    },
-    rec4 : {
-        left: baseLeft,
-        top : baseTop
-    },
-    rec5 : {
-        left: baseLeft - radus/gapWidth,
-        top : baseTop + diagonal/gapHeight
-    },
-    rec6 : {
-        left: baseLeft + radus/gapWidth,
-        top : baseTop + diagonal/gapHeight
-    },
-    rec7 : {
-        left: baseLeft,
-        top : baseTop + diagonal/gapHeight * 2
     }, 
     cardText : {
         fontSize: 24,
