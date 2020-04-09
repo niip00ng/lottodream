@@ -119,7 +119,7 @@ const NumberCard = (props : any) => {
                 if(clicked) {
                     return (
                         <Animated.View style={{opacity: backend}}>
-                            <Text style={[styles.cardText, {color:'#FFFFFF'}]} > {param.word} </Text>
+                            <Text style={[styles.wordText, {color:'#FFFFFF'}]} > {param.word} </Text>
                         </Animated.View>
                     )
                 }
@@ -158,8 +158,8 @@ const NumberCard = (props : any) => {
 
 
     const sample = [
-        {'number': 1, 'word': 'a'},
-        {'number': 10, 'word': 'b'},
+        {'number': 1, 'word': '개썅마이\n 웨이요'},
+        {'number': 10, 'word': '레알마드\n 리드레알'},
         {'number': 20, 'word': 'c'},
         {'number': 30, 'word': 'd'},
         {'number': 40, 'word': 'e'},
@@ -168,7 +168,9 @@ const NumberCard = (props : any) => {
     ]
     return (
         <View style={styles.container}>
-            <SetCard params={props.params}/>
+            <BaseCard/>
+            {/* <SetCard params={props.params}/> */}
+            <SetCard params={sample}/>
         </View>
     )
 }
@@ -202,6 +204,12 @@ var styles = StyleSheet.create({
         fontSize: 24,
         fontFamily: "NanumMyeongjo",
         transform: [{ rotate: "-45deg" }],
+    },
+    wordText : {
+        fontSize: 14,
+        fontFamily: "NanumMyeongjo",
+        transform: [{ rotate: "-45deg" }],
+        lineHeight: 20
     },
   });
 
