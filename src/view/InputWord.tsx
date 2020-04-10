@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {
     KeyboardAvoidingView,
     StyleSheet,
@@ -13,15 +13,25 @@ import Back from '../../assets/svg/back.svg' ;
 import GenerateNumberOn from '../../assets/svg/gen_number_on.svg' ;
 import GenerateNumberOff from '../../assets/svg/gen_number_off.svg' ;
 import CustomButton from '../component/button/CustomButton';
-
 import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
+import BackModal from '../component/modal/BackWarning';
+
+
 const clickSafe =require('../util/click_safe')
 
 const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
     const [word, setWord] = useState([]);
+    const modalOpen = useRef()
+    
+    // Back버튼 모달 펼치기
+    const onClick = () => {
+        //@ts-ignore
+        modalOpen.current.handleOpen();
+    };
+
 
     // next 버튼 활성화
     function activateButton () {
@@ -29,6 +39,11 @@ const InputWord = (props:any) => {
         
         return <CustomButton action={() => {sendNext()}} title='숫자 추출하기'/>
     }
+
+    function changeText(text:string){
+        onChangeText(text)
+    }
+
 
     function sendNext() {
         props.navigation.replace('GenerateNumber', {
@@ -68,10 +83,10 @@ const InputWord = (props:any) => {
                 <TextInput
                     style={styles.editBox}
                     editable
-                    maxLength={40}
+                    maxLength={8}
                     placeholder='단어를 입력하세요'
                     numberOfLines={1}
-                    onChangeText={(text:string) => onChangeText(text)}
+                    onChangeText={(text:string) => changeText(text)}
                     onSubmitEditing={(e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
                         addWord(e.nativeEvent.text)}}
                     value={value} />
@@ -123,14 +138,16 @@ const InputWord = (props:any) => {
         if(e === undefined) return Alert.alert('글자를 입력해주세요.');
         if(value === '') return Alert.alert('글자를 입력해주세요.');
         
+        //@ts-ignore
         console.log('선택한 단어', e, word.indexOf(e))
         
+        //@ts-ignore
         if(word.indexOf(e) !== -1) {
             Alert.alert('이미 선택된 단어입니다.');
             onChangeText('')    
             return 
         }
-
+        //@ts-ignore
         setWord([...word, e]);
         onChangeText('')
     }
@@ -142,7 +159,7 @@ const InputWord = (props:any) => {
                 <View style={styles.header}>
                     <View style={styles.backBtn}>
                         <Back onPress={() => {
-                            if(clickSafe.safeClicked()) props.navigation.goBack()
+                            if(clickSafe.safeClicked()) onClick()
                         }} />
                         {componentTitle()}
                     </View>
@@ -165,6 +182,9 @@ const InputWord = (props:any) => {
                     {activateButton()}
                 </View>
             </View>
+            <BackModal title='입력을 취소하고 뒤로 가시겠습니까?' ref={modalOpen} action={() => {
+                props.navigation.goBack()
+            }}/>
         </View>
     )
 }

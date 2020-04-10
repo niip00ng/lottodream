@@ -140,6 +140,7 @@ const NumberResult = (props : any) => {
         })
         
         console.log('NumberResult : ', params)
+        //@ts-ignore
         setParams(params)
 
         // 실제 데이터 저장할 포멧
