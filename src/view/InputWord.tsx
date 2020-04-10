@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {
     KeyboardAvoidingView,
     StyleSheet,
@@ -7,7 +7,8 @@ import {
     Text,
     TextInputSubmitEditingEventData,
     NativeSyntheticEvent,
-    Alert
+    Alert,
+    BackHandler
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import GenerateNumberOn from '../../assets/svg/gen_number_on.svg' ;
@@ -17,8 +18,6 @@ import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
 import BackModal from '../component/modal/BackWarning';
-
-
 const clickSafe =require('../util/click_safe')
 
 const InputWord = (props:any) => {
@@ -28,6 +27,8 @@ const InputWord = (props:any) => {
     
     // Back버튼 모달 펼치기
     const onClick = () => {
+        if(word.length ===0 && value.length ===0) return props.navigation.goBack();
+
         //@ts-ignore
         modalOpen.current.handleOpen();
     };
@@ -167,6 +168,25 @@ const InputWord = (props:any) => {
         onChangeText('')
     }
 
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+        return () => {
+            BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+          };
+    }, [handleBackButton])
+    function handleBackButton () {
+        console.log(word.length, value.length)
+        if(word.length ===0 && value.length ===0) {
+            
+            BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+            return false;
+        }
+
+        //@ts-ignore
+        modalOpen.current.handleOpen();
+        return true;
+    }
     return (
         <View style={styles.all}>
 

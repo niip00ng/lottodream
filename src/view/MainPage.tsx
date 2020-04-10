@@ -39,6 +39,7 @@ const MainPage = (props:any) => {
             timeout
         } else {
             clearTimeout(timeout);
+            BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
             BackHandler.exitApp();  // 앱 종료
         }
         return true;
@@ -65,7 +66,10 @@ const MainPage = (props:any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <CustomButton action={() => props.navigation.push('Welcome')} title='행운 숫자 받기'/>
+                <CustomButton action={() => {
+                    BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+                    props.navigation.push('Welcome')
+                }} title='행운 숫자 받기'/>
             </View>
         </View>
     );
