@@ -190,7 +190,8 @@ const NumberResult = (props : any) => {
                 <View style={{flex:2}}>
                     <View style={styles.rectangle} >
                         <Text style={styles.button} onPress={() => {
-                            if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
+                            //if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
+                            if(clickSafe.safeClicked()) Alert.alert('뒤로갈건지 물어볼예정');
                         }}>다시하기</Text>
                     </View>
                 </View>
