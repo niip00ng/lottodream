@@ -8,8 +8,7 @@ import {
     Button,
     Alert
 } from 'react-native';
-import Back from '../../assets/svg/back.svg' ;
-import WelcomeStartBtn from '../../assets/svg/welcome_start.svg';
+
 import SaveModal from '../component/modal/SaveNumbers';
 import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -19,7 +18,7 @@ import BackModal from '../component/modal/BackWarning';
 import nextId from "react-id-generator";
 
 const clickSafe =require('../util/click_safe')
-const Constant = require('../util/Constant')
+const constant = require('../util/Constant')
 
 
 const NumberResult = (props : any) => {
@@ -69,7 +68,7 @@ const NumberResult = (props : any) => {
 
         
         //잘 저장 되었을
-        saveNewLotto(Constant.LOTTO_KEY, newItem);
+        saveNewLotto(constant.LOTTO_KEY, newItem);
     }
 
     const storeData = async (key: string, value: any) => {
@@ -101,7 +100,7 @@ const NumberResult = (props : any) => {
             
             console.log('saveNewLotto 내부값 : ', lottoData);
             
-            if(storeData(Constant.LOTTO_KEY, JSON.stringify(lottoData))) {
+            if(storeData(constant.LOTTO_KEY, JSON.stringify(lottoData))) {
                 console.log('SAVE SUCCESS');
                 console.log('보관함으로 이동')
                 props.navigation.replace('MyLotto')

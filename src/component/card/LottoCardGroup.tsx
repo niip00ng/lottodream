@@ -55,7 +55,7 @@ const LottoCardGroup = (props: any) => {
                     </View>
                     <TouchableOpacity activeOpacity={1} style={{flex:1, alignItems: 'flex-end', marginRight: 10}}
                         onPress = {() => {
-                            if(clickSafe.safeClicked()) {props.delete()}
+                            if(clickSafe.safeClicked()) {props.delete(props.id)}
                         }}>
                         <Delete/>
                     </TouchableOpacity>

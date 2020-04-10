@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState, useEffect,useRef} from 'react';
 import {
     FlatList,
     StyleSheet,
@@ -9,13 +9,15 @@ import {
 import LottoCardGroup from '../component/card/LottoCardGroup'
 import Back from '../../assets/svg/back.svg' ;
 import AsyncStorage from '@react-native-community/async-storage';
-import BackModal from '../component/modal/BackWarning';
+import DeleteModal from '../component/modal/BackWarning';
 const constant = require('../util/Constant')
 const clickSafe =require('../util/click_safe')
 
 const MyLotto = (props:any) => {
 
+    const [deleteId, setDeleteId] =useState('');
     const [myLotto, setMyLotto] = useState([]);
+    const modalOpen = useRef()
 
     // 나의 로또 정보 가져오기
     const retrieveData = async (key : string) => {
@@ -36,23 +38,52 @@ const MyLotto = (props:any) => {
     useEffect(() => {
         retrieveData(constant.LOTTO_KEY);
     }, [])
-    const viewabilityConfig = {
-        waitForInteraction: true,
-        viewAreaCoveragePercentThreshold: 95
-    }
-
+    
+    // 삭제할 아이템 수집 & modal오픈
     function deleteItem (id:any) {
         console.log('삭제요청 아이디 :',id)
+        setDeleteId(id)
+
+        //@ts-ignore
+        modalOpen.current.handleOpen();
     }
 
+    // 삭제 진행
+    function deleteProcess (){
+        
+        console.log('삭제진행 id :', deleteId)
+        console.log('삭제 전  :', myLotto)
+
+        //@ts-ignore
+        const index = myLotto.findIndex(x => x.id === deleteId);
+        if (index !== undefined) myLotto.splice(index, 1);
+        console.log('삭제 후  :', myLotto)
+
+        if(storeData(constant.LOTTO_KEY, JSON.stringify(myLotto))) {
+            console.log('SAVE SUCCESS');
+            retrieveData(constant.LOTTO_KEY);
+        }
+    }
+
+    // 저장
+    const storeData = async (key: string, value: any) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (error) {
+            console.log('::: AsyncStorage set ERROR !! ')
+            return false
+        }
+    
+        return true
+    };
     function emptyView () {
         if(myLotto.length === 0 ) {
             return (
                 <View style={styles.lottoCard}>
                     <View style={{paddingTop:20, paddingLeft:20} }>
-                        <Text
-                            style={{fontSize: 18, fontFamily: "NanumMyeongjo",color:'#868e96'}
-                            }>아직 보관된 아이템이 없습니다.</Text>
+                        <Text style={{fontSize: 18, fontFamily: "NanumMyeongjo",color:'#868e96'}}>
+                            아직 보관된 아이템이 없습니다.
+                        </Text>
                     </View>
                 </View>
             )
@@ -79,18 +110,17 @@ const MyLotto = (props:any) => {
                     <FlatList 
                         showsHorizontalScrollIndicator={false}
                         horizontal={false}
-                        keyExtractor={(item, index) => String(index)}
+                        keyExtractor={(item, index) => String(item.id)}
                         data={myLotto}
                         renderItem={({item}) => 
                         <View style={styles.lottoCard}>
-                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} delete={deleteItem}/>
+                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} id={item.id} delete={deleteItem}/>
                         </View>
                         }
                         />
-                        
                 </View>
             </View>
-
+            <DeleteModal title='정말 이 번호를 삭제하시겠습니까?' ref={modalOpen} action={deleteProcess}/>
         </View>
     )
 }
@@ -150,7 +180,8 @@ const styles = StyleSheet.create({
     lottoCard: {
         height: 170 ,
         backgroundColor: '#ced4da',
-        borderRadius: 19
+        borderRadius: 19,
+        marginBottom: 5
     },
     button: {
         width: 120,
