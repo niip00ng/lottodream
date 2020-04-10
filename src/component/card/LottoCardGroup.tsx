@@ -56,7 +56,6 @@ const LottoCardGroup = (props: any) => {
                 <View style={styles.headerTextBox}>
                     <Text style={styles.dreamName}>{props.name}</Text>
                     <View style={{paddingLeft: 10}}>{LottoStatus(props.status, props.round)}</View>
-                    
                 </View>  
                 <View style={styles.dateTextBox}>
                     <Text style={styles.dateText}>{props.date}</Text>

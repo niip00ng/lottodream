@@ -13,7 +13,7 @@ const clickSafe =require('../util/click_safe')
 
 const MyLotto = (props:any) => {
 
-    const [myLotto, setMyLotto] = useState(    []);
+    const [myLotto, setMyLotto] = useState([]);
 
     // 나의 로또 정보 가져오기
     const retrieveData = async (key : string) => {
@@ -50,11 +50,11 @@ const MyLotto = (props:any) => {
                     <Text style={styles.titleText}>보관함</Text>
                 </View>
                 <View style={styles.subTitle}>
-                    <Text style={styles.subText}>대충 저장한 번호를 볼 수 있는 곳이라는 문구</Text>
+                    <Text style={styles.subText}>추출한 해몽 숫자를 보관하는 곳입니다.</Text>
                 </View>
                 <View style={styles.bodyContents}>
                     <ScrollView 
-                    showsVerticalScrollIndicator={false}>
+                        showsVerticalScrollIndicator={false}>
                         {
                             myLotto.map((item, index) => (
                                     <View style={styles.lottoCard} key={index}>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
+        fontSize: 15,
         paddingTop:5,
     },
     bodyTitle: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         paddingTop:50, 
     },
     lottoCard: {
-        height: 170  
+        height: 170  ,
     },
     button: {
         width: 120,
