@@ -15,6 +15,7 @@ import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
 import El from '../../assets/svg/el.svg';
 import NumberCard from './number_result/NumberCard'
+
 const clickSafe =require('../util/click_safe')
 const Constant = require('../util/Constant')
 
@@ -187,19 +188,16 @@ const NumberResult = (props : any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <View style={{flex:2}}>
-                    <View style={styles.rectangle} >
+                <View style={{flex:1, marginLeft: 40}}>
+                    <View style={[styles.rectangle]} >
                         <Text style={styles.button} onPress={() => {
                             //if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
                             if(clickSafe.safeClicked()) Alert.alert('뒤로갈건지 물어볼예정');
                         }}>다시하기</Text>
                     </View>
                 </View>
-                <View style={{flex:1}}>
-
-                </View>
-                <View style={{flex:2}}>
-                    <View style={styles.rectangle}>
+                <View style={{flex:1, alignItems: 'flex-end', marginRight: 30}}>
+                    <View style={[styles.rectangle]}>
                         <Text style={styles.button} onPress={ () => {
                             if(clickSafe.safeClicked()) onClick()
                         }}>저장하기</Text>
@@ -247,7 +245,9 @@ const styles = StyleSheet.create({
         fontSize: 32,
     },
     footer: {
+        alignItems: 'center',
         flexDirection: 'row',
+        marginBottom: 20,
         flex: 2,
     },
     todayView: {
@@ -264,7 +264,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     rectangle: {
-        alignSelf:'center',
         borderWidth: 1,
         borderBottomColor: '#383838',
         borderLeftColor: '#00ff0000',

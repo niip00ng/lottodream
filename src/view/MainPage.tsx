@@ -1,17 +1,11 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import {
-    SafeAreaView,
     StyleSheet,
-    ScrollView,
     View,
     Text,
-    Button,
-    StatusBar,
-    Alert
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import Menu from '../../assets/svg/menu.svg' ;
-import MainPageStartBtn from '../../assets/svg/mainpage_start.svg' ;
 const clickSafe =require('../util/click_safe')
 
 const MainPage = (props:any) => {

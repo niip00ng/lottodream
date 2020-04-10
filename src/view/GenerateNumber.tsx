@@ -14,6 +14,7 @@ import LoadStart from '../../assets/lottie/loading_start.json' ;
 import LoadEnd from '../../assets/lottie/loading_end.json' ;
 import ShowResultOffBtn from '../../assets/svg/show_result.svg' ;
 import ShowResultOnBtn from '../../assets/svg/show_result_on.svg' ;
+import CustomButton from '../component/button/CustomButton';
 import LottieView from 'lottie-react-native'
 const clickSafe =require('../util/click_safe')
 
@@ -51,15 +52,11 @@ const GenerateNumber = (props : any) => {
     
     function showResultButton () {
         if(finish) return (
-            <ShowResultOnBtn onPress={() => {
-                if(clickSafe.safeClicked()) {
-                    props.navigation.replace('NumberResult', {
-                        nums: numbers,
-                        dreams: dreams,
-                        bonus: bonus
-                    })
-                }
-            }}/>
+            <CustomButton action={() => props.navigation.replace('NumberResult', {
+                nums: numbers,
+                dreams: dreams,
+                bonus: bonus
+            })} title='결과 보기'/>
         )
 
         return <ShowResultOffBtn/>

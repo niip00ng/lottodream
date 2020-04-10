@@ -10,10 +10,10 @@ import {
     Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
-import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
 import GenerateNumberOn from '../../assets/svg/gen_number_on.svg' ;
 import GenerateNumberOff from '../../assets/svg/gen_number_off.svg' ;
-import BtnX from '../../assets/svg/btn_x.svg' ;
+import CustomButton from '../component/button/CustomButton';
+
 import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
@@ -27,9 +27,7 @@ const InputWord = (props:any) => {
     function activateButton () {
         if(word.length < 6) return <GenerateNumberOff/>
         
-        return <GenerateNumberOn onPress={() => {
-            if(clickSafe.safeClicked()) sendNext()
-        }}/>
+        return <CustomButton action={() => {sendNext()}} title='숫자 추출하기'/>
     }
 
     function sendNext() {

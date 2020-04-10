@@ -1,16 +1,10 @@
 import React from 'react'
 import {
-    SafeAreaView,
     StyleSheet,
-    ScrollView,
     View,
     Text,
-    Button,
-    StatusBar,
-    Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
-import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
 import CustomButton from '../component/button/CustomButton';
 const clickSafe =require('../util/click_safe')
 

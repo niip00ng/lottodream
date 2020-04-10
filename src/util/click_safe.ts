@@ -12,5 +12,5 @@ export const releaseClicked = () => {
     setTimeout(() => {
         
         clicked = !clicked
-    }, 1000);
+    }, 500);
 }
