@@ -40,6 +40,24 @@ const MyLotto = (props:any) => {
         waitForInteraction: true,
         viewAreaCoveragePercentThreshold: 95
     }
+
+    function deleteItem (id:any) {
+        console.log('삭제요청 아이디 :',id)
+    }
+
+    function emptyView () {
+        if(myLotto.length === 0 ) {
+            return (
+                <View style={styles.lottoCard}>
+                    <View style={{paddingTop:20, paddingLeft:20} }>
+                        <Text
+                            style={{fontSize: 18, fontFamily: "NanumMyeongjo",color:'#868e96'}
+                            }>아직 보관된 아이템이 없습니다.</Text>
+                    </View>
+                </View>
+            )
+        }
+    }
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -57,6 +75,7 @@ const MyLotto = (props:any) => {
                     <Text style={styles.subText}>추출한 해몽 숫자를 보관하는 곳입니다.</Text>
                 </View>
                 <View style={styles.bodyContents}>
+                    {emptyView()}
                     <FlatList 
                         showsHorizontalScrollIndicator={false}
                         horizontal={false}
@@ -64,10 +83,11 @@ const MyLotto = (props:any) => {
                         data={myLotto}
                         renderItem={({item}) => 
                         <View style={styles.lottoCard}>
-                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
+                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} delete={deleteItem}/>
                         </View>
                         }
                         />
+                        
                 </View>
             </View>
 

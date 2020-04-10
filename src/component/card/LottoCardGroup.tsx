@@ -8,7 +8,7 @@ import {
 import NumberColor from './NumberColor';
 import Lines from '../../../assets/svg/line.svg' ;
 import Delete from '../../../assets/svg/btn_x.svg' ;
-
+const clickSafe =require('../../util/click_safe')
 
 const LottoCardGroup = (props: any) => {
 
@@ -55,7 +55,7 @@ const LottoCardGroup = (props: any) => {
                     </View>
                     <TouchableOpacity activeOpacity={1} style={{flex:1, alignItems: 'flex-end', marginRight: 10}}
                         onPress = {() => {
-                            //if(clickSafe.safeClicked()) {action()}
+                            if(clickSafe.safeClicked()) {props.delete()}
                         }}>
                         <Delete/>
                     </TouchableOpacity>

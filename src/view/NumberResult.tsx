@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import El from '../../assets/svg/el.svg';
 import NumberCard from './number_result/NumberCard'
 import BackModal from '../component/modal/BackWarning';
+import nextId from "react-id-generator";
 
 const clickSafe =require('../util/click_safe')
 const Constant = require('../util/Constant')
@@ -53,7 +54,9 @@ const NumberResult = (props : any) => {
             dreamList.push('')
         }
 
+
         const newItem = {
+            id: nextId(),
             name: dreamName,
             status: 0,
             round: '',
