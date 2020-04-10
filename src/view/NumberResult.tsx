@@ -5,7 +5,7 @@ import {
     ScrollView,
     View,
     Text,
-    Button,
+    BackHandler,
     Alert
 } from 'react-native';
 
@@ -174,8 +174,19 @@ const NumberResult = (props : any) => {
         setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
     }, [])
 
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", handleBackButton);
 
+        return () => {
+            BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+          };
+    }, [handleBackButton])
 
+    function handleBackButton () {
+        //@ts-ignore
+        backModalOpen.current.handleOpen();
+        return true;
+    }
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -228,6 +239,7 @@ const NumberResult = (props : any) => {
             </View>
             <SaveModal ref={modalOpen} end={confirmDreamName}/>
             <BackModal title='처음부터 다시 진행하시겠습니까?' ref={backModalOpen} action={() => {
+                BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
                 props.navigation.goBack()
             }}/>
         </View>
