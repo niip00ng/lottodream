@@ -16,12 +16,12 @@ const MainPage = (props:any) => {
 
 
     useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+        //BackHandler.addEventListener("hardwareBackPress", handleBackButton);
     
         return () => {
-          BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+          //BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
         };
-      }, [handleBackButton]);
+      }, []);
 
       function handleBackButton () {
         let timeout = setTimeout(
@@ -39,7 +39,6 @@ const MainPage = (props:any) => {
             timeout
         } else {
             clearTimeout(timeout);
-            BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
             BackHandler.exitApp();  // 앱 종료
         }
         return true;
