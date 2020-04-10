@@ -18,8 +18,7 @@ const MainPage = (props:any) => {
     
 
     function action () {
-        console.log(22222)
-        return props.navigation.push('Welcome')
+        return 
     }
     return (
         <View style={styles.all}>
@@ -42,7 +41,7 @@ const MainPage = (props:any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <CustomButton action={action} title='행운 숫자 받기'/>
+                <CustomButton action={() => props.navigation.push('Welcome')} title='행운 숫자 받기'/>
             </View>
         </View>
     );

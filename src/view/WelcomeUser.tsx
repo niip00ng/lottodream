@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import WelcomeStartBtn from '../../assets/svg/welcome_start.svg' ;
+import CustomButton from '../component/button/CustomButton';
 const clickSafe =require('../util/click_safe')
 
 const WelcomeUser = (props:any) => {
@@ -37,9 +38,7 @@ const WelcomeUser = (props:any) => {
             </View>
             <View style={styles.footer}>
                 <View>
-                    <WelcomeStartBtn onPress={() => {
-                        if(clickSafe.safeClicked()) props.navigation.push('InputWord')
-                    }}/>
+                    <CustomButton action={() => props.navigation.push('InputWord')} title='시작하기'/>
                 </View>
             </View>
         </View>
