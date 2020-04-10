@@ -49,7 +49,7 @@ const MainPage = (props:any) => {
             <View style={styles.header}>
                 <View style={styles.menuBtn}>
                     <Menu onPress={() => {
-                        if(clickSafe.safeClicked()) props.navigation.push('MyLotto')
+                        if(clickSafe.safeClicked()) props.navigation.push('Admob')
                     }}/>
                 </View>
             </View>

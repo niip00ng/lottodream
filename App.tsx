@@ -11,7 +11,7 @@ import Welcome from './src/view/WelcomeUser';
 import InputWord from './src/view/InputWord';
 import GenerateNumber from './src/view/GenerateNumber';
 import NumberResult from './src/view/NumberResult';
-
+import Admob from './src/view/Admob'
 const baseTransitionOption = {
     ...TransitionPresets.SlideFromRightIOS
 }
@@ -25,6 +25,7 @@ const App = () => {
         <NavigationContainer>
             <Stack.Navigator headerMode="none" initialRouteName="MainPage">
                 <Stack.Screen name="MainPage" component={MainPage} options={baseTransitionOption}/>
+                <Stack.Screen name="Admob" component={Admob}/>
                 <Stack.Screen name="Welcome" component={Welcome} options={baseTransitionOption}/>
                 <Stack.Screen name="InputWord" component={InputWord} options={baseTransitionOption}/>
                 <Stack.Screen name="GenerateNumber" component={GenerateNumber} options={baseTransitionOption}/>

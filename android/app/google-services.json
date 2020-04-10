@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "204800033926",
+    "firebase_url": "https://dreamlotto-340ad.firebaseio.com",
+    "project_id": "dreamlotto-340ad",
+    "storage_bucket": "dreamlotto-340ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204800033926:android:0a8128c6385fbcc524bd07",
+        "android_client_info": {
+          "package_name": "com.dreamlotto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204800033926-rer30hkr1v9ppbkmthia7gc5cg4sp8v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamlotto",
+            "certificate_hash": "4c1c201b76b5330b284fe57e868ff9eb501c6272"
+          }
+        },
+        {
+          "client_id": "204800033926-b3otl0ao3p8u5s8dcl8df4012bsclpqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCid1fYAPYCoUKv_-r2VuCv8EKjORhZzto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204800033926-b3otl0ao3p8u5s8dcl8df4012bsclpqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
