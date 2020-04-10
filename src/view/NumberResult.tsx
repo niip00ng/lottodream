@@ -134,14 +134,28 @@ const NumberResult = (props : any) => {
 
 
         // array 복사
-        let cNum = JSON.parse(JSON.stringify(props.route.params.nums))
+        //let cNum = JSON.parse(JSON.stringify(props.route.params.nums))
         let cWords = JSON.parse(JSON.stringify(props.route.params.dreams))
 
         let params = []
-        for(let i in props.route.params.nums) {
+        for(let i in cWords) {
+            cWords[i] = cWords[i].replace(/ /g,"")
+            console.log('trim :', )
+            if(cWords[i].length >= 6){
+                
+                console.log('원단어 :', cWords[i])
+                
+                let index = 4;
+                if(cWords[i].length === 6) index = 3;
+
+                console.log('삽입할 인덱스 :', index)
+                cWords[i] = [cWords[i].slice(0, index), '\n ', cWords[i].slice(index)].join('');
+                console.log('최종 단어 :', cWords[i])
+            }
+
             params.push({
                 'number' : props.route.params.nums[i],
-                'word' : props.route.params.dreams[i]
+                'word' : cWords[i]
             })
         }
 

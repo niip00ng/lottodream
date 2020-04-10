@@ -172,8 +172,8 @@ const NumberCard = (props : any) => {
             <View style={styles.baseTop}>
                 <BaseCard/>
             </View>
-            {/* <SetCard params={props.params}/> */}
-            <SetCard params={sample}/>
+            <SetCard params={props.params}/>
+            {/* <SetCard params={sample}/> */}
 
             <View style={styles.baseBottom}>
                 <BaseBottom/>
