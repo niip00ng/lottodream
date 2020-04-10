@@ -16,9 +16,11 @@ const clickSafe =require('../util/click_safe')
 
 const MainPage = (props:any) => {
     
-    useEffect(() => {
-        
-    }, [])
+
+    function action () {
+        console.log(22222)
+        return props.navigation.push('Welcome')
+    }
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -40,13 +42,7 @@ const MainPage = (props:any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <View style={{}}>
-                    <MainPageStartBtn onPress={() => {
-                        if(clickSafe.safeClicked()) props.navigation.push('Welcome')
-                    }   
-                    }/>
-                </View>
-                
+                <CustomButton action={action} title='행운 숫자 받기'/>
             </View>
         </View>
     );
