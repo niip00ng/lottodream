@@ -122,6 +122,21 @@ const InputWord = (props:any) => {
         }
     }
 
+        // 추천 단어 보여주기
+    function wordCountView() {
+        if (value.length !== 0 || word.length !== 0) {
+            return (
+                <View style={styles.wordCount}>
+                    <Text
+                        style={{
+                            fontFamily: "NanumMyeongjo",
+                            fontSize: 19
+                        }}>{word.length} / 6</Text>
+                </View>
+            )
+        }
+    }
+
     // 추천 선택 단어 뱃지추가
     function addRecommand (e:string) {
         if(e!== undefined || e !== null || e!== '') addWord(e)
@@ -162,6 +177,9 @@ const InputWord = (props:any) => {
                             if(clickSafe.safeClicked()) onClick()
                         }} />
                         {componentTitle()}
+                    </View>
+                    <View style={{flex:1, alignItems:'flex-end' , marginRight: 10}}>
+                        {wordCountView()}
                     </View>
                 </View>
                 <View style={styles.body}>
@@ -240,15 +258,19 @@ const styles = StyleSheet.create({
         flex:1
     },
     backBtn: {
+        flex:1,
         paddingLeft:10,
-        height: 50,
-        width: 100
     },editBox : {
         fontFamily: "NanumMyeongjo",
         fontSize: 20,
     },wordList : {
         flexDirection: "row",
         flexWrap: "wrap"
+    },wordCount : {
+        padding: 10,
+        flexDirection: "row",
+        flexWrap: "wrap"
+        
     }, candidateWord : {
         fontFamily: "NanumMyeongjo",
         fontSize: 15,
