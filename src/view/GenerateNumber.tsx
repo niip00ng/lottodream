@@ -105,7 +105,7 @@ const GenerateNumber = (props : any) => {
                     <Back onPress={() => {
                         if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
                     }} />
-                    <View style={{paddingTop: 10, paddingLeft: 12}}><Text>숫자추출하기</Text></View>
+                    <View style={{paddingTop: 10, paddingLeft: 5}}><Text>숫자추출하기</Text></View>
                 </View>
             </View>
             {nowStatusView()}

@@ -67,7 +67,7 @@ const InputWord = (props:any) => {
     function componentTitle () {
         if(word.length ===0 && value.length ===0) {
             return (
-                <View style={{paddingTop: 10, paddingLeft: 12}}><Text>단어 입력하기</Text></View>
+                <View style={{paddingTop: 10, paddingLeft: 5}}><Text>단어 입력하기</Text></View>
             )
         } 
         return ;

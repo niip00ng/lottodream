@@ -15,6 +15,7 @@ import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
 import El from '../../assets/svg/el.svg';
 import NumberCard from './number_result/NumberCard'
+import BackModal from '../component/modal/BackWarning';
 
 const clickSafe =require('../util/click_safe')
 const Constant = require('../util/Constant')
@@ -26,6 +27,14 @@ const NumberResult = (props : any) => {
     const [nowDate, setNowDate] = useState('')
     const modalOpen = useRef()
 
+    const backModalOpen = useRef()
+
+    // Back버튼 모달 펼치기
+    const onClickBack = () => {
+        //@ts-ignore
+        backModalOpen.current.handleOpen();
+    };
+    
     const [params, setParams] = useState([])
     const onClick = () => {
         //@ts-ignore
@@ -193,7 +202,7 @@ const NumberResult = (props : any) => {
                     <View style={[styles.rectangle]} >
                         <Text style={styles.button} onPress={() => {
                             //if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
-                            if(clickSafe.safeClicked()) Alert.alert('뒤로갈건지 물어볼예정');
+                            if(clickSafe.safeClicked()) onClickBack();
                         }}>다시하기</Text>
                     </View>
                 </View>
@@ -206,6 +215,9 @@ const NumberResult = (props : any) => {
                 </View>
             </View>
             <SaveModal ref={modalOpen} end={confirmDreamName}/>
+            <BackModal title='처음부터 다시 진행하시겠습니까?' ref={backModalOpen} action={() => {
+                props.navigation.goBack()
+            }}/>
         </View>
     )
 }

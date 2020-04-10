@@ -16,7 +16,7 @@ const WelcomeUser = (props:any) => {
                     <Back onPress={() => {
                         if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
                     }} />
-                    <View style={{paddingTop: 10, paddingLeft: 12}}><Text>시작하기</Text></View>
+                    <View style={{paddingTop: 10, paddingLeft: 5}}><Text>시작하기</Text></View>
                     
                 </View>
             </View>
