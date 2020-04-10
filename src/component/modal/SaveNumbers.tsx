@@ -47,8 +47,16 @@ const SaveNumbers = forwardRef((props:any, ref) => {
             Alert.alert('글자를 입력해주세요.');
             return
         }
-        props.end(value)
-        handleClose()
+
+        Animated.timing(animation, {
+            toValue: 0,
+            duration: 200,
+            useNativeDriver: true
+        }).start(({finished}) => {
+            props.end(value)
+          });
+        
+
     }
 
     const screenHeight = Dimensions.get("window").height;
