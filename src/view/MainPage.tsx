@@ -1,19 +1,49 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
     Text,
+    BackHandler,
+    ToastAndroid
 } from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import Menu from '../../assets/svg/menu.svg' ;
 const clickSafe =require('../util/click_safe')
 
 const MainPage = (props:any) => {
-    
+    const [exit, setExit] = useState(false);
 
-    function action () {
-        return 
+
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    
+        return () => {
+          BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+        };
+      }, [handleBackButton]);
+
+      function handleBackButton () {
+        let timeout = setTimeout(
+            () => {
+                console.log(111)
+                setExit(false);
+                clearTimeout(timeout);
+            },
+            2000);
+
+        if (exit == undefined || !exit) {
+            ToastAndroid.show('한번 더 누르시면 종료됩니다.', ToastAndroid.SHORT);
+            setExit(true);
+
+            timeout
+        } else {
+            clearTimeout(timeout);
+            BackHandler.exitApp();  // 앱 종료
+        }
+        return true;
     }
+
     return (
         <View style={styles.all}>
             <View style={styles.header}>
