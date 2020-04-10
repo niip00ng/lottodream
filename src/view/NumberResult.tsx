@@ -55,7 +55,7 @@ const NumberResult = (props : any) => {
 
 
         const newItem = {
-            id: nextId(),
+            id: '',
             name: dreamName,
             status: 0,
             round: '',
@@ -82,11 +82,11 @@ const NumberResult = (props : any) => {
         return true
     };
 
-    
+    // 저장!!!
     const saveNewLotto = async (key : string, data:{}) => {
         try {
             let value = await AsyncStorage.getItem(key);
-                console.log('현재 보관함 리스트 : ',value); 
+            let id = 0;
             if (value === null) {
                 //@ts-ignore
                 value = JSON.stringify([]);
@@ -96,7 +96,11 @@ const NumberResult = (props : any) => {
             const lottoData = JSON.parse(value);
             console.log('lottoData ',lottoData); 
             
-            lottoData.push(data)
+            if(lottoData.length!==0) id = lottoData[0].id + 1;
+
+            //@ts-ignore
+            data.id = id
+            lottoData.unshift(data)
             
             console.log('saveNewLotto 내부값 : ', lottoData);
             
@@ -138,19 +142,14 @@ const NumberResult = (props : any) => {
         let cWords = JSON.parse(JSON.stringify(props.route.params.dreams))
 
         let params = []
+
+        // 단어 길이조절
         for(let i in cWords) {
             cWords[i] = cWords[i].replace(/ /g,"")
-            console.log('trim :', )
             if(cWords[i].length >= 6){
-                
-                console.log('원단어 :', cWords[i])
-                
                 let index = 4;
                 if(cWords[i].length === 6) index = 3;
-
-                console.log('삽입할 인덱스 :', index)
                 cWords[i] = [cWords[i].slice(0, index), '\n ', cWords[i].slice(index)].join('');
-                console.log('최종 단어 :', cWords[i])
             }
 
             params.push({
@@ -173,9 +172,6 @@ const NumberResult = (props : any) => {
         
         // 화면에 표시할 데이트 포멧
         setDateTitle(token[0]+'년 '+token[1]+'월 '+token[2]+'일')
-
-        //AsyncStorage.removeItem(Constant.LOTTO_KEY);
-        //retrieveData(Constant.LOTTO_KEY);
     }, [])
 
 

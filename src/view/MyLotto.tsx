@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         paddingTop:50, 
     },
     lottoCard: {
-        height: 170 ,
+        height: 160 ,
         backgroundColor: '#ced4da',
         borderRadius: 19,
         marginBottom: 5
