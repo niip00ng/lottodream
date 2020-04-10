@@ -7,10 +7,7 @@ import {
 } from 'react-native';
 import NumberColor from './NumberColor';
 import Lines from '../../../assets/svg/line.svg' ;
-import Dot01 from '../../../assets/svg/dot01.svg' ;
-import Dot20 from '../../../assets/svg/dot20.svg' ;
-import Dot30 from '../../../assets/svg/dot30.svg' ;
-import Dot40 from '../../../assets/svg/dot40.svg' ;
+import Delete from '../../../assets/svg/btn_x.svg' ;
 
 
 const LottoCardGroup = (props: any) => {
@@ -52,7 +49,17 @@ const LottoCardGroup = (props: any) => {
     return (
         <View style={styles.all} key={props.key}>
             <View style={styles.header}>
-                <Lines/>
+                <View style={{flex:1,flexDirection: 'row'}}>
+                    <View style={{flex:1}}>
+                        <Lines/>
+                    </View>
+                    <TouchableOpacity activeOpacity={1} style={{flex:1, alignItems: 'flex-end', marginRight: 10}}
+                        onPress = {() => {
+                            //if(clickSafe.safeClicked()) {action()}
+                        }}>
+                        <Delete/>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.headerTextBox}>
                     <Text style={styles.dreamName}>{props.name}</Text>
                     <View style={{paddingLeft: 10}}>{LottoStatus(props.status, props.round)}</View>
@@ -87,7 +94,7 @@ const styles=StyleSheet.create({
     },
     headerTextBox: {
         flexDirection: "row",
-        paddingTop: 13,
+        paddingTop: 5,
         paddingLeft: 10
     },
     dateTextBox: {

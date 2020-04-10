@@ -1,5 +1,6 @@
 import React , {useState, useEffect} from 'react';
 import {
+    FlatList,
     StyleSheet,
     ScrollView,
     View,
@@ -8,6 +9,7 @@ import {
 import LottoCardGroup from '../component/card/LottoCardGroup'
 import Back from '../../assets/svg/back.svg' ;
 import AsyncStorage from '@react-native-community/async-storage';
+import BackModal from '../component/modal/BackWarning';
 const constant = require('../util/Constant')
 const clickSafe =require('../util/click_safe')
 
@@ -34,8 +36,10 @@ const MyLotto = (props:any) => {
     useEffect(() => {
         retrieveData(constant.LOTTO_KEY);
     }, [])
-
-    
+    const viewabilityConfig = {
+        waitForInteraction: true,
+        viewAreaCoveragePercentThreshold: 95
+    }
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -53,16 +57,17 @@ const MyLotto = (props:any) => {
                     <Text style={styles.subText}>추출한 해몽 숫자를 보관하는 곳입니다.</Text>
                 </View>
                 <View style={styles.bodyContents}>
-                    <ScrollView 
-                        showsVerticalScrollIndicator={false}>
-                        {
-                            myLotto.map((item, index) => (
-                                    <View style={styles.lottoCard} key={index}>
-                                        <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
-                                    </View>
-                                ))
+                    <FlatList 
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={false}
+                        keyExtractor={(item, index) => String(index)}
+                        data={myLotto}
+                        renderItem={({item}) => 
+                        <View style={styles.lottoCard}>
+                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers}/>
+                        </View>
                         }
-                    </ScrollView>
+                        />
                 </View>
             </View>
 
@@ -123,7 +128,9 @@ const styles = StyleSheet.create({
         paddingTop:50, 
     },
     lottoCard: {
-        height: 170  ,
+        height: 170 ,
+        backgroundColor: '#ced4da',
+        borderRadius: 19
     },
     button: {
         width: 120,
@@ -136,16 +143,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 15
     },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 30,
-        margin: 2,
-        borderColor: '#2a4944',
-        borderWidth: 1,
-        backgroundColor: '#d2f7f1'
-    }
 });
 
 export default MyLotto;
