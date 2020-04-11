@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     footer: {
         flexDirection: "row",
         paddingBottom: 30,
+        paddingRight: 20,
         justifyContent: "flex-end",
         flex:1
     },

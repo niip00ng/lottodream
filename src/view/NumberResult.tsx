@@ -132,11 +132,6 @@ const NumberResult = (props : any) => {
         let date = moment(new Date()).format('YYYY-MM-DD-HH-mm-ss');
         let token = date.split('-')
 
-        console.log('NumberResult : ' , props.route.params.nums)
-        console.log('NumberResult : ' , props.route.params.dreams)
-        console.log('NumberResult : ' , props.route.params.bonus)
-
-
         // array 복사
         //let cNum = JSON.parse(JSON.stringify(props.route.params.nums))
         let cWords = JSON.parse(JSON.stringify(props.route.params.dreams))

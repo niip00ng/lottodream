@@ -18,7 +18,7 @@ const LottoCardGroup = (props: any) => {
     useEffect(() => {
         console.log('초기화 중 ...');
         console.log('numbers : ', props.numbers)
-        let mainNum = props.numbers;
+        let mainNum = JSON.parse(JSON.stringify(props.numbers));
         // 보너스 번호만 추려내기
         console.log('보너스번호 : ', mainNum[mainNum.length - 1])
         setBonus(mainNum[mainNum.length - 1]);
@@ -47,7 +47,10 @@ const LottoCardGroup = (props: any) => {
     };
 
     return (
-        <View style={styles.all} key={props.key}>
+        <TouchableOpacity activeOpacity={1} style={styles.all} key={props.key} onPress={()=> {
+            if(clickSafe.safeClicked()) {props.detail(props.id)}
+        }}>
+            
             <View style={styles.header}>
                 <View style={{flex:1,flexDirection: 'row'}}>
                     <View style={{flex:1}}>
@@ -78,7 +81,7 @@ const LottoCardGroup = (props: any) => {
                     <Text style={styles.lottoNumber}>{bonus}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
         
     )
 }

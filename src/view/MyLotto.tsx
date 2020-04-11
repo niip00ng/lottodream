@@ -7,9 +7,11 @@ import {
     Text,
 } from 'react-native';
 import LottoCardGroup from '../component/card/LottoCardGroup'
-import Back from '../../assets/svg/back.svg' ;
+import Back from '../../assets/svg/btn_bigx.svg' ;
 import AsyncStorage from '@react-native-community/async-storage';
 import DeleteModal from '../component/modal/BackWarning';
+import Detail from './DetailLotto'
+
 const constant = require('../util/Constant')
 const clickSafe =require('../util/click_safe')
 
@@ -39,6 +41,42 @@ const MyLotto = (props:any) => {
         retrieveData(constant.LOTTO_KEY);
     }, [])
     
+    // 삭제할 아이템 수집 & modal오픈
+    function detailItem (id:any) {
+        console.log('디테일 뷰 아이디 :',id)
+        
+        const data = myLotto.filter(function (data:any) {
+            return data.id ===id
+        })
+
+        console.log('아이디에 해당되는 데이터 ', data[0])
+        console.log('아이디에 해당되는 데이터 ', data.numbers, data.dreams,data.date)
+        
+        props.navigation.navigate('DetailLotto', {
+            //@ts-ignore
+            id: data[0].id,
+            nums: data[0].numbers, 
+            words: data[0].dreams,
+            date: data[0].date,
+            name: data[0].name,
+            update: (id: any, name: string) => updateName(id, name),
+        })
+    }
+
+    const updateName = async (id : any, name : string) => {
+        console.log(id, name)
+        
+        myLotto[id].name = name;
+
+        //setMyLotto(dataa);
+
+        console.log('', myLotto)
+        if(storeData(constant.LOTTO_KEY, JSON.stringify(myLotto))) {
+            console.log('SAVE SUCCESS');
+            retrieveData(constant.LOTTO_KEY);
+        }
+    }
+
     // 삭제할 아이템 수집 & modal오픈
     function deleteItem (id:any) {
         console.log('삭제요청 아이디 :',id)
@@ -89,6 +127,8 @@ const MyLotto = (props:any) => {
             )
         }
     }
+
+
     return (
         <View style={styles.all}>
             <View style={styles.header}>
@@ -114,7 +154,7 @@ const MyLotto = (props:any) => {
                         data={myLotto}
                         renderItem={({item}) => 
                         <View style={styles.lottoCard}>
-                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} id={item.id} delete={deleteItem}/>
+                            <LottoCardGroup name={item.name} status={item.status} date={item.date} numbers={item.numbers} id={item.id} delete={deleteItem} detail={detailItem}/>
                         </View>
                         }
                         />
@@ -142,7 +182,7 @@ const styles = StyleSheet.create({
         
     },
     backBtn: {
-        paddingLeft:10,
+        paddingLeft:5,
         height: 50,
         width: 50
     },

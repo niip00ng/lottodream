@@ -12,6 +12,7 @@ import InputWord from './src/view/InputWord';
 import GenerateNumber from './src/view/GenerateNumber';
 import NumberResult from './src/view/NumberResult';
 import Admob from './src/view/Admob'
+import DetailLotto from './src/view/DetailLotto'
 const baseTransitionOption = {
     ...TransitionPresets.SlideFromRightIOS
 }
@@ -31,6 +32,7 @@ const App = () => {
                 <Stack.Screen name="GenerateNumber" component={GenerateNumber} options={baseTransitionOption}/>
                 <Stack.Screen name="NumberResult" component={NumberResult} options={baseTransitionOption}/>
                 <Stack.Screen name="MyLotto" component={MyLotto} options={myLottoTransitionOption}/>
+                <Stack.Screen name="DetailLotto" component={DetailLotto} options={baseTransitionOption}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

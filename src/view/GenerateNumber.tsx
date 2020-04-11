@@ -59,7 +59,7 @@ const GenerateNumber = (props : any) => {
 
         setTimeout(() => {
             setFinish(!finish)
-        }, 3000)
+        }, 4000)
 
 
 
@@ -80,7 +80,7 @@ const GenerateNumber = (props : any) => {
             console.log('type : ', type)
             if (type === AdEventType.LOADED) {
                 setLoaded(true)
-                interstitial.show()
+                //interstitial.show()
             }
 
             if(type === AdEventType.CLOSED) {
