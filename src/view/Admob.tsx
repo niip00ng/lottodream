@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-native';
+import { Button, Alert } from 'react-native';
 import { InterstitialAd, AdEventType, TestIds } from '@react-native-firebase/admob';
 
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-7024707494100333/8967630979';
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ['fashion', 'clothing'],
-});
-
 const Admob = () => {
   const [loaded, setLoaded] = useState(false);
+  
+  const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+    requestNonPersonalizedAdsOnly: true,
+    keywords: ['fashion', 'clothing'],
+  });
+
 
   useEffect(() => {
+    console.log('adunit id : ', adUnitId)
+    console.log('adunit id : ', interstitial)
+    Alert.alert('adUnitId', adUnitId)
     const eventListener = interstitial.onAdEvent(type => {
+
+      console.log('type : ', type)
       if (type === AdEventType.LOADED) {
-        setLoaded(true);
+        interstitial.show();
+        //setLoaded(true);
       }
     });
 
@@ -24,12 +31,14 @@ const Admob = () => {
 
     // Unsubscribe from events on unmount
     return () => {
+      console.log('eventListener')
       eventListener();
     };
   }, []);
 
-  // No advert ready to show yet
+  
   if (!loaded) {
+    console.log('No advert ready to show yet')
     return null;
   }
 
@@ -37,7 +46,8 @@ const Admob = () => {
     <Button
       title="Show Interstitial"
       onPress={() => {
-        interstitial.show();
+        //showAd();
+        
       }}
     />
   );

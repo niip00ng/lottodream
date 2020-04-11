@@ -1,36 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    BackHandler,
-    ToastAndroid
-} from 'react-native';
+import {StyleSheet, View, Text, BackHandler, ToastAndroid} from 'react-native';
 import CustomButton from '../component/button/CustomButton';
-import Menu from '../../assets/svg/menu.svg' ;
-const clickSafe =require('../util/click_safe')
+import Menu from '../../assets/svg/menu.svg';
+const clickSafe = require('../util/click_safe')
 
-const MainPage = (props:any) => {
+const MainPage = (props : any) => {
     const [exit, setExit] = useState(false);
-
-
 
     useEffect(() => {
         //BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-    
-        return () => {
-          //BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-        };
-      }, []);
 
-      function handleBackButton () {
-        let timeout = setTimeout(
-            () => {
-                console.log(111)
-                setExit(false);
-                clearTimeout(timeout);
-            },
-            2000);
+        return() => {
+            //BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+        };
+    }, []);
+
+    function handleBackButton() {
+        let timeout = setTimeout(() => {
+            console.log(111)
+            setExit(false);
+            clearTimeout(timeout);
+        }, 2000);
 
         if (exit == undefined || !exit) {
             ToastAndroid.show('한번 더 누르시면 종료됩니다.', ToastAndroid.SHORT);
@@ -39,7 +29,7 @@ const MainPage = (props:any) => {
             timeout
         } else {
             clearTimeout(timeout);
-            BackHandler.exitApp();  // 앱 종료
+            BackHandler.exitApp(); // 앱 종료
         }
         return true;
     }
@@ -49,8 +39,9 @@ const MainPage = (props:any) => {
             <View style={styles.header}>
                 <View style={styles.menuBtn}>
                     <Menu onPress={() => {
-                        if(clickSafe.safeClicked()) props.navigation.push('Admob')
-                    }}/>
+                            if (clickSafe.safeClicked()) 
+                                props.navigation.push('MyLotto')
+                            }}/>
                 </View>
             </View>
             <View style={styles.body}>
@@ -65,10 +56,14 @@ const MainPage = (props:any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <CustomButton action={() => {
-                    BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-                    props.navigation.push('Welcome')
-                }} title='행운 숫자 받기'/>
+                <CustomButton
+                    action={() => {
+                        BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+                        props
+                            .navigation
+                            .push('Welcome')
+                    }}
+                    title='행운 숫자 받기'/>
             </View>
         </View>
     );
@@ -90,35 +85,35 @@ const styles = StyleSheet.create({
         width: 50
     },
     body: {
-        flex: 6,
+        flex: 6
     },
     menuBtn: {
-        paddingLeft:20,
+        paddingLeft: 20,
         height: 50,
         width: 50
     },
     mainTitle: {
-        paddingLeft:40
+        paddingLeft: 40
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 40,
+        fontSize: 40
     },
     subTitle: {
-        paddingLeft:40,
-        paddingTop:30
+        paddingLeft: 40,
+        paddingTop: 30
     },
     subText: {
         fontFamily: "NanumMyeongjo",
         fontSize: 13,
-        paddingTop:5,
+        paddingTop: 5
     },
     footer: {
         alignItems: 'flex-end',
         flex: 1,
         padding: 30,
         paddingBottom: 30
-    },
+    }
 });
 
 export default MainPage;

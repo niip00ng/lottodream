@@ -18,17 +18,29 @@ import CustomButton from '../component/button/CustomButton';
 import LottieView from 'lottie-react-native'
 const clickSafe =require('../util/click_safe')
 
+// 애드몹 광고
+import { InterstitialAd, AdEventType, TestIds } from '@react-native-firebase/admob';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-7024707494100333/8967630979';
+
+
 const GenerateNumber = (props : any) => {
 
     const [finish, setFinish] = useState(false)
     const [numbers, setNumber] = useState([])
     const [dreams, setDreams] = useState([])
     const [bonus, setBonus] = useState('')
-
+    const [loaded, setLoaded] = useState(false);
     const genLib = require('../util/recommandLib')
 
+    // 애드몹 인스턴스
+    const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+        requestNonPersonalizedAdsOnly: true,
+        keywords: ['fashion', 'clothing'],
+      });
     useEffect(() => {
         
+        const eventListener = readyAdmob()
+
         const origin = genLib.generateLotto(props.route.params.words);
         console.log('GenerateNumber 결과 origin : ',  origin)
         const bonus = origin[origin.length-1]
@@ -47,9 +59,37 @@ const GenerateNumber = (props : any) => {
 
         setTimeout(() => {
             setFinish(!finish)
-        }, 2500)
+        }, 3000)
+
+
+
+        return () => {
+            eventListener();
+        }
     }, [])
     
+
+    // 애드몹 초기화 및 핸들러 등록
+    function readyAdmob () {
+
+        interstitial.load();
+        
+        return interstitial.onAdEvent(type => {
+            
+            console.log('adunit id : ', adUnitId)
+            console.log('type : ', type)
+            if (type === AdEventType.LOADED) {
+                setLoaded(true)
+                interstitial.show()
+            }
+
+            if(type === AdEventType.CLOSED) {
+                console.log('close')
+            }
+        });;
+    }
+
+
     function showResultButton () {
         if(finish) return (
             <CustomButton action={() => props.navigation.replace('NumberResult', {
