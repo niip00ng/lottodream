@@ -1,5 +1,5 @@
 import React , {useEffect}from 'react';
-
+import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
     createStackNavigator,
@@ -14,7 +14,8 @@ import NumberResult from './src/view/NumberResult';
 import Admob from './src/view/Admob'
 import DetailLotto from './src/view/DetailLotto'
 const baseTransitionOption = {
-    ...TransitionPresets.SlideFromRightIOS
+    ...TransitionPresets.SlideFromRightIOS,
+
 }
 const myLottoTransitionOption = {
     ...TransitionPresets.ModalSlideFromBottomIOS
@@ -22,7 +23,10 @@ const myLottoTransitionOption = {
 
 const Stack = createStackNavigator();
 const App = () => {
-
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
     return (
         <NavigationContainer>
             <Stack.Navigator headerMode="none" initialRouteName="MainPage">

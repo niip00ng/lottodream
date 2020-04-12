@@ -7,10 +7,14 @@ const clickSafe = require('../util/click_safe')
 const MainPage = (props : any) => {
     const [exit, setExit] = useState(false);
 
+    const [mainText, setMainText] = useState('')
+
     useEffect(() => {
+        console.log('메인페이지 시작')
         //@ts-ignore
         Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
-    }, [])
+        setMainText('꿈에')
+    }, [mainText])
 
     function handleBackButton() {
         let timeout = setTimeout(() => {
@@ -43,7 +47,7 @@ const MainPage = (props : any) => {
             </View>
             <View style={styles.body}>
                 <View style={styles.mainTitle}>
-                    <Text style={styles.titleText}>꿈에</Text>
+                    <Text style={styles.titleText}>{mainText}</Text>
                     <Text style={styles.titleText}>나온</Text>
                     <Text style={styles.titleText}>로또번호</Text>
                 </View>
