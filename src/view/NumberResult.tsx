@@ -264,13 +264,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#E5E5E5"
     },
     header: {
-        flex: 1,
         padding: 20,
-        flexDirection: "row"
     },
     body: {
-        flex: 15,
-        paddingBottom: 40
+        flex: 1,
     },
     menuBtn: {
         paddingLeft:20,
@@ -285,9 +282,10 @@ const styles = StyleSheet.create({
         fontSize: 32,
     },
     footer: {
+        marginTop: 20,
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 40,
+        marginBottom: 20,
     },
     todayView: {
         paddingLeft:10,

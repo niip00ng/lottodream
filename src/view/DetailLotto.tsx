@@ -51,12 +51,6 @@ const DetailLotto = (props : any) => {
         Alert.alert('꿈 이름이 필요합니다.')
     };
 
-    // editDreamName
-    function editDreamName () {
-
-        
-    }
-
     function changeText(text : string) {
         onChangeText(text)
     }
