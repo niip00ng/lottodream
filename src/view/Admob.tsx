@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Alert } from 'react-native';
+import { Button } from 'react-native';
 import { InterstitialAd, AdEventType, TestIds } from '@react-native-firebase/admob';
 
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-7024707494100333/8967630979';
@@ -16,7 +16,7 @@ const Admob = () => {
   useEffect(() => {
     console.log('adunit id : ', adUnitId)
     console.log('adunit id : ', interstitial)
-    Alert.alert('adUnitId', adUnitId)
+    
     const eventListener = interstitial.onAdEvent(type => {
 
       console.log('type : ', type)

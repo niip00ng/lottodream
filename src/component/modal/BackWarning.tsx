@@ -1,5 +1,5 @@
 import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react';
-import {Dimensions, View, Animated, Text, StyleSheet, TextInput, Alert} from 'react-native';
+import {Dimensions, View, Animated, Text, StyleSheet, TextInput} from 'react-native';
 import ButtonCancel from '../../../assets/svg/btn_cancel.svg' ;
 import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
 import Warning from '../../../assets/svg/warning.svg' ;

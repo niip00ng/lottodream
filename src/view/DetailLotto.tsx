@@ -8,7 +8,6 @@ import {
     TextInputSubmitEditingEventData,
     NativeSyntheticEvent,
     TouchableOpacity,
-    Alert
 } from 'react-native';
 
 
@@ -20,7 +19,7 @@ import NumberCard from './number_result/NumberCard'
 import BackModal from '../component/modal/BackWarning';
 import nextId from "react-id-generator";
 import Back from '../../assets/svg/back.svg' ;
-
+import BasicWarning from '../component/modal/BasicWarning';
 const clickSafe =require('../util/click_safe')
 const constant = require('../util/Constant')
 
@@ -40,7 +39,8 @@ const DetailLotto = (props : any) => {
     const modalOpen = useRef()
     const [dreamName, setDreamName] = useState('')
     const backModalOpen = useRef()
-    
+    const modalAlertOpen = useRef();
+    const [title, setTitle] = useState('')
     const [params, setParams] = useState([])
     const onClick = () => {
         if(value.length !==0) {
@@ -103,7 +103,10 @@ const DetailLotto = (props : any) => {
     
     function fixNameProc () {
         if(value.length === 0) {
-            return Alert.alert('꿈 이름을 한 글자 이상 입력하세요.')
+            setTitle('꿈 이름을 한 글자 이상 입력하세요.')
+            //@ts-ignore
+            modalAlertOpen.current.handleOpen();
+            return 
         }
 
         setFixName(!fixName)
@@ -169,6 +172,7 @@ const DetailLotto = (props : any) => {
 
                 </View>
             </View>
+            <BasicWarning title={title} ref= {modalAlertOpen}/>
         </View>
     )
 }

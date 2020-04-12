@@ -7,7 +7,6 @@ import {
     Text,
     TextInputSubmitEditingEventData,
     NativeSyntheticEvent,
-    Alert,
     BackHandler
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
@@ -18,13 +17,17 @@ import { TextInput } from 'react-native-gesture-handler';
 import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
 import BackModal from '../component/modal/BackWarning';
+import BasicWarning from '../component/modal/BasicWarning';
+
 const clickSafe =require('../util/click_safe')
 
 const InputWord = (props:any) => {
     const [value, onChangeText] = useState('');
     const [word, setWord] = useState([]);
-    const modalOpen = useRef()
-    
+    const modalOpen = useRef();
+    const modalAlertOpen = useRef();
+    const [title, setTitle] = useState('')
+
     // Back버튼 모달 펼치기
     const onClick = () => {
         if(word.length ===0 && value.length ===0) return props.navigation.goBack();
@@ -151,17 +154,21 @@ const InputWord = (props:any) => {
     // 산텍 딘어 추가
     function addWord (e: string) {
         
-        if(e === undefined) return Alert.alert('글자를 입력해주세요.');
-        if(value === '') return Alert.alert('글자를 입력해주세요.');
-        
+        if(value === '' || e === undefined) {
+            setTitle('글자를 입력해주세요.')
+            //@ts-ignore
+            modalAlertOpen.current.handleOpen();
+        }
         //@ts-ignore
         console.log('선택한 단어', e, word.indexOf(e))
         
         //@ts-ignore
         if(word.indexOf(e) !== -1) {
-            Alert.alert('이미 선택된 단어입니다.');
-            onChangeText('')    
-            return 
+            
+            setTitle('이미 선택한 단어입니다.')
+            //@ts-ignore
+            modalAlertOpen.current.handleOpen();
+            return onChangeText('')    
         }
         //@ts-ignore
         setWord([...word, e]);
@@ -169,6 +176,9 @@ const InputWord = (props:any) => {
     }
 
     useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+        
         BackHandler.addEventListener("hardwareBackPress", handleBackButton);
 
         return () => {
@@ -189,8 +199,7 @@ const InputWord = (props:any) => {
     }
     return (
         <View style={styles.all}>
-
-<KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
+            <KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
                 <View style={styles.header}>
                     <View style={styles.backBtn}>
                         <Back onPress={() => {
@@ -215,14 +224,17 @@ const InputWord = (props:any) => {
                 </View>
 
             </KeyboardAvoidingView>
+            
             <View style={styles.footer}>
                 <View>
                     {activateButton()}
                 </View>
             </View>
-            <BackModal title='입력을 취소하고 뒤로 가시겠습니까?' ref={modalOpen} action={() => {
+            <BasicWarning title={title} ref= {modalAlertOpen}/>
+            <BackModal ref={modalOpen} title={title} action={() => {
                 props.navigation.goBack()
             }}/>
+
         </View>
     )
 }

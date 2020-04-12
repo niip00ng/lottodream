@@ -1,11 +1,12 @@
-import React, {useState, useEffect, forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react';
 import {Dimensions, View, Animated, Text, StyleSheet, TextInput} from 'react-native';
 import ButtonCancel from '../../../assets/svg/btn_cancel.svg' ;
 import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
-import BasicWarning from './BasicWarning';
+import Warning from '../../../assets/svg/warning.svg' ;
+const clickSafe =require('../../util/click_safe')
 
 // 부모로부터 
-const SaveNumbers = forwardRef((props:any, ref) => {
+const BasicModal = forwardRef((props:any, ref) => {
     useEffect(() => {
         //@ts-ignore
         Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
@@ -14,10 +15,6 @@ const SaveNumbers = forwardRef((props:any, ref) => {
         TextInput.defaultProps = TextInput.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
     }, [])
     const [animation, setAnimation] = useState(new Animated.Value(0))
-    const [value, onChangeText] = useState('');
-    const [word, setWord] = useState([]);
-    const modalAlertOpen = useRef();
-    const [title, setTitle] = useState('')
     //Parents 에서 실행가능한 함수
     // Open
     // Close
@@ -26,6 +23,7 @@ const SaveNumbers = forwardRef((props:any, ref) => {
     }));
     
     function handleOpen() {
+        
         Animated.timing(animation, {
                 toValue: 1,
                 duration: 300,
@@ -33,34 +31,17 @@ const SaveNumbers = forwardRef((props:any, ref) => {
             }).start();
     }
 
-    function handleClose() {
-        
+    function handleClose(close:boolean) {
         Animated.timing(animation, {
                 toValue: 0,
                 duration: 200,
                 useNativeDriver: true
-            }).start();
+            }).start(({finished}) => {
+                if(close)  props.action()
+              });
     }
 
-    function sendDreamName() {
-        if(value === '') {
-            setTitle('글자를 입력해주세요.')
-            //@ts-ignore
-            modalAlertOpen.current.handleOpen();
-            return
-        }
-
-        Animated.timing(animation, {
-            toValue: 0,
-            duration: 200,
-            useNativeDriver: true
-        }).start(({finished}) => {
-            props.end(value)
-          });
-        
-
-    }
-
+    
     const screenHeight = Dimensions.get("window").height;
 
     const backdrop = {
@@ -97,36 +78,26 @@ const SaveNumbers = forwardRef((props:any, ref) => {
             <View style={[styles.sheet]}>
                 <Animated.View style={[styles.popup, slideUp]}>
                     <View style={styles.header}>
-                        <View style={{paddingTop: 15, paddingLeft: 12}}>
-                            <Text style={styles.titleText} >꿈 이름 정하기</Text>
+                        <View style={{paddingTop: 15}}>
+                            <Warning/>
                         </View>
                     </View>
                     <View style={styles.body}>
                         <View style={{paddingLeft:40, paddingRight:40}}>
-                            <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1}}>    
-                                <TextInput
-                                    style={styles.editBox}
-                                    editable
-                                    maxLength={40}
-                                    placeholder='골프공에 귀신들린 꿈'
-                                    numberOfLines={1}
-                                    onChangeText={(text:string) => onChangeText(text)}
-                                    onSubmitEditing={sendDreamName}
-                                    value={value} />
+                            <View style={{marginTop: 15, alignItems:'center',justifyContent: "center",}}>    
+                                <Text style={styles.titleText}>{props.title}</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.footer}>
-                            <View>
-                                <ButtonCancel onPress={handleClose}/>
-                            </View>
-                            <View>
-                                <ButtonOk onPress={sendDreamName}/>
-                            </View>
+                        <View>
+                            <ButtonOk onPress={() => {
+                                if(clickSafe.safeClicked()) {handleClose(false)
+                            }}}/>
+                        </View>
                     </View>
                 </Animated.View>
             </View>
-            <BasicWarning title={title} ref= {modalAlertOpen}/>
         </Animated.View>
     );
 })
@@ -140,27 +111,26 @@ const styles = StyleSheet.create({
     header: {
         flex: 1,
         paddingTop: 30,
-        paddingLeft: 30,
+        alignItems:'center',
+        justifyContent: "center",
     },
     body: {
         flex: 1,
+        paddingTop: 20,
     },
     footer: {
         flexDirection: "row",
         paddingBottom: 30,
+        paddingRight: 20,
         justifyContent: "flex-end",
         flex:1
     },
     cover: {
         backgroundColor: "rgba(0,0,0,.3)"
     },
-    editBox : {
-        fontFamily: "NanumMyeongjo",
-        fontSize: 18,
-    },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 20,
+        fontSize: 18,
     },
     sheet: {
         position: "absolute",
@@ -180,4 +150,4 @@ const styles = StyleSheet.create({
     },
 
 });
-export default SaveNumbers;
+export default BasicModal;

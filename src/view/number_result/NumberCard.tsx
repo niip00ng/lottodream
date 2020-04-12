@@ -6,7 +6,6 @@ import {
     View,
     Dimensions,
     Text,
-    Alert
 } from 'react-native';
 
 import BaseCard from '../../../assets/svg/base_card.svg';

@@ -7,7 +7,6 @@ import {
     Text,
     Button,
     StatusBar,
-    Alert
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import LoadStart from '../../assets/lottie/loading_start.json' ;
