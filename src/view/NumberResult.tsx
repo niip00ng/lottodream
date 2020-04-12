@@ -6,7 +6,7 @@ import {
     View,
     Text,
     BackHandler,
-    Alert
+    KeyboardAvoidingView
 } from 'react-native';
 
 import SaveModal from '../component/modal/SaveNumbers';
@@ -183,12 +183,15 @@ const NumberResult = (props : any) => {
         return true;
     }
     return (
+        
         <View style={styles.all}>
+            
             <View style={styles.header}>
                 <View style={styles.todayView}>
                     <View><Text style={styles.todayTitle}>{dateTitle}</Text></View>
                 </View>
             </View>
+
             <View style={styles.body}>
                 <View style={styles.mainTitle}>
                     <Text style={styles.titleText}>당신의</Text>
@@ -232,11 +235,13 @@ const NumberResult = (props : any) => {
                     </View>
                 </View>
             </View>
+            
             <SaveModal ref={modalOpen} end={confirmDreamName}/>
             <BackModal title='처음부터 다시 진행하시겠습니까?' ref={backModalOpen} action={() => {
                 BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
                 props.navigation.goBack()
             }}/>
+
         </View>
     )
 }
@@ -279,8 +284,7 @@ const styles = StyleSheet.create({
     footer: {
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 20,
-        flex: 2,
+        marginBottom: 40,
     },
     todayView: {
         paddingLeft:10,
@@ -301,8 +305,9 @@ const styles = StyleSheet.create({
         borderLeftColor: '#00ff0000',
         borderTopColor: '#00ff0000',
         borderRightColor: '#00ff0000',
-        width: 80,
+        width: 90,
         height: 30,
+        alignItems:'center',
         backgroundColor: '#E5E5E5',
     },
       cardSet : {

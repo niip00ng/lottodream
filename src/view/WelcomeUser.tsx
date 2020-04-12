@@ -82,9 +82,8 @@ const styles = StyleSheet.create({
     },
     footer: {
         alignItems: 'flex-end',
-        flex: 1,
         padding: 30,
-        paddingBottom: 30
+        paddingBottom: 50
     },
     backBtn: {
         paddingLeft:10,

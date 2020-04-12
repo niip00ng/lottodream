@@ -105,8 +105,9 @@ const GenerateNumber = (props : any) => {
         if(finish) {
             return (
                 <View style={styles.body}>
-                    <View style={styles.lottieEnd}>
+                    <View style={{alignItems: 'center'}}>
                         <LottieView
+                            style={styles.lottieEnd}
                             source={LoadEnd}
                             autoPlay
                             loop={false}
@@ -125,14 +126,15 @@ const GenerateNumber = (props : any) => {
         }  
         return (
             <View style={styles.loading}>
-                <View style={styles.lottie}>
+                <View>
                     <LottieView
+                        style={styles.lottie}
                         source={LoadStart}
                         autoPlay loop
                     />
                 </View>
-                <View style={{paddingTop:30, paddingLeft:10}}>
-                    <Text>숫자를 추출 중입니다...</Text>
+                <View style={{paddingTop:20, paddingLeft:10}}>
+                    <Text style={styles.genText}>숫자를 추출 중입니다...</Text>
                 </View>
             </View>
         )      
@@ -171,11 +173,12 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     lottieEnd : {
-        alignItems: 'center',
-        padding: 100,
+        width: 180,
+        height : 180
     },
     lottie : {
-        padding: 100,
+        width: 180,
+        height : 180
     },
     loading: {
         flex: 6,
@@ -183,8 +186,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     body: {
-        flex: 6,
-        marginTop:50,
+        flex: 8,
     },
     menuBtn: {
         paddingLeft:20,
@@ -202,6 +204,10 @@ const styles = StyleSheet.create({
     subTitle: {    
         padding:40
     },
+    genText: {
+        fontFamily: "NanumMyeongjo",
+        fontSize: 13,
+    },
     subText: {
         fontFamily: "NanumMyeongjo",
         fontSize: 13,
@@ -210,9 +216,8 @@ const styles = StyleSheet.create({
     },
     footer: {
         alignItems: 'flex-end',
-        flex: 1,
-        padding: 30,
-        paddingBottom: 30
+        paddingRight: 30,
+        paddingBottom: 50
     },
     backBtn: {
         paddingLeft:10,
