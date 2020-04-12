@@ -2,7 +2,7 @@ import React , {useState, useEffect,useRef} from 'react';
 import {
     FlatList,
     StyleSheet,
-    ScrollView,
+    YellowBox,
     View,
     Text,
 } from 'react-native';
@@ -12,6 +12,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import DeleteModal from '../component/modal/BackWarning';
 import Detail from './DetailLotto'
 
+YellowBox.ignoreWarnings([
+    'Non-serializable values were found in the navigation state',
+  ]);
+
+  
 const constant = require('../util/Constant')
 const clickSafe =require('../util/click_safe')
 
@@ -65,10 +70,11 @@ const MyLotto = (props:any) => {
 
     const updateName = async (id : any, name : string) => {
         console.log(id, name)
-        
-        myLotto[id].name = name;
-
-        //setMyLotto(dataa);
+        for(var i in myLotto) {
+            if(myLotto[i].id === id) {
+                myLotto[i].name = name;   
+            }
+        }
 
         console.log('', myLotto)
         if(storeData(constant.LOTTO_KEY, JSON.stringify(myLotto))) {
