@@ -11,7 +11,7 @@ import Back from '../../assets/svg/btn_bigx.svg' ;
 import AsyncStorage from '@react-native-community/async-storage';
 import DeleteModal from '../component/modal/BackWarning';
 import Detail from './DetailLotto'
-
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 YellowBox.ignoreWarnings([
     'Non-serializable values were found in the navigation state',
   ]);
@@ -127,8 +127,8 @@ const MyLotto = (props:any) => {
         if(myLotto.length === 0 ) {
             return (
                 <View style={styles.lottoCard}>
-                    <View style={{paddingTop:20, paddingLeft:20} }>
-                        <Text style={{fontSize: 18, fontFamily: "NanumMyeongjo",color:'#868e96'}}>
+                    <View style={{paddingTop:verticalScale(20), paddingLeft:horizontalScale(20)} }>
+                        <Text style={{fontSize: moderateScale(18), fontFamily: "NanumMyeongjo",color:'#868e96'}}>
                             아직 보관된 아이템이 없습니다.
                         </Text>
                     </View>
@@ -177,12 +177,12 @@ const MyLotto = (props:any) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: verticalScale(10),
         backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: "row"
     },
     body: {
@@ -192,56 +192,56 @@ const styles = StyleSheet.create({
     },
     backBtn: {
         paddingLeft:5,
-        height: 50,
-        width: 50
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     settingButton: {
-        height: 50,
-        width: 50
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     titleText: {
-        fontSize: 40,
+        fontSize: moderateScale(40),
         fontFamily: "NanumMyeongjo",
     },
     mainTitle: {
-        paddingLeft:40
+        paddingLeft:horizontalScale(40)
     },
     subTitle: {
-        paddingLeft:40,
-        paddingTop:20
+        paddingLeft:horizontalScale(40),
+        paddingTop:verticalScale(20)
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 15,
-        paddingTop:5,
+        fontSize: moderateScale(15),
+        paddingTop:verticalScale(5),
     },
     bodyTitle: {
         flex: 1,
         alignItems: 'center',
-        padding: 20,
-        paddingBottom: 50
+        padding: moderateScale(20),
+        paddingBottom: verticalScale(50)
     },
     bodyContents: {
         flex: 7,
-        padding: 10,
-        paddingTop:50, 
+        padding: moderateScale(10),
+        paddingTop:verticalScale(50), 
     },
     lottoCard: {
-        height: 160 ,
-        backgroundColor: '#ced4da',
+        height: verticalScale(160),
+        backgroundColor: '#dedede',
         borderRadius: 19,
-        marginBottom: 5
+        marginBottom: verticalScale(5)
     },
     button: {
-        width: 120,
-        height: 40,
+        width: horizontalScale(120),
+        height: horizontalScale(40),
         alignItems: 'center',
         backgroundColor: 'gray',
         justifyContent: 'center',
         borderRadius: 10
     },
     title: {
-        fontSize: 15
+        fontSize: moderateScale(15)
     },
 });
 

@@ -11,7 +11,7 @@ import {
 import BaseCard from '../../../assets/svg/base_card.svg';
 import BaseBottom from '../../../assets/svg/base_bottom.svg';
 import NumberColor from '../../component/card/NumberColor';
-
+import {verticalScale, horizontalScale, moderateScale} from '../../util/scaling';
 let { width, height } = Dimensions.get('window');
 
 // 해당 화면의 가로와 높이
@@ -189,11 +189,6 @@ var styles = StyleSheet.create({
     container: {
       width: w,
       height: h
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      padding: 0
     },
     rectangle : {
         position: 'absolute',

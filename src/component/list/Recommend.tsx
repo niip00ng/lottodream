@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {verticalScale, horizontalScale, moderateScale} from '../../util/scaling';
 
 const Recommend = (props :any) => {
     const [selected, setSelected] = useState('');
     const [recommandData, setRecommandData] = useState();
     const genLib = require('../../util/recommandLib')
-
+    
     const selectWord = React.useCallback(id => {
         props.add(id)
     }, [selected],);
@@ -35,12 +36,11 @@ const Recommend = (props :any) => {
 
 const styles = StyleSheet.create({
     all: {
-     paddingTop: 10
+     paddingTop: verticalScale(10)
     },
     item: {
-      padding: 0,
-      fontSize: 16,
-      height: 35,
+      fontSize: moderateScale(16),
+      height: verticalScale(35),
       color: '#383838'
     },
   })

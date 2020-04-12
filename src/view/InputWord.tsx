@@ -18,6 +18,7 @@ import {Badge} from 'react-native-elements';
 import Recommand from '../component/list/Recommend'
 import BackModal from '../component/modal/BackWarning';
 import BasicWarning from '../component/modal/BasicWarning';
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 
 const clickSafe =require('../util/click_safe')
 
@@ -39,9 +40,9 @@ const InputWord = (props:any) => {
 
     // next 버튼 활성화
     function activateButton () {
-        if(word.length < 6) return <GenerateNumberOff/>
+        if(word.length < 6) return <CustomButton title='숫자 추출하기' active={false} action={() => {}}/>
         
-        return <CustomButton action={() => {sendNext()}} title='숫자 추출하기'/>
+        return <CustomButton active={true} action={() => {sendNext()}} title='숫자 추출하기'/>
     }
 
     function changeText(text:string){
@@ -71,7 +72,7 @@ const InputWord = (props:any) => {
     function componentTitle () {
         if(word.length ===0 && value.length ===0) {
             return (
-                <View style={{paddingTop: 10, paddingLeft: 5}}><Text>단어 입력하기</Text></View>
+                <View style={{paddingTop: verticalScale(10), paddingLeft: horizontalScale(5)}}><Text style={styles.headerTitle}>단어 입력하기</Text></View>
             )
         } 
         return ;
@@ -83,7 +84,7 @@ const InputWord = (props:any) => {
         if(word.length === 6) return
         
         return (
-            <View style={{ borderBottomColor: '#000000', borderBottomWidth: 2}}>    
+            <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1}}>    
                 <TextInput
                     style={styles.editBox}
                     editable
@@ -103,7 +104,7 @@ const InputWord = (props:any) => {
         return word.map((candidate ,index)=> {
             if(candidate!='')
             return (
-                <View style={{padding: 5}} key={index}>
+                <View style={{padding: moderateScale(5)}} key={index}>
                     <Badge value={
                         <Text style={styles.candidateWord}>{candidate} ×</Text> 
                         } 
@@ -134,7 +135,7 @@ const InputWord = (props:any) => {
                     <Text
                         style={{
                             fontFamily: "NanumMyeongjo",
-                            fontSize: 19
+                            fontSize: moderateScale(19)
                         }}>{word.length} / 6</Text>
                 </View>
             )
@@ -178,6 +179,8 @@ const InputWord = (props:any) => {
     useEffect(() => {
         //@ts-ignore
         Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+        //@ts-ignore
+        TextInput.defaultProps = Text.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
         
         BackHandler.addEventListener("hardwareBackPress", handleBackButton);
 
@@ -207,7 +210,7 @@ const InputWord = (props:any) => {
                         }} />
                         {componentTitle()}
                     </View>
-                    <View style={{flex:1, alignItems:'flex-end' , marginRight: 10}}>
+                    <View style={{flex:1, alignItems:'flex-end' , marginRight: horizontalScale(10)}}>
                         {wordCountView()}
                     </View>
                 </View>
@@ -231,7 +234,7 @@ const InputWord = (props:any) => {
                 </View>
             </View>
             <BasicWarning title={title} ref= {modalAlertOpen}/>
-            <BackModal ref={modalOpen} title={title} action={() => {
+            <BackModal ref={modalOpen} title='입력을 취소하고 뒤로 가시겠습니까?' action={() => {
                 props.navigation.goBack()
             }}/>
 
@@ -243,7 +246,7 @@ const InputWord = (props:any) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     keyboardAvoid: {
@@ -251,72 +254,75 @@ const styles = StyleSheet.create({
       },
     header: {
         flex: 1,
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: "row"
     },
     body: {
         flex: 7,
     },
     menuBtn: {
-        paddingLeft:20,
-        height: 50,
-        width: 50
+        paddingLeft:horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     mainTitle: {
-        paddingLeft:40,
-        paddingTop:60,
-        paddingBottom:40
+        paddingLeft:horizontalScale(40),
+        paddingTop:verticalScale(60),
+        paddingBottom:verticalScale(40)
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 30,
+        fontSize: moderateScale(30),
     },
     subTitle: {    
-        paddingBottom:40,
-        paddingLeft:40,
-        paddingRight:40,
+        paddingBottom:verticalScale(40),
+        paddingLeft:horizontalScale(40),
+        paddingRight:horizontalScale(40),
 
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        width:350,
-        lineHeight: 30,
+        fontSize: moderateScale(13),
+        width:horizontalScale(350),
+        lineHeight: verticalScale(30),
     },
     footer: {
         alignItems: 'flex-end',
-        padding: 30,
-        paddingBottom: 50,
+        padding: moderateScale(30),
+        paddingBottom: verticalScale(50),
     },
     backBtn: {
-        flex:1,
-        paddingLeft:10,
+        paddingLeft:horizontalScale(10),
     },editBox : {
+        height : horizontalScale(55),
         fontFamily: "NanumMyeongjo",
-        fontSize: 20,
+        fontSize: moderateScale(20),
     },wordList : {
         flexDirection: "row",
         flexWrap: "wrap"
     },wordCount : {
-        padding: 10,
+        padding: moderateScale(10),
         flexDirection: "row",
         flexWrap: "wrap"
         
     }, candidateWord : {
         fontFamily: "NanumMyeongjo",
-        fontSize: 15,
+        fontSize: moderateScale(15),
     }, badgeStyle:{ 
         borderColor: '#383838', 
-        borderWidth:0.5,
+        borderWidth:horizontalScale(0.5),
         backgroundColor: "#00ff0000",
-        padding:12,
+        padding:moderateScale(12),
         borderRadius:100
     }, badgeText: {
         fontFamily: "NanumMyeongjo",
         backgroundColor: "#00ff0000"
     },recommendFrame :{
-        height: 400
-    }
+        height: verticalScale(400)
+    },
+    headerTitle: {
+        fontSize: moderateScale(13),
+    },
 });
 
 

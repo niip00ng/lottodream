@@ -15,8 +15,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import El from '../../assets/svg/el.svg';
 import NumberCard from './number_result/NumberCard'
 import BackModal from '../component/modal/BackWarning';
-import nextId from "react-id-generator";
 
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 const clickSafe =require('../util/click_safe')
 const constant = require('../util/Constant')
 
@@ -222,7 +222,7 @@ const NumberResult = (props : any) => {
                 </View>
             </View>
             <View style={styles.footer}>
-                <View style={{flex:1, marginLeft: 40}}>
+                <View style={{flex:1, marginLeft: horizontalScale(40)}}>
                     <View style={[styles.rectangle]} >
                         <Text style={styles.button} onPress={() => {
                             //if(clickSafe.safeClicked()) props.navigation.replace('InputWord')
@@ -230,7 +230,7 @@ const NumberResult = (props : any) => {
                         }}>다시하기</Text>
                     </View>
                 </View>
-                <View style={{flex:1, alignItems: 'flex-end', marginRight: 30}}>
+                <View style={{flex:1, alignItems: 'flex-end', marginRight: horizontalScale(30)}}>
                     <View style={[styles.rectangle]}>
                         <Text style={styles.button} onPress={ () => {
                             if(clickSafe.safeClicked()) onClick()
@@ -256,49 +256,49 @@ const styles = StyleSheet.create({
     },    
     text: {
         color: "black",
-        fontSize: 22
+        fontSize: moderateScale(22)
     },
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     header: {
-        padding: 20,
+        padding: moderateScale(20),
     },
     body: {
         flex: 1,
     },
     menuBtn: {
-        paddingLeft:20,
-        height: 50,
-        width: 50
+        paddingLeft:horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     mainTitle: {
-        paddingLeft:40,
+        paddingLeft:horizontalScale(40),
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 32,
+        fontSize: moderateScale(32),
     },
     footer: {
-        marginTop: 20,
+        marginTop: verticalScale(20),
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 20,
+        marginBottom: verticalScale(20),
     },
     todayView: {
-        paddingLeft:10,
-        height: 50,
-        width: 300
+        paddingLeft:horizontalScale(10),
+        height: verticalScale(50),
+        width: horizontalScale(300)
     },
     todayTitle: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 18,
+        fontSize: moderateScale(18),
     },
     button: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 20,
+        fontSize: moderateScale(20),
     },
     rectangle: {
         borderWidth: 1,
@@ -306,16 +306,16 @@ const styles = StyleSheet.create({
         borderLeftColor: '#00ff0000',
         borderTopColor: '#00ff0000',
         borderRightColor: '#00ff0000',
-        width: 90,
-        height: 30,
+        width: horizontalScale(90),
+        height: verticalScale(30),
         alignItems:'center',
         backgroundColor: '#E5E5E5',
     },
       cardSet : {
         flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        paddingTop: 40,
+        marginLeft: horizontalScale(30),
+        marginRight: horizontalScale(30),
+        paddingTop: verticalScale(20),
         flexDirection: 'column',
         justifyContent: 'space-between'
     },

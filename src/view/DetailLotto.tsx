@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 import SaveModal from '../component/modal/SaveNumbers';
 import moment from 'moment'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -178,55 +178,55 @@ const styles = StyleSheet.create({
     },    
     text: {
         color: "black",
-        fontSize: 22
+        fontSize: moderateScale(22)
     },
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingBottom: 10,
+        paddingTop: verticalScale(20),
+        paddingLeft: horizontalScale(20),
+        paddingBottom: verticalScale(10),
         flexDirection: "row"
     },
     body: {
-        flex: 15,
-        paddingBottom: 40
+        flex: moderateScale(15),
+        paddingBottom: horizontalScale(40)
     },
     menuBtn: {
-        paddingLeft:20,
-        height: 50,
-        width: 50
+        paddingLeft:horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     mainTitle: {
-        paddingLeft:40,
-        paddingRight: 40
+        paddingLeft:horizontalScale(40),
+        paddingRight: horizontalScale(40)
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 32,
+        fontSize: moderateScale(32),
     },
     footer: {
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 20,
+        marginBottom: verticalScale(20),
         flex: 2,
     },
     todayView: {
-        paddingLeft:10,
-        height: 50,
-        width: 300
+        paddingLeft:horizontalScale(10),
+        height: verticalScale(50),
+        width: horizontalScale(300)
     },
     todayTitle: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 18,
+        fontSize: moderateScale(18),
     },
     button: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 20,
+        fontSize: moderateScale(20),
     },
     rectangle: {
         borderWidth: 1,
@@ -234,15 +234,15 @@ const styles = StyleSheet.create({
         borderLeftColor: '#00ff0000',
         borderTopColor: '#00ff0000',
         borderRightColor: '#00ff0000',
-        width: 80,
-        height: 30,
+        width: horizontalScale(80),
+        height: verticalScale(30),
         backgroundColor: '#E5E5E5',
     },
     cardSet : {
         flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        paddingTop: 40,
+        marginLeft: horizontalScale(30),
+        marginRight: horizontalScale(30),
+        paddingTop: verticalScale(40),
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
@@ -252,21 +252,21 @@ const styles = StyleSheet.create({
     },
     backBtn: {
         flex:1,
-        paddingLeft:10,
+        paddingLeft:horizontalScale(10),
     },
     editBox : {
         fontFamily: "NanumMyeongjo",
-        fontSize: 25,
+        fontSize: moderateScale(25),
         color : '#868e96'
     },
     subTitle: {
-        paddingLeft: 40,
-        paddingTop: 20
+        paddingLeft: horizontalScale(40),
+        paddingTop: verticalScale(20)
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        paddingTop: 5
+        fontSize: moderateScale(13),
+        paddingTop: verticalScale(5)
     },
 });
 

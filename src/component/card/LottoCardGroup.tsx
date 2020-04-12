@@ -9,6 +9,7 @@ import NumberColor from './NumberColor';
 import Lines from '../../../assets/svg/line.svg' ;
 import Delete from '../../../assets/svg/btn_x.svg' ;
 const clickSafe =require('../../util/click_safe')
+import {verticalScale, horizontalScale, moderateScale} from '../../util/scaling';
 
 const LottoCardGroup = (props: any) => {
 
@@ -65,7 +66,7 @@ const LottoCardGroup = (props: any) => {
                 </View>
                 <View style={styles.headerTextBox}>
                     <Text style={styles.dreamName}>{props.name}</Text>
-                    <View style={{paddingLeft: 10}}>{LottoStatus(props.status, props.round)}</View>
+                    <View style={{paddingLeft: horizontalScale(10)}}>{LottoStatus(props.status, props.round)}</View>
                 </View>  
                 <View style={styles.dateTextBox}>
                     <Text style={styles.dateText}>{props.date}</Text>
@@ -89,45 +90,45 @@ const LottoCardGroup = (props: any) => {
 const styles=StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: verticalScale(10),
     },
     header: {
         flex: 1,
-        paddingLeft: 20
+        paddingLeft: horizontalScale(20)
     },
     headerTextBox: {
         flexDirection: "row",
-        paddingTop: 5,
-        paddingLeft: 10
+        paddingTop: verticalScale(5),
+        paddingLeft: horizontalScale(10)
     },
     dateTextBox: {
-        paddingTop: 5,
-        paddingLeft: 12
+        paddingTop: verticalScale(5),
+        paddingLeft: horizontalScale(12)
     },
     body: {
-        paddingLeft: 40,
-        paddingRight: 40,
+        paddingLeft: horizontalScale(40),
+        paddingRight: horizontalScale(40),
         alignItems: 'center',
         flexDirection: "row",
         justifyContent: 'space-between',
         flex: 1
     },
     dreamName: {
-        fontSize: 22,
+        fontSize: moderateScale(18),
         fontFamily: "NanumMyeongjo",
     },
     dateText: {
-        fontSize: 13,
+        fontSize: moderateScale(13),
         color: 'gray'
     },
     lottoNumber :{
-        fontSize: 20,
+        fontSize: moderateScale(20),
         color: 'gray'
     },numberSet: {
         alignItems: 'center',
     }, successMessege : {
         
-        fontSize: 22,
+        fontSize: moderateScale(22),
         fontFamily: "NanumMyeongjo",
         color: '#D92A2A'
     }

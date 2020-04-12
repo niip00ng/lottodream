@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, BackHandler, ToastAndroid} from 'react-native';
+import {StyleSheet, View, Text, BackHandler, ToastAndroid, Dimensions} from 'react-native';
 import CustomButton from '../component/button/CustomButton';
 import Menu from '../../assets/svg/menu.svg';
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
+const { width, height } = Dimensions.get('window');
 const clickSafe = require('../util/click_safe')
 
 const MainPage = (props : any) => {
@@ -14,7 +16,7 @@ const MainPage = (props : any) => {
         //@ts-ignore
         Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
         setMainText('꿈에')
-    }, [mainText])
+    }, [])
 
     function handleBackButton() {
         let timeout = setTimeout(() => {
@@ -58,6 +60,7 @@ const MainPage = (props : any) => {
             </View>
             <View style={styles.footer}>
                 <CustomButton
+                    active={true}
                     action={() => {
                         BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
                         props
@@ -73,46 +76,46 @@ const MainPage = (props : any) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: "row"
     },
     settingButton: {
-        height: 50,
-        width: 50
+        height: verticalScale(50),
+        width: horizontalScale(50),
     },
     body: {
         flex: 6
     },
     menuBtn: {
-        paddingLeft: 20,
-        height: 50,
-        width: 50
+        paddingLeft: horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50),
     },
     mainTitle: {
-        paddingLeft: 40
+        paddingLeft: horizontalScale(40),
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 40
+        fontSize: moderateScale(40),
     },
     subTitle: {
-        paddingLeft: 40,
-        paddingTop: 30
+        paddingLeft: horizontalScale(40),
+        paddingTop: verticalScale(30),
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        paddingTop: 5
+        fontSize: moderateScale(13),
+        paddingTop: verticalScale(5)
     },
     footer: {
         alignItems: 'flex-end',
-        padding: 30,
-        paddingBottom: 50
+        padding: moderateScale(30),
+        paddingBottom: verticalScale(50)
     }
 });
 

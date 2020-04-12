@@ -20,7 +20,7 @@ const clickSafe =require('../util/click_safe')
 // 애드몹 광고
 import { InterstitialAd, AdEventType, TestIds } from '@react-native-firebase/admob';
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-7024707494100333/8967630979';
-
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 
 const GenerateNumber = (props : any) => {
     useEffect(() => {
@@ -94,14 +94,14 @@ const GenerateNumber = (props : any) => {
 
     function showResultButton () {
         if(finish) return (
-            <CustomButton action={() => props.navigation.replace('NumberResult', {
+            <CustomButton active={true} action={() => props.navigation.replace('NumberResult', {
                 nums: numbers,
                 dreams: dreams,
                 bonus: bonus
             })} title='결과 보기'/>
         )
 
-        return <ShowResultOffBtn/>
+        return  <CustomButton active={false} action={() => {}} title='결과 보기'/>
     }
     function nowStatusView () {
         if(finish) {
@@ -135,7 +135,7 @@ const GenerateNumber = (props : any) => {
                         autoPlay loop
                     />
                 </View>
-                <View style={{paddingTop:20, paddingLeft:10}}>
+                <View style={{paddingTop:verticalScale(20), paddingLeft:horizontalScale(10)}}>
                     <Text style={styles.genText}>숫자를 추출 중입니다...</Text>
                 </View>
             </View>
@@ -149,7 +149,7 @@ const GenerateNumber = (props : any) => {
                     <Back onPress={() => {
                         if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
                     }} />
-                    <View style={{paddingTop: 10, paddingLeft: 5}}><Text>숫자추출하기</Text></View>
+                    <View style={{paddingTop: verticalScale(10), paddingLeft: horizontalScale(5)}}><Text style={styles.headerTitle}>숫자추출하기</Text></View>
                 </View>
             </View>
             {nowStatusView()}
@@ -166,65 +166,66 @@ const GenerateNumber = (props : any) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: "row"
     },
     lottieEnd : {
-        width: 180,
-        height : 180
+        width: horizontalScale(180),
+        height : verticalScale(180)
     },
     lottie : {
-        width: 180,
-        height : 180
+        width: horizontalScale(180),
+        height : verticalScale(180)
     },
     loading: {
         flex: 6,
-        marginTop:50,
+        marginTop:verticalScale(50),
         alignItems: 'center'
     },
     body: {
         flex: 8,
     },
     menuBtn: {
-        paddingLeft:20,
-        height: 50,
-        width: 50
+        paddingLeft:horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     mainTitle: {
-        paddingLeft:40,
-        paddingTop:60
+        paddingLeft:horizontalScale(40),
+        paddingTop:verticalScale(60)
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 40,
+        fontSize: moderateScale(40),
     },
     subTitle: {    
-        padding:40
+        padding:moderateScale(40)
     },
     genText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
+        fontSize: moderateScale(13),
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        width:350,
-        lineHeight: 30,
+        fontSize: moderateScale(13),
+        width:horizontalScale(350),
+        lineHeight: verticalScale(30),
     },
     footer: {
         alignItems: 'flex-end',
-        paddingRight: 30,
-        paddingBottom: 50
+        paddingRight: horizontalScale(30),
+        paddingBottom: verticalScale(50)
     },
     backBtn: {
-        paddingLeft:10,
-        height: 50,
-        width: 100
+        paddingLeft:horizontalScale(10),
+    },
+    headerTitle: {
+        fontSize: moderateScale(13),
     },
 });
 

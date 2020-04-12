@@ -8,12 +8,13 @@ import {
 import Back from '../../assets/svg/back.svg' ;
 import CustomButton from '../component/button/CustomButton';
 const clickSafe =require('../util/click_safe')
+import {verticalScale, horizontalScale, moderateScale} from '../util/scaling';
 
 const WelcomeUser = (props:any) => {
     useEffect(() => {
         //@ts-ignore
         Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
-
+        
         //@ts-ignore
         TextInput.defaultProps = TextInput.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
     }, [])
@@ -24,8 +25,7 @@ const WelcomeUser = (props:any) => {
                     <Back onPress={() => {
                         if(clickSafe.safeClicked()) props.navigation.goBack({key: 'MainPage'})
                     }} />
-                    <View style={{paddingTop: 10, paddingLeft: 5}}><Text>시작하기</Text></View>
-                    
+                    <View style={{paddingTop: 10, paddingLeft: 5}}><Text style={styles.headerTitle}>시작하기</Text></View>
                 </View>
             </View>
             <View style={styles.body}>
@@ -40,7 +40,7 @@ const WelcomeUser = (props:any) => {
             </View>
             <View style={styles.footer}>
                 <View>
-                    <CustomButton action={() => props.navigation.push('InputWord')} title='시작하기'/>
+                    <CustomButton active={true} action={() => props.navigation.push('InputWord')} title='시작하기'/>
                 </View>
             </View>
         </View>
@@ -51,51 +51,52 @@ const WelcomeUser = (props:any) => {
 const styles = StyleSheet.create({
     all: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
         backgroundColor: "#E5E5E5"
     },
     header: {
         flex: 1,
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: "row"
     },
     settingButton: {
-        height: 50,
-        width: 50
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     body: {
         flex: 6,
     },
     menuBtn: {
-        paddingLeft:20,
-        height: 50,
-        width: 50
+        paddingLeft:horizontalScale(20),
+        height: verticalScale(50),
+        width: horizontalScale(50)
     },
     mainTitle: {
-        paddingLeft:40,
-        paddingTop:60
+        paddingLeft:horizontalScale(40),
+        paddingTop: verticalScale(60)
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 40,
+        fontSize: moderateScale(40),
     },
     subTitle: {    
-        padding:40
+        padding:moderateScale(40)
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 13,
-        lineHeight: 30,
+        fontSize: moderateScale(13),
+        lineHeight: verticalScale(30),
     },
     footer: {
         alignItems: 'flex-end',
-        padding: 30,
-        paddingBottom: 50
+        padding: moderateScale(30),
+        paddingBottom: verticalScale(50)
     },
     backBtn: {
-        paddingLeft:10,
-        height: 50,
-        width: 100
+        paddingLeft:horizontalScale(10),
+    },
+    headerTitle: {
+        fontSize: moderateScale(13),
     },
 });
 

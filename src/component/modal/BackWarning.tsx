@@ -4,7 +4,7 @@ import ButtonCancel from '../../../assets/svg/btn_cancel.svg' ;
 import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
 import Warning from '../../../assets/svg/warning.svg' ;
 const clickSafe =require('../../util/click_safe')
-
+import {verticalScale, horizontalScale, moderateScale} from '../../util/scaling';
 // 부모로부터 
 const BackWarning = forwardRef((props:any, ref) => {
     useEffect(() => {
@@ -79,13 +79,13 @@ const BackWarning = forwardRef((props:any, ref) => {
             <View style={[styles.sheet]}>
                 <Animated.View style={[styles.popup, slideUp]}>
                     <View style={styles.header}>
-                        <View style={{paddingTop: 15}}>
+                        <View style={{paddingTop: verticalScale(15)}}>
                             <Warning/>
                         </View>
                     </View>
                     <View style={styles.body}>
-                        <View style={{paddingLeft:40, paddingRight:40}}>
-                            <View style={{marginTop: 15, alignItems:'center',justifyContent: "center",}}>    
+                        <View style={{paddingLeft:horizontalScale(40), paddingRight:horizontalScale(40)}}>
+                            <View style={{marginTop: verticalScale(15), alignItems:'center',justifyContent: "center",}}>    
                                 <Text style={styles.titleText}>{props.title}</Text>
                             </View>
                         </View>
@@ -116,18 +116,18 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        paddingTop: 30,
+        paddingTop: verticalScale(30),
         alignItems:'center',
         justifyContent: "center",
     },
     body: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: verticalScale(20),
     },
     footer: {
         flexDirection: "row",
-        paddingBottom: 30,
-        paddingRight: 20,
+        paddingBottom: verticalScale(30),
+        paddingRight: verticalScale(20),
         justifyContent: "flex-end",
         flex:1
     },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 18,
+        fontSize: moderateScale(18),
     },
     sheet: {
         position: "absolute",
@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
     },
     popup: {
         backgroundColor: "#FFF",
-        marginHorizontal: 10,
+        marginHorizontal: horizontalScale(10),
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         justifyContent: "center",
-        minHeight: 250
+        minHeight: verticalScale(250)
     },
 
 });

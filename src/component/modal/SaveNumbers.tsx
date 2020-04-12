@@ -3,6 +3,7 @@ import {Dimensions, View, Animated, Text, StyleSheet, TextInput} from 'react-nat
 import ButtonCancel from '../../../assets/svg/btn_cancel.svg' ;
 import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
 import BasicWarning from './BasicWarning';
+import {verticalScale, horizontalScale, moderateScale} from '../../util/scaling';
 
 // 부모로부터 
 const SaveNumbers = forwardRef((props:any, ref) => {
@@ -97,12 +98,12 @@ const SaveNumbers = forwardRef((props:any, ref) => {
             <View style={[styles.sheet]}>
                 <Animated.View style={[styles.popup, slideUp]}>
                     <View style={styles.header}>
-                        <View style={{paddingTop: 15, paddingLeft: 12}}>
+                        <View style={{paddingTop: verticalScale(15), paddingLeft: horizontalScale(12)}}>
                             <Text style={styles.titleText} >꿈 이름 정하기</Text>
                         </View>
                     </View>
                     <View style={styles.body}>
-                        <View style={{paddingLeft:40, paddingRight:40}}>
+                        <View style={{paddingLeft:horizontalScale(40), paddingRight:horizontalScale(40)}}>
                             <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1}}>    
                                 <TextInput
                                     style={styles.editBox}
@@ -139,15 +140,15 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        paddingTop: 30,
-        paddingLeft: 30,
+        paddingTop: verticalScale(30),
+        paddingLeft: horizontalScale(30),
     },
     body: {
         flex: 1,
     },
     footer: {
         flexDirection: "row",
-        paddingBottom: 30,
+        paddingBottom: verticalScale(30),
         justifyContent: "flex-end",
         flex:1
     },
@@ -156,11 +157,11 @@ const styles = StyleSheet.create({
     },
     editBox : {
         fontFamily: "NanumMyeongjo",
-        fontSize: 18,
+        fontSize: moderateScale(18),
     },
     titleText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: 20,
+        fontSize: moderateScale(20),
     },
     sheet: {
         position: "absolute",
@@ -172,11 +173,11 @@ const styles = StyleSheet.create({
     },
     popup: {
         backgroundColor: "#FFF",
-        marginHorizontal: 10,
+        marginHorizontal: horizontalScale(10),
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         justifyContent: "center",
-        minHeight: 250
+        minHeight: verticalScale(250)
     },
 
 });
