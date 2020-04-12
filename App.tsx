@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect}from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -22,6 +22,7 @@ const myLottoTransitionOption = {
 
 const Stack = createStackNavigator();
 const App = () => {
+
     return (
         <NavigationContainer>
             <Stack.Navigator headerMode="none" initialRouteName="MainPage">

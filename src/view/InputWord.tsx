@@ -190,7 +190,7 @@ const InputWord = (props:any) => {
     return (
         <View style={styles.all}>
 
-            <KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
+<KeyboardAvoidingView behavior={Platform.OS == "android" ? "height" : "padding"} style={styles.keyboardAvoid}>
                 <View style={styles.header}>
                     <View style={styles.backBtn}>
                         <Back onPress={() => {
@@ -274,8 +274,7 @@ const styles = StyleSheet.create({
     footer: {
         alignItems: 'flex-end',
         padding: 30,
-        paddingBottom: 30,
-        flex:1
+        paddingBottom: 50,
     },
     backBtn: {
         flex:1,

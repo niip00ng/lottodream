@@ -40,7 +40,10 @@ const NumberResult = (props : any) => {
         //@ts-ignore
         modalOpen.current.handleOpen();
     };
-    
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
 
     // 꿈이름 넘어와서 저장
     const confirmDreamName = (dreamName: string) => {

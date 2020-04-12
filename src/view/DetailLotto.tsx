@@ -26,6 +26,13 @@ const constant = require('../util/Constant')
 
 
 const DetailLotto = (props : any) => {
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+
+        //@ts-ignore
+        TextInput.defaultProps = TextInput.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
+    }, [])
     const [value, onChangeText] = useState('');
     const [fixName, setFixName] = useState(false);
     const [dateTitle, setDateTitle] = useState('')

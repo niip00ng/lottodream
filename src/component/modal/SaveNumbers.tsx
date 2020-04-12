@@ -5,7 +5,13 @@ import ButtonOk from '../../../assets/svg/btn_ok.svg' ;
 
 // 부모로부터 
 const SaveNumbers = forwardRef((props:any, ref) => {
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
 
+        //@ts-ignore
+        TextInput.defaultProps = TextInput.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
+    }, [])
     const [animation, setAnimation] = useState(new Animated.Value(0))
     const [value, onChangeText] = useState('');
     const [word, setWord] = useState([]);

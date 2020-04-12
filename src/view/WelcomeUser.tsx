@@ -1,14 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     StyleSheet,
     View,
     Text,
+    TextInput
 } from 'react-native';
 import Back from '../../assets/svg/back.svg' ;
 import CustomButton from '../component/button/CustomButton';
 const clickSafe =require('../util/click_safe')
 
 const WelcomeUser = (props:any) => {
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+
+        //@ts-ignore
+        TextInput.defaultProps = TextInput.defaultProps || {};     TextInput.defaultProps.allowFontScaling = false;
+    }, [])
     return (
         <View style={styles.all}>
             <View style={styles.header}>

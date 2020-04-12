@@ -32,6 +32,10 @@ let gapWidth = 1.33;
 let gapHeight = 2;
 
 const NumberCard = (props : any) => {
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
     const numbers = [1,20,30,40,41,42,45]
     const recStyle = [{
         left: baseLeft,

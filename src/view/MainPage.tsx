@@ -8,12 +8,9 @@ const MainPage = (props : any) => {
     const [exit, setExit] = useState(false);
 
     useEffect(() => {
-        //BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-        return() => {
-            //BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-        };
-    }, []);
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
 
     function handleBackButton() {
         let timeout = setTimeout(() => {
@@ -51,7 +48,7 @@ const MainPage = (props : any) => {
                     <Text style={styles.titleText}>로또번호</Text>
                 </View>
                 <View style={styles.subTitle}>
-                    <Text style={styles.subText}>에서 나온 것을 기억나는대로 입력하면</Text>
+                    <Text style={styles.subText}>꿈에서 나온 것을 기억나는대로 입력하면</Text>
                     <Text style={styles.subText}>관련도가 높은 숫자를 출력합니다</Text>
                 </View>
             </View>

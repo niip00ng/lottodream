@@ -24,7 +24,10 @@ const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-7024707494100333/8
 
 
 const GenerateNumber = (props : any) => {
-
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
     const [finish, setFinish] = useState(false)
     const [numbers, setNumber] = useState([])
     const [dreams, setDreams] = useState([])

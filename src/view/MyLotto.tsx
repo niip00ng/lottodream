@@ -21,7 +21,10 @@ const constant = require('../util/Constant')
 const clickSafe =require('../util/click_safe')
 
 const MyLotto = (props:any) => {
-
+    useEffect(() => {
+        //@ts-ignore
+        Text.defaultProps = Text.defaultProps || {};     Text.defaultProps.allowFontScaling = false;
+    }, [])
     const [deleteId, setDeleteId] =useState('');
     const [myLotto, setMyLotto] = useState([]);
     const modalOpen = useRef()
