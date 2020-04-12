@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     subText: {
         fontFamily: "NanumMyeongjo",
         fontSize: 13,
-        width:350,
         lineHeight: 30,
     },
     footer: {
