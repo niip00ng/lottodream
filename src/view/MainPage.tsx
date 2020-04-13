@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: moderateScale(13),
+        fontSize: moderateScale(15),
         paddingTop: verticalScale(5)
     },
     footer: {

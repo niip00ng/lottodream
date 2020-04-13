@@ -33,8 +33,7 @@ const WelcomeUser = (props:any) => {
                     <Text style={styles.titleText}>환영합니다.</Text>
                 </View>
                 <View style={styles.subTitle}>
-                    <Text style={styles.subText}>꿈은 마음의 거울입니다. </Text>
-                    <Text style={styles.subText}>예로부터 우리 조상은 꿈을 통해 미래를 점치고 예견했습니다.</Text>
+                    <Text style={styles.subText}>꿈은 마음의 거울입니다. 예로부터 우리 조상은 꿈을 통해 미래를 점치고 예견했습니다.</Text>
                     <Text style={styles.subText}>꿈에서 나온 것을 최대한 많이 입력해주세요. 사람, 감정, 물건 무엇이든 상관없습니다. 해당 단어와 연관있는 숫자를 데이터에 근거해 산출합니다.</Text> 
                 </View>
             </View>
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: moderateScale(13),
+        fontSize: moderateScale(15),
         lineHeight: verticalScale(30),
     },
     footer: {

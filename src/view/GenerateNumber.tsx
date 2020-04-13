@@ -208,11 +208,11 @@ const styles = StyleSheet.create({
     },
     genText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: moderateScale(13),
+        fontSize: moderateScale(15),
     },
     subText: {
         fontFamily: "NanumMyeongjo",
-        fontSize: moderateScale(13),
+        fontSize: moderateScale(15),
         width:horizontalScale(350),
         lineHeight: verticalScale(30),
     },
