@@ -172,15 +172,15 @@ const NumberCard = (props : any) => {
     ]
     return (
         <View style={styles.container}>
-            {/* <View style={styles.baseTop}>
-                <BaseCard/>
-            </View> */}
+            
             <SetCard params={props.params}/>
-            {/* <SetCard params={sample}/> */}
 
-            {/* <View style={styles.baseBottom}>
-                <BaseBottom/>
-            </View> */}
+            
+            <View style={[styles.rectangleTop]}/>
+            <View style={[styles.rectangleTop2]}/>
+            <View style={[styles.rectangleTop3]}/>
+            <View style={[styles.rectangleTop4]}/>
+            
         </View>
     )
 }
@@ -220,6 +220,58 @@ var styles = StyleSheet.create({
         transform: [{ rotate: "-45deg" }],
         lineHeight: 20
     },
+    rectangleTop: {
+        position: 'absolute',
+        borderWidth : 1,
+        height: radus / 6,
+        width: radus / 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{ rotate: "45deg" }],
+        left: baseLeft * 1.2734,
+        top: baseTop - diagonal/gapHeight * 2.69,
+    },
+    
+    rectangleTop2: {
+        position: 'absolute',
+        borderLeftWidth : 1,
+        borderTopWidth : 1,
+        height: radus / 2,
+        width: radus / 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{ rotate: "45deg" }],
+        left: baseLeft * 1.165,
+        top: baseTop - diagonal/gapHeight * 2.3 ,
+        
+    },
+
+    rectangleTop3: {
+        position: 'absolute',
+        borderLeftWidth : 1,
+        borderTopWidth : 1,
+        height: radus / 6,
+        width: radus / 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{ rotate: "45deg" }],
+        left: baseLeft * 1.27,
+        top: baseTop + diagonal/gapHeight * 3.78,
+    },
+    
+    rectangleTop4: {
+        position: 'absolute',
+        borderRightWidth : 1,
+        borderBottomWidth : 1,
+        height: radus / 1.5,
+        width: radus / 1.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{ rotate: "45deg" }],
+        left: baseLeft * 1.108,
+        top: baseTop + diagonal/gapHeight * 2.68 ,
+        
+    }
   });
 
   export default NumberCard
