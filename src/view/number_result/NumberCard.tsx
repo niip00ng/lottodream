@@ -172,14 +172,13 @@ const NumberCard = (props : any) => {
     ]
     return (
         <View style={styles.container}>
-            
-            <SetCard params={props.params}/>
-
-            
+                        
             <View style={[styles.rectangleTop]}/>
             <View style={[styles.rectangleTop2]}/>
             <View style={[styles.rectangleTop3]}/>
             <View style={[styles.rectangleTop4]}/>
+            <SetCard params={props.params}/>
+
             
         </View>
     )
