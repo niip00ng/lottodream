@@ -6,7 +6,7 @@ import {
     View,
     Text,
     BackHandler,
-    KeyboardAvoidingView
+    Keyboard
 } from 'react-native';
 
 import SaveModal from '../component/modal/SaveNumbers';
@@ -47,7 +47,7 @@ const NumberResult = (props : any) => {
 
     // 꿈이름 넘어와서 저장
     const confirmDreamName = (dreamName: string) => {
-        
+        Keyboard.dismiss()
         let numList = props.route.params.nums
         let dreamList = props.route.params.dreams
 
@@ -110,7 +110,10 @@ const NumberResult = (props : any) => {
             if(storeData(constant.LOTTO_KEY, JSON.stringify(lottoData))) {
                 console.log('SAVE SUCCESS');
                 console.log('보관함으로 이동')
-                props.navigation.replace('MyLotto')
+                setTimeout(() => {
+                    props.navigation.replace('MyLotto')    
+                }, 100);
+                
             }
             else {
                 console.log('SAVE fail');
@@ -239,7 +242,7 @@ const NumberResult = (props : any) => {
                 </View>
             </View>
             
-            <SaveModal ref={modalOpen} end={confirmDreamName}/>
+            <SaveModal ref={modalOpen} keyboardDown={()=> Keyboard.dismiss()}end={confirmDreamName}/>
             <BackModal title='처음부터 다시 진행하시겠습니까?' ref={backModalOpen} action={() => {
                 BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
                 props.navigation.goBack()

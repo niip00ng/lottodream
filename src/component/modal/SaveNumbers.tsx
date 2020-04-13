@@ -29,18 +29,22 @@ const SaveNumbers = forwardRef((props:any, ref) => {
     function handleOpen() {
         Animated.timing(animation, {
                 toValue: 1,
-                duration: 300,
+                duration: 500,
                 useNativeDriver: true
             }).start();
     }
 
     function handleClose() {
         
-        Animated.timing(animation, {
+        props.keyboardDown()
+        setTimeout(() => {
+            Animated.timing(animation, {
                 toValue: 0,
-                duration: 200,
+                duration: 600,
                 useNativeDriver: true
             }).start();
+        }, 50);
+        
     }
 
     function sendDreamName() {
@@ -51,15 +55,15 @@ const SaveNumbers = forwardRef((props:any, ref) => {
             return
         }
 
-        Animated.timing(animation, {
-            toValue: 0,
-            duration: 200,
-            useNativeDriver: true
-        }).start(({finished}) => {
-            props.end(value)
-          });
-        
+        props.end(value)
 
+        setTimeout(() => {
+            Animated.timing(animation, {
+                toValue: 0,
+                duration: 600,
+                useNativeDriver: true
+            }).start();
+        }, 50);
     }
 
     const screenHeight = Dimensions.get("window").height;
