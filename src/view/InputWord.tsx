@@ -104,7 +104,7 @@ const InputWord = (props:any) => {
         return word.map((candidate ,index)=> {
             if(candidate!='')
             return (
-                <View style={{padding: moderateScale(5)}} key={index}>
+                <View style={{paddingRight: moderateScale(5), paddingTop: moderateScale(10)}} key={index}>
                     <Badge value={
                         <Text style={styles.candidateWord}>{candidate} ×</Text> 
                         } 
@@ -209,14 +209,15 @@ const InputWord = (props:any) => {
                             if(clickSafe.safeClicked()) onClick()
                         }} />
                         {componentTitle()}
-                    </View>
-                    <View style={{flex:1, alignItems:'flex-end' , marginRight: horizontalScale(10)}}>
-                        {wordCountView()}
+                        <View style={{alignItems:'flex-start'}}>
+                            {wordCountView()}
+                        </View>
                     </View>
                 </View>
                 <View style={styles.body}>
                     {cleanView()}
                     <View style={styles.subTitle}>
+                        
                         <View style={styles.wordList}>
                             {wordList()}
                         </View>
@@ -307,13 +308,16 @@ const styles = StyleSheet.create({
         
     }, candidateWord : {
         fontFamily: "NanumMyeongjo",
-        fontSize: moderateScale(15),
+        fontSize: moderateScale(17),
     }, badgeStyle:{ 
         borderColor: '#383838', 
-        borderWidth:horizontalScale(0.5),
+        borderWidth:horizontalScale(0.9),
         backgroundColor: "#00ff0000",
-        padding:moderateScale(12),
-        borderRadius:100
+        padding:moderateScale(14),
+        paddingTop:moderateScale(18),
+        paddingBottom:moderateScale(18),
+        borderRadius:100,
+        
     }, badgeText: {
         fontFamily: "NanumMyeongjo",
         backgroundColor: "#00ff0000"
