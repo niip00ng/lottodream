@@ -23,7 +23,6 @@ import BasicWarning from '../component/modal/BasicWarning';
 const clickSafe =require('../util/click_safe')
 const constant = require('../util/Constant')
 
-
 const DetailLotto = (props : any) => {
     useEffect(() => {
         //@ts-ignore
@@ -42,13 +41,20 @@ const DetailLotto = (props : any) => {
     const modalAlertOpen = useRef();
     const [title, setTitle] = useState('')
     const [params, setParams] = useState([])
+
+
+
     const onClick = () => {
         if(value.length !==0) {
             if(props.route.params.name !== value) props.route.params.update(props.route.params.id, value);
             return props.navigation.goBack();
         }
-        //@ts-ignore
-        Alert.alert('꿈 이름이 필요합니다.')
+        
+        if(value === '' || e === undefined) {
+            setTitle('꿈 이름이 필요합니다.')
+            //@ts-ignore
+            modalAlertOpen.current.handleOpen();
+        }
     };
 
     function changeText(text : string) {
