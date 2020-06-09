@@ -58,7 +58,7 @@ const GenerateNumber = (props : any) => {
         setNumber(desc)
         setDreams(data)
         setBonus(bonus)
-
+        console.log('GenerateNumber 전달할 데이터 : ',  data)
         setTimeout(() => {
             setFinish(!finish)
         }, 4000)
@@ -82,7 +82,7 @@ const GenerateNumber = (props : any) => {
             console.log('type : ', type)
             if (type === AdEventType.LOADED) {
                 setLoaded(true)
-                //interstitial.show()
+                interstitial.show()
             }
 
             if(type === AdEventType.CLOSED) {

@@ -27,6 +27,7 @@ const InputWord = (props:any) => {
     const [word, setWord] = useState([]);
     const modalOpen = useRef();
     const modalAlertOpen = useRef();
+    const inputCountLessOpen =useRef();
     const [title, setTitle] = useState('')
 
     // Back버튼 모달 펼치기
@@ -40,16 +41,23 @@ const InputWord = (props:any) => {
 
     // next 버튼 활성화
     function activateButton () {
-        if(word.length < 6) return <CustomButton title='숫자 추출하기' active={false} action={() => {}}/>
+        if(word.length < 1) return <CustomButton title='숫자 추출하기' active={false} action={() => {}}/>
         
-        return <CustomButton active={true} action={() => {sendNext()}} title='숫자 추출하기'/>
+        return <CustomButton active={true} action={() => {
+            if(word.length < 6) {
+                //@ts-ignore
+                return inputCountLessOpen.current.handleOpen();
+            }
+            
+            sendNext();
+        }} title='숫자 추출하기'/>
     }
 
     function changeText(text:string){
         onChangeText(text)
     }
 
-
+    
     function sendNext() {
         props.navigation.replace('GenerateNumber', {
             words: word
@@ -237,6 +245,9 @@ const InputWord = (props:any) => {
             <BasicWarning title={title} ref= {modalAlertOpen}/>
             <BackModal ref={modalOpen} title='입력을 취소하고 뒤로 가시겠습니까?' action={() => {
                 props.navigation.goBack()
+            }}/>
+            <BackModal ref={inputCountLessOpen} title='단어가 충분히 입력되지 않았습니다. 이대로 번호를 추출할까요? (입력되지 않은 단어는 자동으로 추출)' action={() => {
+                sendNext()
             }}/>
 
         </View>

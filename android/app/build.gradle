@@ -91,7 +91,7 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
@@ -132,8 +132,8 @@ android {
         applicationId "com.dreamlotto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "3.1.0"
         multiDexEnabled true
     }
     splits {
@@ -167,7 +167,8 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            shrinkResources enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -195,7 +196,11 @@ android {
         }
     }
 }
-
+configurations.all {
+    resolutionStrategy {
+       force "com.facebook.soloader:soloader:0.8.0"
+    }
+}
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //add new
@@ -237,3 +242,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+//apply from: "../../node_modules/react-native/react.gradle"

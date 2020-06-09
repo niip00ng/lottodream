@@ -51,6 +51,9 @@ const NumberResult = (props : any) => {
         let numList = props.route.params.nums
         let dreamList = props.route.params.dreams
 
+        for(let i in dreamList) {
+            if(!dreamList[i]) dreamList[i] = '자동'
+        }
         if(numList.length <7) {
             numList.push(props.route.params.bonus)
             dreamList.push('')
@@ -108,8 +111,6 @@ const NumberResult = (props : any) => {
             console.log('saveNewLotto 내부값 : ', lottoData);
             
             if(storeData(constant.LOTTO_KEY, JSON.stringify(lottoData))) {
-                console.log('SAVE SUCCESS');
-                console.log('보관함으로 이동')
                 setTimeout(() => {
                     props.navigation.replace('MyLotto')    
                 }, 100);
@@ -146,12 +147,17 @@ const NumberResult = (props : any) => {
 
         // 단어 길이조절
         for(let i in cWords) {
-            cWords[i] = cWords[i].replace(/ /g,"")
-            if(cWords[i].length >= 6){
-                let index = 4;
-                if(cWords[i].length === 6) index = 3;
-                cWords[i] = [cWords[i].slice(0, index), '\n ', cWords[i].slice(index)].join('');
+            if(cWords[i]){
+                cWords[i] = cWords[i].replace(/ /g,"")
+                if(cWords[i].length >= 6){
+                    let index = 4;
+                    if(cWords[i].length === 6) index = 3;
+                    cWords[i] = [cWords[i].slice(0, index), '\n ', cWords[i].slice(index)].join('');
+                }
+            }else {
+                cWords[i] = '자동'
             }
+            
 
             params.push({
                 'number' : props.route.params.nums[i],
