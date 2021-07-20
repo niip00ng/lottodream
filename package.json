@@ -20,7 +20,7 @@
     "moment": "^2.24.0",
     "react": "16.11.0",
     "react-id-generator": "^3.0.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.3",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.7.1",
